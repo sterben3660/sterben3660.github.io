@@ -28,38 +28,30 @@
       margin: 0;
       overflow: hidden;
     }
-    #playButton {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #007BFF;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      z-index: 1000; /* Ensure the button is above the AR scene */
-    }
   </style>
 </head>
 <body>
   <a-scene embedded arjs='sourceType: webcam;'>
-    <a-marker preset='hiro'>
+    <a-marker preset='hiro' id="hiro-marker">
       <!-- Display an image with rotation -->
       <a-image src="assets/results.jpg" position="0 0.5 0" rotation="0 45 0" width="1" height="1"></a-image>
-      <!-- Play a sound on button click -->
+      <!-- Play a sound on marker detection -->
       <a-sound id="mysound" src="assets/accompaniment.mp3" position="0 0.5 0"></a-sound>
     </a-marker>
     <a-entity camera></a-entity>
   </a-scene>
-  <button id="playButton">Play Sound</button>
   <script>
-    document.getElementById('playButton').addEventListener('click', function() {
+    // Play sound when the marker is detected
+    document.querySelector('a-marker').addEventListener('markerFound', function() {
       document.querySelector('#mysound').components.sound.playSound();
+    });
+
+    // Optionally stop sound when the marker is lost
+    document.querySelector('a-marker').addEventListener('markerLost', function() {
+      document.querySelector('#mysound').components.sound.stopSound();
     });
   </script>
 </body>
 </html>
+
 
