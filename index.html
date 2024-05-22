@@ -23,8 +23,28 @@
   <title>WebAR Example</title>
   <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+    #playButton {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 1000; /* Ensure the button is above the AR scene */
+    }
+  </style>
 </head>
-<body style='margin: 0; overflow: hidden;'>
+<body>
   <a-scene embedded arjs='sourceType: webcam;'>
     <a-marker preset='hiro'>
       <!-- Display an image with rotation -->
@@ -34,6 +54,12 @@
     </a-marker>
     <a-entity camera></a-entity>
   </a-scene>
-  <button onclick="document.querySelector('#mysound').components.sound.playSound()">Play Sound</button>
+  <button id="playButton">Play Sound</button>
+  <script>
+    document.getElementById('playButton').addEventListener('click', function() {
+      document.querySelector('#mysound').components.sound.playSound();
+    });
+  </script>
 </body>
 </html>
+
