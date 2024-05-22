@@ -43,7 +43,7 @@
       if (!audioContext) {
         await resumeAudioContext();
       }
-      const audioBuffer = await getAudio('assets/BGM.mp3');
+      const audioBuffer = await getAudio('assets/accompaniment.mp3');
       const decodedData = await audioContext.decodeAudioData(audioBuffer);
       sourceNode = audioContext.createBufferSource();
       sourceNode.buffer = decodedData;
