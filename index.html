@@ -32,15 +32,23 @@
 </head>
 <body>
   <a-scene embedded arjs='sourceType: webcam;'>
-    <a-marker preset='hiro' id="hiro-marker">
+    <a-marker preset='hiro' id="hiro-marker" markerhandler>
       <!-- Display an image with rotation -->
-      <a-image src="assets/results.jpg" position="0 0.5 0" rotation="0 45 0" width="1" height="1"></a-image>
+      <a-image src="assets/results.jpg" position="0 0.5 0" rotation="0 90 0" width="1" height="1"></a-image>
       <!-- Play a sound on marker detection -->
-      <a-sound id="mysound" src="assets/accompaniment.mp3" position="0 0.5 0"></a-sound>
+      <a-audio id="mysound" src="assets/accompaniment.mp3" position="0 0.5 0"></a-audio>
     </a-marker>
     <a-entity camera></a-entity>
   </a-scene>
   <script>
+    AFRAME.registerComponent('markerhandler',{
+      init: function() {
+        this.el.sceneEl.addEventListener('markerFound',function() {
+          var audio = document.getElementById('mysound');
+          audio.play();
+        });
+      }
+    });
     // Play sound when the marker is detected
     document.querySelector('a-marker').addEventListener('markerFound', function() {
       document.querySelector('#mysound').components.sound.playSound();
