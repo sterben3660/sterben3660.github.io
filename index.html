@@ -52,21 +52,11 @@
       // 設置 targetFound 的事件
       targetA.addEventListener("targetFound", async event => {
         await playMusic();
-        // 確認圖片已預載入後再播放動畫
-        console.log(pngArrays);
-        if (pngArrays.length > 0) {
-          playAnimation();
-        } else {
-          console.error("Images not preloaded.");
-        }
       });
 
       // 設置 targetLost 的事件
       targetA.addEventListener("targetLost", event => {
         pauseMusic();
-        stopAnimation();
-        let plane = document.querySelector('#animation');
-        plane.setAttribute('src', '');  // 設置為空值，停止顯示圖片
       });
   </script>
 <body>
