@@ -73,26 +73,4 @@
     }
 
     const startAR = async () => {
-      document.getElementById('startButton').style.display = 'none';
-      document.querySelector('a-scene').style.display = 'block';
-
-      const sceneEl = document.querySelector('a-scene');
-      let arSystem;
-
-      sceneEl.addEventListener('loaded', () => {
-        arSystem = sceneEl.systems['mindar-image-system'];
-      });
-
-      const targetA = document.querySelector('#targetA');
-
-      targetA.addEventListener('targetFound', async () => {
-        await playMusic();
-      });
-
-      targetA.addEventListener('targetLost', () => {
-        pauseMusic();
-      });
-    }
-  </script>
-</body>
-</html>
+     
