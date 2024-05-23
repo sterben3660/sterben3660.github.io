@@ -9,12 +9,17 @@
     ...
   </head>
 <body>
-  <a-scene mindar-image="imageTargetSrc: assets/targets.mind;" vr-mode-ui="enabled: false"   device-orientation-permission-ui="enabled: false">  
-    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+  <a-scene
+  mindar-image="imageTargetSrc: https://cdn.glitch.global/cc46a268-fb65-4191-9614-9ddfe71608d9/IR_Logo_quad_frame.mind?v=1683816859579;"
+  vr-mode-ui="enabled: false"
+  device-orientation-permission-ui="enabled: false"
+>
+    <a-camera look-controls="enabled: false"></a-camera>
+
+    <a-entity mindar-image-target="targetIndex: 0">
+      <a-box scale="0.5 0.5 0.5" color="#78C3E8"> </a-box>
+    </a-entity>
   </a-scene>
-  <a-entity mindar-image-target="targetIndex: 0">  
-    <a-box scale = "0.5 0.5 0.5"  color = "#78C3E8" ></a-box>  
-  </a-entity>
 
 
 </body>
