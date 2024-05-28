@@ -46,28 +46,7 @@
         sourceNode.stop();
       }
     }
-    const targetA = document.querySelector("#targetA");
-
-      // 設置 targetFound 的事件
-      targetA.addEventListener("targetFound", async event => {
-        console.log(mindarisfound);
-        await playMusic();
-        // 確認圖片已預載入後再播放動畫
-        
-        // if (pngArrays.length > 0) {
-        //   playAnimation();
-        // } else {
-        //   console.error("Images not preloaded.");
-        // }
-      });
-
-      // 設置 targetLost 的事件
-      targetA.addEventListener("targetLost", event => {
-        pauseMusic();
-        // stopAnimation();
-        // let plane = document.querySelector('#animation');
-        // plane.setAttribute('src', '');  // 設置為空值，停止顯示圖片
-      });    
+   
 </script>
 <body>
   <a-scene mindar-image="imageTargetSrc: assets/targets.mind; filterMinCF:0.0001; filterBeta: 0.001"
@@ -82,6 +61,29 @@
   </a-scene>
 
   
-    
+  <script>
+        const targetA = document.querySelector("#targetA");
+
+        // 設置 targetFound 的事件
+        targetA.addEventListener("targetFound", async event => {
+          console.log(mindarisfound);
+          await playMusic();
+          // 確認圖片已預載入後再播放動畫
+          
+          // if (pngArrays.length > 0) {
+          //   playAnimation();
+          // } else {
+          //   console.error("Images not preloaded.");
+          // }
+        });
+
+        // 設置 targetLost 的事件
+        targetA.addEventListener("targetLost", event => {
+          pauseMusic();
+          // stopAnimation();
+          // let plane = document.querySelector('#animation');
+          // plane.setAttribute('src', '');  // 設置為空值，停止顯示圖片
+        }); 
+  </script>  
 </body>
 </html>
