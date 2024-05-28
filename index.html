@@ -6,32 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
+  <style>
+    .hidden { display: none; }
+  </style>
 </head>
-<script>
-  function ShowScene(scene1){
-    var scene = document.getElementById(scene1);
-    scene.classList.remove('hidden');
-  }
-  addEventListener('DOMContentLoaded',function(){
-    ShowScene('scene1');
-    targetA.addEventListener('targetFound', function(){
-      ShowScene('scene1');
-    })
-  })
-
-
-</script>
 <body>
   <div id="audio-permission" style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; background: rgba(0, 0, 0, 0.5); z-index: 1000;">
     <button id="audio-permission-button" style="padding: 1em; font-size: 1.2em;">Click to enable audio</button>
   </div>
   <div id="scene1" class="hidden">
-    <p1>this is a dialog</p1>
-    <p1>what was thaaaaat</p1>
-    <p1>this is a dialog</p1>
-    <p1>what was thaaaaat</p1>
-    <p1>this is a dialog</p1>
-    <p1>what was thaaaaat</p1>
+    <p class="dialog">this is a dialog</p>
+    <p class="dialog">what was thaaaaat</p>
+    <p class="dialog">this is a dialog</p>
+    <p class="dialog">what was thaaaaat</p>
+    <p class="dialog">this is a dialog</p>
+    <p class="dialog">what was thaaaaat</p>
   </div>
   <a-scene mindar-image="imageTargetSrc: assets/targets.mind; filterMinCF:0.0001; filterBeta: 0.001"
     color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
@@ -78,6 +67,21 @@
       }
     }
 
+    const showTextSequentially = () => {
+      const texts = document.querySelectorAll('#scene1 .dialog');
+      let index = 0;
+
+      const showNext = () => {
+        if (index < texts.length) {
+          texts[index].classList.remove('hidden');
+          index++;
+          setTimeout(showNext, 1000); // 每隔1秒顯示下一行
+        }
+      };
+
+      showNext();
+    };
+
     document.addEventListener("DOMContentLoaded", function() {
       const sceneEl = document.querySelector('a-scene');
       let arSystem;
@@ -91,6 +95,8 @@
         targetA.addEventListener("targetFound", async event => {
           console.log('target found');
           await playMusic();
+          document.getElementById('scene1').classList.remove('hidden');
+          showTextSequentially();
         });
 
         // 設置 targetLost 的事件
