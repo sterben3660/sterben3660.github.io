@@ -14,14 +14,17 @@
   <div id="audio-permission" style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; background: rgba(0, 0, 0, 0.5); z-index: 1000;">
     <button id="audio-permission-button" style="padding: 1em; font-size: 1.2em;">Click to enable audio</button>
   </div>
-  <div id="scene1" class="hidden">
-    <p class="dialog hidden">this is a dialog</p>
-    <p class="dialog hidden">what was thaaaaat</p>
-    <p class="dialog hidden">this is a dialog</p>
-    <p class="dialog hidden">what was thaaaaat</p>
-    <p class="dialog hidden">this is a dialog</p>
-    <p class="dialog hidden">what was thaaaaat</p>
+  <div id="card_1" class="hidden" style="background-color: aliceblue; padding: 20px;">
+    <div id="scene1" class="hidden">
+      <p class="dialog hidden">this is a dialog</p>
+      <p class="dialog hidden">what was thaaaaat</p>
+      <p class="dialog hidden">this is a dialog</p>
+      <p class="dialog hidden">what was thaaaaat</p>
+      <p class="dialog hidden">this is a dialog</p>
+      <p class="dialog hidden">what was thaaaaat</p>
+    </div>
   </div>
+  
   <a-scene mindar-image="imageTargetSrc: assets/targets.mind; filterMinCF:0.0001; filterBeta: 0.001"
     color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
     device-orientation-permission-ui="enabled: false">
@@ -74,11 +77,15 @@
 
     const showTextSequentially = () => {
       const texts = document.querySelectorAll('#scene1 .dialog');
+      const card = document.getElementById('card_1');
       let index = 0;
 
       const showNext = () => {
         if (index < texts.length) {
           texts[index].classList.remove('hidden');
+          if (card.classList.contains('hidden')) {
+            card.classList.remove('hidden');
+          }
           index++;
           setTimeout(showNext, 1000); // 每隔1秒顯示下一行
         }
