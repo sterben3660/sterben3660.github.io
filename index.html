@@ -15,12 +15,12 @@
     <button id="audio-permission-button" style="padding: 1em; font-size: 1.2em;">Click to enable audio</button>
   </div>
   <div id="scene1" class="hidden">
-    <p class="dialog">this is a dialog</p>
-    <p class="dialog">what was thaaaaat</p>
-    <p class="dialog">this is a dialog</p>
-    <p class="dialog">what was thaaaaat</p>
-    <p class="dialog">this is a dialog</p>
-    <p class="dialog">what was thaaaaat</p>
+    <p class="dialog hidden">this is a dialog</p>
+    <p class="dialog hidden">what was thaaaaat</p>
+    <p class="dialog hidden">this is a dialog</p>
+    <p class="dialog hidden">what was thaaaaat</p>
+    <p class="dialog hidden">this is a dialog</p>
+    <p class="dialog hidden">what was thaaaaat</p>
   </div>
   <a-scene mindar-image="imageTargetSrc: assets/targets.mind; filterMinCF:0.0001; filterBeta: 0.001"
     color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
@@ -94,13 +94,14 @@
         // 設置 targetFound 的事件
         targetA.addEventListener("targetFound", async event => {
           console.log('target found');
-          await playMusic();
           document.getElementById('scene1').classList.remove('hidden');
           showTextSequentially();
+          await playMusic();
         });
 
         // 設置 targetLost 的事件
         targetA.addEventListener("targetLost", event => {
+          console.log('target lossssst');
           pauseMusic();
         });
       });
