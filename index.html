@@ -8,13 +8,26 @@
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
   <style>
     .hidden { display: none; }
+    #card_1 {
+      position: fixed;
+      bottom: 0;
+      width: 150px;
+      height: 200px;
+      background-color: aliceblue;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
   </style>
 </head>
 <body>
   <div id="audio-permission" style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; background: rgba(0, 0, 0, 0.5); z-index: 1000;">
     <button id="audio-permission-button" style="padding: 1em; font-size: 1.2em;">Click to enable audio</button>
   </div>
-  <div id="card_1" class="hidden" style="background-color: aliceblue; padding: 20px;">
+  <div id="card_1" class="hidden">
     <div id="scene1" class="hidden">
       <p class="dialog hidden">this is a dialog</p>
       <p class="dialog hidden">what was thaaaaat</p>
@@ -115,6 +128,8 @@
         // 設置 targetLost 的事件
         targetA.addEventListener("targetLost", event => {
           console.log('target lost');
+          document.getElementById('card_1').classList.add('hidden');
+          document.getElementById('scene1').classList.add('hidden');
           pauseMusic();
         });
       });
