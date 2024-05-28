@@ -39,11 +39,14 @@
     let sourceNode;
 
     const resumeAudioContext = async () => {
+      console.log('Resuming AudioContext');
       audioContext = new (window.AudioContext || window.webkitAudioContext)();
       await audioContext.resume();
+      console.log('AudioContext resumed');
     };
 
     const getAudio = async (url) => {
+      console.log(`Fetching audio from ${url}`);
       const response = await fetch(url);
       const buffer = await response.arrayBuffer();
       return buffer;
@@ -59,11 +62,13 @@
       sourceNode.buffer = decodedData;
       sourceNode.connect(audioContext.destination);
       sourceNode.start();
+      console.log('Music started');
     }
 
     const pauseMusic = () => {
       if (sourceNode) {
         sourceNode.stop();
+        console.log('Music stopped');
       }
     }
 
@@ -87,6 +92,7 @@
       let arSystem;
 
       sceneEl.addEventListener('loaded', function () {
+        console.log('AR scene loaded');
         arSystem = sceneEl.systems["mindar-image-system"];
         
         const targetA = document.querySelector("#targetA");
@@ -101,7 +107,7 @@
 
         // 設置 targetLost 的事件
         targetA.addEventListener("targetLost", event => {
-          console.log('target lossssst');
+          console.log('target lost');
           pauseMusic();
         });
       });
