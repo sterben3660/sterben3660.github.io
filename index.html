@@ -24,7 +24,7 @@
       padding: 20px;
       align-items: center;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      cursor: pointer; /* 添加这个确保点击区域是可点击的 */
+      cursor: pointer; 
     }
 
     .dialog span.hidden {
@@ -110,7 +110,7 @@
         if (index < element.children.length) {
           element.children[index].classList.remove('hidden');
           index++;
-          setTimeout(showNextChar, 50); // 每个字符的显示间隔
+          setTimeout(showNextChar, 50);
         }
       };
 
