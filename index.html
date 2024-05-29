@@ -1,66 +1,37 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="utf-8">
+
 <head>
-  <title>testwebar</title>
+  <title>麥寮圖書館</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
-  <style>
-    .hidden { display: none; }
-    #card_1 {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      width: 150px;
-      height: 200px;
-      background-color: aliceblue;
-      padding: 20px;
-      align-items: center;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-  </style>
-</head>
-<body>
-  <div id="audio-permission" style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; background: rgba(0, 0, 0, 0.5); z-index: 1000;">
-    <button id="audio-permission-button" style="padding: 1em; font-size: 1.2em;">Click to enable audio</button>
-  </div>
-  
-  
-  <a-scene mindar-image="imageTargetSrc: assets/targets.mind; filterMinCF:0.0001; filterBeta: 0.001"
-    color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
-    device-orientation-permission-ui="enabled: false">
-    
-    <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;"
-      raycaster="near: 10; far: 30000; objects: .clickable"></a-camera>
-    
-    <a-entity target id="targetA" mindar-image-target="targetIndex: 0" rotation="75 0 0">
-      <div id="card_1" class="hidden">
-        <div id="scene1" class="hidden">
-          <p class="dialog hidden">this is a dialog</p>
-          <p class="dialog hidden">what was thaaaaat</p>
-          <p class="dialog hidden">this is a dialog</p>
-          <p class="dialog hidden">what was thaaaaat</p>
-          <p class="dialog hidden">this is a dialog</p>
-          <p class="dialog hidden">what was thaaaaat</p>
-        </div>
-      </div>
-    </a-entity>
-  </a-scene>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-67XYFL5HTM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-67XYFL5HTM');
+  </script>
 
   <script>
     let audioContext;
     let sourceNode;
+    let pngArrays = [];
+    let currentIndex = 0;
+    let animationInterval;
+    let imagesPreloaded = false;
 
     const resumeAudioContext = async () => {
-      console.log('Resuming AudioContext');
       audioContext = new (window.AudioContext || window.webkitAudioContext)();
       await audioContext.resume();
-      console.log('AudioContext resumed');
     };
 
     const getAudio = async (url) => {
-      console.log(`Fetching audio from ${url}`);
       const response = await fetch(url);
       const buffer = await response.arrayBuffer();
       return buffer;
@@ -76,74 +47,106 @@
       sourceNode.buffer = decodedData;
       sourceNode.connect(audioContext.destination);
       sourceNode.start();
-      console.log('Music started');
     }
 
     const pauseMusic = () => {
       if (sourceNode) {
         sourceNode.stop();
-        console.log('Music stopped');
       }
     }
 
-    const showTextSequentially = () => {
-      const texts = document.querySelectorAll('#scene1 .dialog');
-      const card = document.getElementById('card_1');
-      let index = 0;
+    async function preloadImages(folderNames) {
+      let loader = new THREE.TextureLoader();
 
-      // Reset text visibility
-      texts.forEach(text => text.classList.add('hidden'));
-
-      const showNext = () => {
-        if (index < texts.length) {
-          texts[index].classList.remove('hidden');
-          if (card.classList.contains('hidden')) {
-            card.classList.remove('hidden');
-          }
-          index++;
-          setTimeout(showNext, 1000); // 每隔1秒顯示下一行
+      for (let folderName of folderNames) {
+        let imageArray = [];
+        for (let j = 0; j < 4; j++) {
+          let filename = `${folderName}_${j.toString().padStart(3, '0')}.webp`;
+          imageArray.push(loader.load(`assets/${folderName}/${filename}`));
         }
-      };
+        pngArrays.push(imageArray);
+      }
+    }
 
-      showNext();
-    };
+    function randomImage() {
+      if (pngArrays.length === 0) {
+        return undefined;
+      }
 
-    document.addEventListener("DOMContentLoaded", function() {
-      const sceneEl = document.querySelector('a-scene');
+      let images = pngArrays[currentIndex];
+      currentIndex = (currentIndex + 1) % pngArrays.length;
+      return images;
+    }
+
+    async function playAnimation() {
+      let plane = document.querySelector('#animation');
+      let images = randomImage();
+
+      if (!images) {
+        console.error("No images to display.");
+        return;
+      }
+
+      let animationIndex = 0;
+      animationInterval = setInterval(() => {
+        plane.setAttribute('src', images[animationIndex].image.src);
+        animationIndex = (animationIndex + 1) % images.length; // 循環播放圖片
+      }, 100);
+    }
+
+    function stopAnimation() {
+      clearInterval(animationInterval);
+    }
+
+    document.addEventListener("DOMContentLoaded", async function () {
+      if (!imagesPreloaded) {
+        await preloadImages(['AR1', 'AR2', 'AR3', 'AR4', 'AR5']); // 預先載入資料夾的圖片
+        imagesPreloaded = true;
+      }
+
+      const sceneEl = document.querySelector("a-scene");
       let arSystem;
 
-      sceneEl.addEventListener('loaded', function () {
-        console.log('AR scene loaded');
+      sceneEl.addEventListener("loaded", function () {
         arSystem = sceneEl.systems["mindar-image-system"];
-        
-        const targetA = document.querySelector("#targetA");
-
-        // 設置 targetFound 的事件
-        targetA.addEventListener("targetFound", async event => {
-          console.log('target found');
-          document.getElementById('scene1').classList.remove('hidden');
-          showTextSequentially();
-          await playMusic();
-        });
-
-        // 設置 targetLost 的事件
-        targetA.addEventListener("targetLost", event => {
-          console.log('target lost');
-          document.getElementById('card_1').classList.add('hidden');
-          document.getElementById('scene1').classList.add('hidden');
-          pauseMusic();
-        });
       });
 
-      // Show audio permission button
-      const audioPermissionDiv = document.getElementById('audio-permission');
-      const audioPermissionButton = document.getElementById('audio-permission-button');
+      const targetA = document.querySelector("#targetA");
 
-      audioPermissionButton.addEventListener('click', async () => {
-        await resumeAudioContext();
-        audioPermissionDiv.style.display = 'none';
+      // 設置 targetFound 的事件
+      targetA.addEventListener("targetFound", async event => {
+        await playMusic();
+        // 確認圖片已預載入後再播放動畫
+        console.log(pngArrays);
+        if (pngArrays.length > 0) {
+          playAnimation();
+        } else {
+          console.error("Images not preloaded.");
+        }
+      });
+
+      // 設置 targetLost 的事件
+      targetA.addEventListener("targetLost", event => {
+        pauseMusic();
+        stopAnimation();
+        let plane = document.querySelector('#animation');
+        plane.setAttribute('src', '');  // 設置為空值，停止顯示圖片
       });
     });
   </script>
+</head>
+
+<body>
+  <a-scene mindar-image="imageTargetSrc: ./target/targets.mind; filterMinCF:0.0001; filterBeta: 0.001"
+    color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false">
+
+    <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;"
+      raycaster="near: 10; far: 30000; objects: .clickable"></a-camera>
+    <a-entity target id="targetA" mindar-image-target="targetIndex: 0" rotation="75 0 0">
+      <a-plane id="animation" width="1.5" height="1.5" position="0 0 0" rotation="0 0 0" transparent="true"></a-plane>
+    </a-entity>
+  </a-scene>
 </body>
+
 </html>
