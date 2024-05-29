@@ -12,7 +12,7 @@
       display: none;
     }
 
-    #card_1 {
+    #card_1, #card_2 {
       position: fixed;
       bottom: 0;
       left: 50%;
@@ -38,8 +38,12 @@
     <a-entity target id="targetA" mindar-image-target="targetIndex: 0" rotation="75 0 0">
       <div id="card_1" class="hidden">
         <div id="scene1" class="hidden">
-          <p class="dialog">你好呀，我是你今天的導覽員小花，歡迎你來到美濃窯－陶藝基地
-          </p>
+          <p class="dialog">你好呀，我是你今天的導覽員小花，歡迎你來到美濃窯－陶藝基地</p>
+        </div>
+      </div>
+      <div id="card_2" class="hidden">
+        <div id="scene2" class="hidden">
+          <p class="dialog">你來到美濃會想到什麼呢？</p>
         </div>
       </div>
     </a-entity>
@@ -108,8 +112,8 @@
       showNextChar();
     };
 
-    const animateAllTexts = () => {
-      const dialogs = document.querySelectorAll('#scene1 .dialog');
+    const animateAllTexts = (sceneId) => {
+      const dialogs = document.querySelectorAll(`#${sceneId} .dialog`);
       dialogs.forEach(dialog => animateText(dialog));
     };
 
@@ -129,7 +133,7 @@
           document.getElementById('scene1').classList.remove('hidden');
           document.getElementById('card_1').classList.remove('hidden');
           await playMusic();
-          animateAllTexts();
+          animateAllTexts('scene1');
         });
 
         // 設置 targetLost 的事件
@@ -138,6 +142,16 @@
           document.getElementById('card_1').classList.add('hidden');
           document.getElementById('scene1').classList.add('hidden');
           pauseMusic();
+        });
+
+        // 卡片點擊事件
+        document.getElementById('card_1').addEventListener('click', () => {
+          console.log('card_1 clicked');
+          document.getElementById('card_1').classList.add('hidden');
+          document.getElementById('scene1').classList.add('hidden');
+          document.getElementById('scene2').classList.remove('hidden');
+          document.getElementById('card_2').classList.remove('hidden');
+          animateAllTexts('scene2');
         });
       });
     });
