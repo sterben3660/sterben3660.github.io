@@ -1,76 +1,163 @@
+<!DOCTYPE html>
+<html lang="utf-8">
 
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-	const sceneEl = document.querySelector('a-scene');
-	let arSystem;
-	sceneEl.addEventListener('loaded', function () {
-	  arSystem = sceneEl.systems["mindar-image-system"];
-	});
-	const exampleTarget = document.querySelector('#example-target');
-	const examplePlane = document.querySelector('#example-plane');
-	const startButton = document.querySelector("#example-start-button");
-	const stopButton = document.querySelector("#example-stop-button");
-	const pauseButton = document.querySelector("#example-pause-button");
-	const pauseKeepVideoButton = document.querySelector("#example-pause-keep-video-button");
-	const unpauseButton = document.querySelector("#example-unpause-button");
-	startButton.addEventListener('click', () => {
-	  console.log("start");
-	  arSystem.start(); // start AR 
-	});
-	stopButton.addEventListener('click', () => {
-	  arSystem.stop(); // stop AR 
-	});
-	pauseButton.addEventListener('click', () => {
-	  arSystem.pause(); // pause AR, pause video
-	});
-	pauseKeepVideoButton.addEventListener('click', () => {
-	  arSystem.pause(true); // pause AR, keep video
-	});
-	unpauseButton.addEventListener('click', () => {
-	  arSystem.unpause(); // unpause AR and video
-	});
-	// arReady event triggered when ready
-	sceneEl.addEventListener("arReady", (event) => {
-	  // console.log("MindAR is ready")
-	});
-	// arError event triggered when something went wrong. Mostly browser compatbility issue
-	sceneEl.addEventListener("arError", (event) => {
-	  // console.log("MindAR failed to start")
-	});
-	// detect target found
-	exampleTarget.addEventListener("targetFound", event => {
-	  console.log("target found");
-	});
-	// detect target lost
-	exampleTarget.addEventListener("targetLost", event => {
-	  console.log("target lost");
-	});
-	// detect click event
-	examplePlane.addEventListener("click", event => {
-	  console.log("plane click");
-	});
+<head>
+  <title>testwebar</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
+  <style>
+    .hidden {
+      display: none;
+    }
+
+    #card_1,
+    #card_2 {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 200px;
+      background-color: aliceblue;
+      padding: 20px;
+      align-items: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      cursor: pointer; 
+    }
+
+    .dialog span.hidden {
+      visibility: hidden;
+    }
+  </style>
+  <script>
+    let audioContext;
+    let sourceNode;
+
+    const resumeAudioContext = async () => {
+      console.log('Resuming AudioContext');
+      audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      await audioContext.resume();
+      console.log('AudioContext resumed');
+    };
+
+    const getAudio = async (url) => {
+      console.log(`Fetching audio from ${url}`);
+      const response = await fetch(url);
+      const buffer = await response.arrayBuffer();
+      return buffer;
+    };
+
+    const playMusic = async () => {
+      if (!audioContext) {
+        await resumeAudioContext();
+      }
+      const audioBuffer = await getAudio('assets/accompaniment.mp3');
+      const decodedData = await audioContext.decodeAudioData(audioBuffer);
+      sourceNode = audioContext.createBufferSource();
+      sourceNode.buffer = decodedData;
+      sourceNode.connect(audioContext.destination);
+      sourceNode.start();
+      console.log('Music started');
+    };
+
+    const pauseMusic = () => {
+      if (sourceNode) {
+        sourceNode.stop();
+        console.log('Music stopped');
+      }
+    };
+
+    const animateText = (element) => {
+      const text = element.textContent;
+      element.innerHTML = '';
+
+      let index = 0;
+
+      const showNextChar = () => {
+        if (index < text.length) {
+          const span = document.createElement('span');
+          span.textContent = text[index];
+          span.classList.add('hidden');
+          element.appendChild(span);
+          span.classList.remove('hidden');
+          index++;
+          setTimeout(showNextChar, 50);
+        }
+      };
+
+      showNextChar();
+    };
+
+    const animateAllTexts = () => {
+      const dialogs = document.querySelectorAll('#scene1 .dialog');
+      dialogs.forEach(dialog => animateText(dialog));
+    };
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const sceneEl = document.querySelector('a-scene');
+      let arSystem;
+
+      sceneEl.addEventListener('loaded', function () {
+        console.log('AR scene loaded');
+        arSystem = sceneEl.systems["mindar-image-system"];
+
+        const targetA = document.querySelector("#targetA");
+
+        // 設置 targetFound 的事件
+        targetA.addEventListener("targetFound", async event => {
+          console.log('target found');
+          document.getElementById('scene1').classList.remove('hidden');
+          document.getElementById('card_1').classList.remove('hidden');
+          await playMusic();
+          animateAllTexts();
+        });
+
+        // 設置 targetLost 的事件
+        targetA.addEventListener("targetLost", event => {
+          console.log('target lost');
+          document.getElementById('card_1').classList.add('hidden');
+          document.getElementById('scene1').classList.add('hidden');
+          pauseMusic();
+        });
       });
-    </script>
-  </head>
-  <body>
-    <div style="position: absolute; z-index: 1000">
-      <button id="example-start-button">Start</button>
-      <button id="example-pause-button">Pause</button>
-      <button id="example-pause-keep-video-button">Pause (keep video)</button>
-      <button id="example-unpause-button">UnPause</button>
-      <button id="example-stop-button">Stop</button>
-    </div>
-    <a-scene mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/card.mind; autoStart: false;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
-      <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="near: 10; far: 10000; objects: .clickable"></a-camera>
 
-      <a-entity id="example-target" mindar-image-target="targetIndex: 0">
-	<a-plane id="example-plane" class="clickable" color="blue" opaciy="0.5" position="0 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
-      </a-entity>
-    </a-scene>
-  </body>
+      // 點擊 card_1 事件
+      document.getElementById('card_1').addEventListener('click', function () {
+        console.log('card_1 clicked');
+        document.getElementById('card_1').classList.add('hidden');
+        document.getElementById('scene1').classList.add('hidden');
+        document.getElementById('card_2').classList.remove('hidden');
+        document.getElementById('scene2').classList.remove('hidden');
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <a-scene mindar-image="imageTargetSrc: assets/targets.mind; filterMinCF:0.0001; filterBeta: 0.001" color-space="sRGB"
+    renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false">
+
+    <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;"
+      raycaster="near: 10; far: 30000; objects: .clickable"></a-camera>
+
+    <a-entity target id="targetA" mindar-image-target="targetIndex: 0" rotation="75 0 0">
+      <div id="card_1" class="hidden">
+        <div id="scene1" class="hidden">
+          <p class="dialog">你好呀，我是你今天的導覽員小花，歡迎你來到美濃窯－陶藝基地</p>
+        </div>
+      </div>
+      <div id="card_2" class="hidden">
+        <div id="scene2" class="hidden">
+          <p class="dialog">你來到美濃會想到什麼呢？</p>
+        </div>
+      </div>
+    </a-entity>
+  </a-scene>
+
+  
+</body>
+
 </html>
