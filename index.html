@@ -1,28 +1,18 @@
-
 <!DOCTYPE html>
 <html lang="utf-8">
-
 <head>
   <title>testwebar</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
-  <!-- Google tag (gtag.js) -->
-  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-67XYFL5HTM"></script> -->
-  <!-- <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'G-67XYFL5HTM');
-  </script> -->
   <style>
     .hidden { display: none; }
     #card_1 {
       position: fixed;
       bottom: 0;
       left: 50%;
+      transform: translateX(-50%);
       width: 150px;
       height: 200px;
       background-color: aliceblue;
@@ -31,34 +21,31 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
   </style>
-  
 </head>
-
 <body>
   <a-scene mindar-image="imageTargetSrc: assets/targets.mind; filterMinCF:0.0001; filterBeta: 0.001"
-  color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
-  device-orientation-permission-ui="enabled: false">
-  
-  <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;"
-    raycaster="near: 10; far: 30000; objects: .clickable"></a-camera>
-  
-  <a-entity target id="targetA" mindar-image-target="targetIndex: 0" rotation="75 0 0">
-    <div id="card_1" class="hidden">
-      <div id="scene1" class="hidden">
-        <p class="dialog hidden">this is a dialog</p>
-        <p class="dialog hidden">what was thaaaaat</p>
-        <p class="dialog hidden">this is a dialog</p>
-        <p class="dialog hidden">what was thaaaaat</p>
-        <p class="dialog hidden">this is a dialog</p>
-        <p class="dialog hidden">what was thaaaaat</p>
+           color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
+           device-orientation-permission-ui="enabled: false">
+    <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;"
+              raycaster="near: 10; far: 30000; objects: .clickable"></a-camera>
+    <a-entity target id="targetA" mindar-image-target="targetIndex: 0" rotation="75 0 0">
+      <div id="card_1" class="hidden">
+        <div id="scene1" class="hidden">
+          <p class="dialog hidden">this is a dialog</p>
+          <p class="dialog hidden">what was thaaaaat</p>
+          <p class="dialog hidden">this is a dialog</p>
+          <p class="dialog hidden">what was thaaaaat</p>
+          <p class="dialog hidden">this is a dialog</p>
+          <p class="dialog hidden">what was thaaaaat</p>
+        </div>
       </div>
-    </div>
-  </a-entity>
-</a-scene>
+    </a-entity>
+  </a-scene>
 
-<script>
+  <script>
     let audioContext;
     let sourceNode;
+    let currentTextIndex = 0;
 
     const resumeAudioContext = async () => {
       console.log('Resuming AudioContext');
@@ -94,26 +81,18 @@
       }
     }
 
-    const showTextSequentially = () => {
+    const showNextText = () => {
       const texts = document.querySelectorAll('#scene1 .dialog');
-      const card = document.getElementById('card_1');
-      let index = 0;
+      if (currentTextIndex < texts.length) {
+        texts[currentTextIndex].classList.remove('hidden');
+        currentTextIndex++;
+      }
+    };
 
-      // Reset text visibility
+    const resetText = () => {
+      const texts = document.querySelectorAll('#scene1 .dialog');
       texts.forEach(text => text.classList.add('hidden'));
-
-      const showNext = () => {
-        if (index < texts.length) {
-          texts[index].classList.remove('hidden');
-          if (card.classList.contains('hidden')) {
-            card.classList.remove('hidden');
-          }
-          index++;
-          setTimeout(showNext, 1000); // 每隔1秒顯示下一行
-        }
-      };
-
-      showNext();
+      currentTextIndex = 0;
     };
 
     document.addEventListener("DOMContentLoaded", function() {
@@ -130,7 +109,9 @@
         targetA.addEventListener("targetFound", async event => {
           console.log('target found');
           document.getElementById('scene1').classList.remove('hidden');
-          showTextSequentially();
+          document.getElementById('card_1').classList.remove('hidden');
+          resetText();
+          showNextText();
           await playMusic();
         });
 
@@ -141,18 +122,11 @@
           document.getElementById('scene1').classList.add('hidden');
           pauseMusic();
         });
-      });
 
-      // Show audio permission button
-      const audioPermissionDiv = document.getElementById('audio-permission');
-      const audioPermissionButton = document.getElementById('audio-permission-button');
-
-      audioPermissionButton.addEventListener('click', async () => {
-        await resumeAudioContext();
-        audioPermissionDiv.style.display = 'none';
+        // 添加点击事件到 card_1
+        document.getElementById('card_1').addEventListener('click', showNextText);
       });
     });
   </script>
 </body>
-
 </html>
