@@ -102,6 +102,7 @@
 
       const showNextChar = () => {
         if (index < element.children.length) {
+          console.log('shownexttoggled');
           element.children[index].classList.remove('hidden');
           index++;
           setTimeout(showNextChar, 50); // 每个字符的显示间隔
