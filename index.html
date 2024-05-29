@@ -97,18 +97,15 @@
       const text = element.textContent;
       element.innerHTML = '';
 
-      for (let char of text) {
-        const span = document.createElement('span');
-        span.textContent = char;
-        span.classList.add('hidden');
-        element.appendChild(span);
-      }
-
       let index = 0;
 
       const showNextChar = () => {
-        if (index < element.children.length) {
-          element.children[index].classList.remove('hidden');
+        if (index < text.length) {
+          const span = document.createElement('span');
+          span.textContent = text[index];
+          span.classList.add('hidden');
+          element.appendChild(span);
+          span.classList.remove('hidden');
           index++;
           setTimeout(showNextChar, 50);
         }
