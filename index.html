@@ -3,7 +3,7 @@
 <html lang="utf-8">
 
 <head>
-  <title>麥寮圖書館</title>
+  <title>testwebar</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
@@ -34,17 +34,16 @@
   <script>
     let audioContext;
     let sourceNode;
-    // let pngArrays = [];
-    // let currentIndex = 0;
-    // let animationInterval;
-    // let imagesPreloaded = false;
 
     const resumeAudioContext = async () => {
+      console.log('Resuming AudioContext');
       audioContext = new (window.AudioContext || window.webkitAudioContext)();
       await audioContext.resume();
+      console.log('AudioContext resumed');
     };
 
     const getAudio = async (url) => {
+      console.log(`Fetching audio from ${url}`);
       const response = await fetch(url);
       const buffer = await response.arrayBuffer();
       return buffer;
@@ -60,34 +59,72 @@
       sourceNode.buffer = decodedData;
       sourceNode.connect(audioContext.destination);
       sourceNode.start();
+      console.log('Music started');
     }
 
     const pauseMusic = () => {
       if (sourceNode) {
         sourceNode.stop();
+        console.log('Music stopped');
       }
     }
 
-    document.addEventListener("DOMContentLoaded", async function () {
+    const showTextSequentially = () => {
+      const texts = document.querySelectorAll('#scene1 .dialog');
+      const card = document.getElementById('card_1');
+      let index = 0;
 
-      const sceneEl = document.querySelector("a-scene");
+      // Reset text visibility
+      texts.forEach(text => text.classList.add('hidden'));
+
+      const showNext = () => {
+        if (index < texts.length) {
+          texts[index].classList.remove('hidden');
+          if (card.classList.contains('hidden')) {
+            card.classList.remove('hidden');
+          }
+          index++;
+          setTimeout(showNext, 1000); // 每隔1秒顯示下一行
+        }
+      };
+
+      showNext();
+    };
+
+    document.addEventListener("DOMContentLoaded", function() {
+      const sceneEl = document.querySelector('a-scene');
       let arSystem;
 
-      sceneEl.addEventListener("loaded", function () {
+      sceneEl.addEventListener('loaded', function () {
+        console.log('AR scene loaded');
         arSystem = sceneEl.systems["mindar-image-system"];
+        
+        const targetA = document.querySelector("#targetA");
+
+        // 設置 targetFound 的事件
+        targetA.addEventListener("targetFound", async event => {
+          console.log('target found');
+          document.getElementById('scene1').classList.remove('hidden');
+          showTextSequentially();
+          await playMusic();
+        });
+
+        // 設置 targetLost 的事件
+        targetA.addEventListener("targetLost", event => {
+          console.log('target lost');
+          document.getElementById('card_1').classList.add('hidden');
+          document.getElementById('scene1').classList.add('hidden');
+          pauseMusic();
+        });
       });
 
-      const targetA = document.querySelector("#targetA");
+      // Show audio permission button
+      const audioPermissionDiv = document.getElementById('audio-permission');
+      const audioPermissionButton = document.getElementById('audio-permission-button');
 
-      // 設置 targetFound 的事件
-      targetA.addEventListener("targetFound", async event => {
-        await playMusic();
-      });
-
-      // 設置 targetLost 的事件
-      targetA.addEventListener("targetLost", event => {
-        pauseMusic();
-
+      audioPermissionButton.addEventListener('click', async () => {
+        await resumeAudioContext();
+        audioPermissionDiv.style.display = 'none';
       });
     });
   </script>
