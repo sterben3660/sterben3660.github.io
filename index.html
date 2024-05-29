@@ -31,6 +31,30 @@
       visibility: hidden;
     }
   </style>
+</head>
+
+<body>
+  <a-scene mindar-image="imageTargetSrc: assets/targets.mind; filterMinCF:0.0001; filterBeta: 0.001" color-space="sRGB"
+    renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false">
+
+    <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;"
+      raycaster="near: 10; far: 30000; objects: .clickable"></a-camera>
+
+    <a-entity target id="targetA" mindar-image-target="targetIndex: 0" rotation="75 0 0">
+      <div id="card_1" class="hidden clickable">
+        <div id="scene1" class="hidden">
+          <p class="dialog">你好呀，我是你今天的導覽員小花，歡迎你來到美濃窯－陶藝基地</p>
+        </div>
+      </div>
+      <div id="card_2" class="hidden">
+        <div id="scene2" class="hidden">
+          <p class="dialog">你來到美濃會想到什麼呢？</p>
+        </div>
+      </div>
+    </a-entity>
+  </a-scene>
+
   <script>
     let audioContext;
     let sourceNode;
@@ -124,7 +148,8 @@
       });
 
       // 點擊 card_1 事件
-      document.getElementById('targetA').addEventListener('click', function () {
+      const card1 = document.getElementById('card_1');
+      card1.addEventListener('click', function () {
         console.log('card_1 clicked');
         document.getElementById('card_1').classList.add('hidden');
         document.getElementById('scene1').classList.add('hidden');
@@ -133,31 +158,6 @@
       });
     });
   </script>
-</head>
-
-<body>
-  <a-scene mindar-image="imageTargetSrc: assets/targets.mind; filterMinCF:0.0001; filterBeta: 0.001" color-space="sRGB"
-    renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
-    device-orientation-permission-ui="enabled: false">
-
-    <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;"
-      raycaster="near: 10; far: 30000; objects: .clickable"></a-camera>
-
-    <a-entity target id="targetA" mindar-image-target="targetIndex: 0" rotation="75 0 0">
-      <div id="card_1" class="hidden">
-        <div id="scene1" class="hidden">
-          <p class="dialog">你好呀，我是你今天的導覽員小花，歡迎你來到美濃窯－陶藝基地</p>
-        </div>
-      </div>
-      <div id="card_2" class="hidden">
-        <div id="scene2" class="hidden">
-          <p class="dialog">你來到美濃會想到什麼呢？</p>
-        </div>
-      </div>
-    </a-entity>
-  </a-scene>
-
-  
 </body>
 
 </html>
