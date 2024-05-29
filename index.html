@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="utf-8">
+
 <head>
   <title>testwebar</title>
   <meta charset="UTF-8">
@@ -7,7 +8,10 @@
   <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
   <style>
-    .hidden { display: none; }
+    .hidden {
+      display: none;
+    }
+
     #card_1 {
       position: fixed;
       bottom: 0;
@@ -22,12 +26,15 @@
     }
   </style>
 </head>
+
 <body>
-  <a-scene mindar-image="imageTargetSrc: assets/targets.mind; filterMinCF:0.0001; filterBeta: 0.001"
-           color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
-           device-orientation-permission-ui="enabled: false">
+  <a-scene mindar-image="imageTargetSrc: assets/targets.mind; filterMinCF:0.0001; filterBeta: 0.001" color-space="sRGB"
+    renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false">
+
     <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;"
-              raycaster="near: 10; far: 30000; objects: .clickable"></a-camera>
+      raycaster="near: 10; far: 30000; objects: .clickable"></a-camera>
+
     <a-entity target id="targetA" mindar-image-target="targetIndex: 0" rotation="75 0 0">
       <div id="card_1" class="hidden">
         <div id="scene1" class="hidden">
@@ -59,7 +66,7 @@
       const response = await fetch(url);
       const buffer = await response.arrayBuffer();
       return buffer;
-    }
+    };
 
     const playMusic = async () => {
       if (!audioContext) {
@@ -72,19 +79,20 @@
       sourceNode.connect(audioContext.destination);
       sourceNode.start();
       console.log('Music started');
-    }
+    };
 
     const pauseMusic = () => {
       if (sourceNode) {
         sourceNode.stop();
         console.log('Music stopped');
       }
-    }
+    };
 
     const showNextText = () => {
       const texts = document.querySelectorAll('#scene1 .dialog');
       if (currentTextIndex < texts.length) {
         texts[currentTextIndex].classList.remove('hidden');
+        console.log(`Displaying text at index: ${currentTextIndex}`);
         currentTextIndex++;
       }
     };
@@ -93,16 +101,17 @@
       const texts = document.querySelectorAll('#scene1 .dialog');
       texts.forEach(text => text.classList.add('hidden'));
       currentTextIndex = 0;
+      console.log('Text reset');
     };
 
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
       const sceneEl = document.querySelector('a-scene');
       let arSystem;
 
       sceneEl.addEventListener('loaded', function () {
         console.log('AR scene loaded');
         arSystem = sceneEl.systems["mindar-image-system"];
-        
+
         const targetA = document.querySelector("#targetA");
 
         // 設置 targetFound 的事件
@@ -129,4 +138,5 @@
     });
   </script>
 </body>
+
 </html>
