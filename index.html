@@ -12,7 +12,8 @@
       display: none;
     }
 
-    #card_1, #card_2 {
+    #card_1,
+    #card_2 {
       position: fixed;
       bottom: 0;
       left: 50%;
@@ -112,8 +113,8 @@
       showNextChar();
     };
 
-    const animateAllTexts = (sceneId) => {
-      const dialogs = document.querySelectorAll(`#${sceneId} .dialog`);
+    const animateAllTexts = () => {
+      const dialogs = document.querySelectorAll('#scene1 .dialog');
       dialogs.forEach(dialog => animateText(dialog));
     };
 
@@ -133,7 +134,7 @@
           document.getElementById('scene1').classList.remove('hidden');
           document.getElementById('card_1').classList.remove('hidden');
           await playMusic();
-          animateAllTexts('scene1');
+          animateAllTexts();
         });
 
         // 設置 targetLost 的事件
@@ -143,16 +144,15 @@
           document.getElementById('scene1').classList.add('hidden');
           pauseMusic();
         });
+      });
 
-        // 卡片點擊事件
-        document.getElementById('card_1').addEventListener('click', () => {
-          console.log('card_1 clicked');
-          document.getElementById('card_1').classList.add('hidden');
-          document.getElementById('scene1').classList.add('hidden');
-          document.getElementById('scene2').classList.remove('hidden');
-          document.getElementById('card_2').classList.remove('hidden');
-          animateAllTexts('scene2');
-        });
+      // 點擊 card_1 事件
+      document.getElementById('card_1').addEventListener('click', function () {
+        console.log('card_1 clicked');
+        document.getElementById('card_1').classList.add('hidden');
+        document.getElementById('scene1').classList.add('hidden');
+        document.getElementById('card_2').classList.remove('hidden');
+        document.getElementById('scene2').classList.remove('hidden');
       });
     });
   </script>
