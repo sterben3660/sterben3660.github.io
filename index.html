@@ -52,7 +52,6 @@
   <script>
     let audioContext;
     let sourceNode;
-    let currentTextIndex = 0;
 
     const resumeAudioContext = async () => {
       console.log('Resuming AudioContext');
@@ -88,22 +87,6 @@
       }
     };
 
-    const showNextText = () => {
-      const texts = document.querySelectorAll('#scene1 .dialog');
-      if (currentTextIndex < texts.length) {
-        texts[currentTextIndex].classList.remove('hidden');
-        console.log(`Displaying text at index: ${currentTextIndex}`);
-        currentTextIndex++;
-      }
-    };
-
-    const resetText = () => {
-      const texts = document.querySelectorAll('#scene1 .dialog');
-      texts.forEach(text => text.classList.add('hidden'));
-      currentTextIndex = 0;
-      console.log('Text reset');
-    };
-
     document.addEventListener("DOMContentLoaded", function () {
       const sceneEl = document.querySelector('a-scene');
       let arSystem;
@@ -119,8 +102,6 @@
           console.log('target found');
           document.getElementById('scene1').classList.remove('hidden');
           document.getElementById('card_1').classList.remove('hidden');
-          resetText();
-          showNextText();
           await playMusic();
         });
 
@@ -128,12 +109,8 @@
         targetA.addEventListener("targetLost", event => {
           console.log('target lost');
           document.getElementById('card_1').classList.add('hidden');
-          document.getElementById('scene1').classList.add('hidden');
           pauseMusic();
         });
-
-        // 添加点击事件到 card_1
-        document.getElementById('card_1').addEventListener('click', showNextText);
       });
     });
   </script>
