@@ -24,6 +24,11 @@
       padding: 20px;
       align-items: center;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      cursor: pointer; /* 添加这个确保点击区域是可点击的 */
+    }
+
+    .dialog span.hidden {
+      visibility: hidden;
     }
   </style>
 </head>
@@ -103,7 +108,6 @@
 
       const showNextChar = () => {
         if (index < element.children.length) {
-          console.log('shownexttoggled');
           element.children[index].classList.remove('hidden');
           index++;
           setTimeout(showNextChar, 50); // 每个字符的显示间隔
