@@ -94,31 +94,7 @@
       }
     };
 
-    const animateText = (element) => {
-      const text = element.textContent;
-      element.innerHTML = '';
 
-      let index = 0;
-
-      const showNextChar = () => {
-        if (index < text.length) {
-          const span = document.createElement('span');
-          span.textContent = text[index];
-          span.classList.add('hidden');
-          element.appendChild(span);
-          span.classList.remove('hidden');
-          index++;
-          setTimeout(showNextChar, 50);
-        }
-      };
-
-      showNextChar();
-    };
-
-    const animateAllTexts = () => {
-      const dialogs = document.querySelectorAll('#scene1 .dialog');
-      dialogs.forEach(dialog => animateText(dialog));
-    };
 
     document.addEventListener("DOMContentLoaded", function () {
       const sceneEl = document.querySelector('a-scene');
