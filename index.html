@@ -71,7 +71,7 @@
     device-orientation-permission-ui="enabled: false" mindar-image-target="targetIndex: 1" rotation="75 0 0">
       <div id="card_1" class="hidden clickable">
         <div id="scene1" class="hidden">
-          <p class="dialog">讓我們一起來看看大門口有甚麼歷史故事吧！</p>
+          <p class="dialog">讓我們一起來看看大門口有什麼歷史故事吧！</p>
         </div>
       </div>
       <div id="card_2" class="hidden">
@@ -114,6 +114,18 @@
       if (!audioContext) {
         await resumeAudioContext();
       }
+      const audioBuffer = await getAudio('assets/firstdia.wav');
+      const decodedData = await audioContext.decodeAudioData(audioBuffer);
+      sourceNode = audioContext.createBufferSource();
+      sourceNode.buffer = decodedData;
+      sourceNode.connect(audioContext.destination);
+      sourceNode.start();
+      console.log('Music started');
+    };
+    const audioplay = async () => {
+      if (!audioContext) {
+        await resumeAudioContext();
+      }
       const audioBuffer = await getAudio('assets/accompaniment.mp3');
       const decodedData = await audioContext.decodeAudioData(audioBuffer);
       sourceNode = audioContext.createBufferSource();
@@ -129,7 +141,12 @@
         console.log('Music stopped');
       }
     };
-
+    const audiopause = () => {
+      if (sourceNode) {
+        sourceNode.stop();
+        console.log('Music stopped');
+      }
+    };
 
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -183,6 +200,8 @@
         document.getElementById('scene1').classList.add('hidden');
         document.getElementById('card_2').classList.remove('hidden');
         document.getElementById('scene2').classList.remove('hidden');
+        pauseMusic();
+        
       });
 
       // 點擊 scene2 的 button 事件
@@ -196,6 +215,7 @@
         document.getElementById('card_2').classList.add('hidden');
         document.getElementById('scene2').classList.add('hidden');
         document.getElementById('card_3').classList.remove('hidden');
+        audioplay();
       };
 
       optionA.addEventListener("click", () => {
