@@ -64,23 +64,19 @@
         </div>
       </div>
     </a-entity>
-  </a-scene>
-  <a-scene mindar-image="imageTargetSrc: assets/targets2.mind; filterMinCF:0.0001; filterBeta: 0.001" color-space="sRGB"
+
+
+    <a-entity target id="targetB" mindar-image="imageTargetSrc: assets/targets2.mind; filterMinCF:0.0001; filterBeta: 0.001" color-space="sRGB"
     renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
-    device-orientation-permission-ui="enabled: false">
-
-    <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;"
-      raycaster="near: 10; far: 30000; objects: .clickable"></a-camera>
-
-    <a-entity target id="targetA" mindar-image-target="targetIndex: 0" rotation="75 0 0">
+    device-orientation-permission-ui="enabled: false" mindar-image-target="targetIndex: 0" rotation="75 0 0">
       <div id="card_1" class="hidden clickable">
         <div id="scene1" class="hidden">
-          <p class="dialog">123123212312323232323232</p>
+          <p class="dialog">讓我們一起來看看大門口有甚麼歷史故事吧！</p>
         </div>
       </div>
       <div id="card_2" class="hidden">
         <div id="scene2" class="hidden">
-          <p class="dialog">hehehehehe</p>
+          <p class="dialog">你在美濃會想到什麼呢？</p>
           <div class="selection" style="display: flex; flex-direction: column;">
             <button id="optionA">A.月光山</button>
             <button id="optionB">B.美濃窯</button>
@@ -95,6 +91,7 @@
       </div>
     </a-entity>
   </a-scene>
+
   <script>
     let audioContext;
     let sourceNode;
