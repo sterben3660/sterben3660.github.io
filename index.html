@@ -24,7 +24,7 @@
       padding: 20px;
       align-items: center;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      cursor: pointer; 
+      cursor: pointer;
       z-index: 10; /* Ensure the card is on top of other elements */
     }
 
@@ -52,14 +52,12 @@
         <div id="scene2" class="hidden">
           <p class="dialog">你在美濃會想到什麼呢？</p>
           <div class="selection" style="display: flex; flex-direction: column;">
-            <button>A.月光山</button>
-            <button>B.美濃窯 </button>
-            <button>C.客家紙傘</button>
+            <button id="optionA">A.月光山</button>
+            <button id="optionB">B.美濃窯</button>
+            <button id="optionC">C.客家紙傘</button>
           </div>
-          
         </div>
       </div>
-
     </a-entity>
   </a-scene>
 
@@ -101,7 +99,31 @@
       }
     };
 
+    const animateText = (element) => {
+      const text = element.textContent;
+      element.innerHTML = '';
 
+      let index = 0;
+
+      const showNextChar = () => {
+        if (index < text.length) {
+          const span = document.createElement('span');
+          span.textContent = text[index];
+          span.classList.add('hidden');
+          element.appendChild(span);
+          span.classList.remove('hidden');
+          index++;
+          setTimeout(showNextChar, 50);
+        }
+      };
+
+      showNextChar();
+    };
+
+    const animateAllTexts = () => {
+      const dialogs = document.querySelectorAll('#scene1 .dialog');
+      dialogs.forEach(dialog => animateText(dialog));
+    };
 
     document.addEventListener("DOMContentLoaded", function () {
       const sceneEl = document.querySelector('a-scene');
@@ -139,6 +161,32 @@
         document.getElementById('scene1').classList.add('hidden');
         document.getElementById('card_2').classList.remove('hidden');
         document.getElementById('scene2').classList.remove('hidden');
+      });
+
+      // 點擊 scene2 的 button 事件
+      const optionA = document.getElementById('optionA');
+      const optionB = document.getElementById('optionB');
+      const optionC = document.getElementById('optionC');
+
+      const showMessage = (message) => {
+        const dialog = document.createElement('p');
+        dialog.textContent = message;
+        document.getElementById('scene2').appendChild(dialog);
+      };
+
+      optionA.addEventListener("click", () => {
+        console.log('Option A clicked');
+        showMessage('歡迎你第一次來美濃窯，今天我將會帶你探索這充滿歷史故事的奇妙之地！');
+      });
+
+      optionB.addEventListener("click", () => {
+        console.log('Option B clicked');
+        showMessage('哇！太好了！今天我將會帶你探索這充滿歷史故事的奇妙之地！');
+      });
+
+      optionC.addEventListener("click", () => {
+        console.log('Option C clicked');
+        showMessage('歡迎你第一次來美濃窯，今天我將會帶你探索這充滿歷史故事的奇妙之地！');
       });
     });
   </script>
