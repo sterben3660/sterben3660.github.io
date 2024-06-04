@@ -66,9 +66,9 @@
     </a-entity>
 
 
-    <!-- <a-entity target id="targetB" mindar-image="imageTargetSrc: assets/targets2.mind; filterMinCF:0.0001; filterBeta: 0.001" color-space="sRGB"
+    <a-entity target id="targetB" mindar-image="imageTargetSrc: assets/targets2.mind; filterMinCF:0.0001; filterBeta: 0.001" color-space="sRGB"
     renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
-    device-orientation-permission-ui="enabled: false" mindar-image-target="targetIndex: 0" rotation="75 0 0">
+    device-orientation-permission-ui="enabled: false" mindar-image-target="targetIndex: 1" rotation="75 0 0">
       <div id="card_1" class="hidden clickable">
         <div id="scene1" class="hidden">
           <p class="dialog">讓我們一起來看看大門口有甚麼歷史故事吧！</p>
@@ -89,7 +89,7 @@
           <p class="dialog" id="message"></p>
         </div>
       </div>
-    </a-entity> -->
+    </a-entity>
   </a-scene>
 
   <script>
@@ -141,6 +141,7 @@
         arSystem = sceneEl.systems["mindar-image-system"];
 
         const targetA = document.querySelector("#targetA");
+        const targetB = document.querySelector("#targetB");
 
         // 設置 targetFound 的事件
         targetA.addEventListener("targetFound", async event => {
@@ -151,8 +152,23 @@
           animateAllTexts();
         });
 
+        targetB.addEventListener("targetFound", async event => {
+          console.log('target found');
+          document.getElementById('scene1').classList.remove('hidden');
+          document.getElementById('card_1').classList.remove('hidden');
+          await playMusic();
+          animateAllTexts();
+        });
+
         // 設置 targetLost 的事件
         targetA.addEventListener("targetLost", event => {
+          console.log('target lost');
+          document.getElementById('card_1').classList.add('hidden');
+          document.getElementById('scene1').classList.add('hidden');
+          pauseMusic();
+        });
+
+        targetB.addEventListener("targetLost", event => {
           console.log('target lost');
           document.getElementById('card_1').classList.add('hidden');
           document.getElementById('scene1').classList.add('hidden');
