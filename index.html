@@ -122,18 +122,18 @@
       sourceNode.start();
       console.log('Music started');
     };
-    // const audioplay = async () => {
-    //   if (!audioContext) {
-    //     await resumeAudioContext();
-    //   }
-    //   const audioBuffer = await getAudio('assets/accompaniment.mp3');
-    //   const decodedData = await audioContext.decodeAudioData(audioBuffer);
-    //   sourceNode = audioContext.createBufferSource();
-    //   sourceNode.buffer = decodedData;
-    //   sourceNode.connect(audioContext.destination);
-    //   sourceNode.start();
-    //   console.log('Music started');
-    // };
+    const audioplay = async () => {
+      if (!audioContext) {
+        await resumeAudioContext();
+      }
+      const audioBuffer = await getAudio('assets/accompaniment.mp3');
+      const decodedData = await audioContext.decodeAudioData(audioBuffer);
+      sourceNode = audioContext.createBufferSource();
+      sourceNode.buffer = decodedData;
+      sourceNode.connect(audioContext.destination);
+      sourceNode.start();
+      console.log('Music started');
+    };
 
     const pauseMusic = () => {
       if (sourceNode) {
@@ -141,12 +141,12 @@
         console.log('Music stopped');
       }
     };
-    // const audiopause = () => {
-    //   if (sourceNode) {
-    //     sourceNode.stop();
-    //     console.log('Music stopped');
-    //   }
-    // };
+    const audiopause = () => {
+      if (sourceNode) {
+        sourceNode.stop();
+        console.log('Music stopped');
+      }
+    };
 
 
     document.addEventListener("DOMContentLoaded", function () {
