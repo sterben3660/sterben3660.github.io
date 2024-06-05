@@ -64,32 +64,6 @@
         </div>
       </div>
     </a-entity>
-
-
-    <!-- <a-entity target id="targetB" mindar-image="imageTargetSrc: assets/targets2.mind; filterMinCF:0.0001; filterBeta: 0.001" color-space="sRGB"
-      renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
-      device-orientation-permission-ui="enabled: false" mindar-image-target="targetIndex: 1" rotation="75 0 0">
-      <div id="card_1" class="hidden clickable">
-        <div id="scene1" class="hidden">
-          <p class="dialog">讓我們一起來看看大門口有什麼歷史故事吧！</p>
-        </div>
-      </div>
-      <div id="card_2" class="hidden">
-        <div id="scene2" class="hidden">
-          <p class="dialog">你在美濃會想到什麼呢？</p>
-          <div class="selection" style="display: flex; flex-direction: column;">
-            <button id="optionA">A.月光山</button>
-            <button id="optionB">B.美濃窯</button>
-            <button id="optionC">C.客家紙傘</button>
-          </div>
-        </div>
-      </div>
-      <div id="card_3" class="hidden">
-        <div id="scene3">
-          <p class="dialog" id="message"></p>
-        </div>
-      </div>
-    </a-entity> -->
   </a-scene>
 
   <script>
@@ -110,23 +84,11 @@
       return buffer;
     };
 
-    const playMusic = async () => {
+    const playMusic = async (url) => {
       if (!audioContext) {
         await resumeAudioContext();
       }
-      const audioBuffer = await getAudio('assets/firstdia.wav');
-      const decodedData = await audioContext.decodeAudioData(audioBuffer);
-      sourceNode = audioContext.createBufferSource();
-      sourceNode.buffer = decodedData;
-      sourceNode.connect(audioContext.destination);
-      sourceNode.start();
-      console.log('Music started');
-    };
-    const audioPlay = async () => {
-      if (!audioContext) {
-        await resumeAudioContext();
-      }
-      const audioBuffer = await getAudio('assets/accompaniment.mp3');
+      const audioBuffer = await getAudio(url);
       const decodedData = await audioContext.decodeAudioData(audioBuffer);
       sourceNode = audioContext.createBufferSource();
       sourceNode.buffer = decodedData;
@@ -141,13 +103,6 @@
         console.log('Music stopped');
       }
     };
-    // const audiopause = () => {
-    //   if (sourceNode) {
-    //     sourceNode.stop();
-    //     console.log('Music stopped');
-    //   }
-    // };
-
 
     document.addEventListener("DOMContentLoaded", function () {
       const sceneEl = document.querySelector('a-scene');
@@ -158,22 +113,13 @@
         arSystem = sceneEl.systems["mindar-image-system"];
 
         const targetA = document.querySelector("#targetA");
-        // const targetB = document.querySelector("#targetB");
 
         targetA.addEventListener("targetFound", async event => {
           console.log('target found');
           document.getElementById('scene1').classList.remove('hidden');
           document.getElementById('card_1').classList.remove('hidden');
-          await playMusic();
-          
+          await playMusic('assets/firstdia.wav');
         });
-
-        // targetB.addEventListener("targetFound", async event => {
-        //   console.log('target found');
-        //   document.getElementById('scene1').classList.remove('hidden');
-        //   document.getElementById('card_1').classList.remove('hidden');
-        //   await playMusic();
-        // });
 
         targetA.addEventListener("targetLost", event => {
           console.log('target lost');
@@ -181,13 +127,6 @@
           document.getElementById('scene1').classList.add('hidden');
           pauseMusic();
         });
-
-        // targetB.addEventListener("targetLost", event => {
-        //   console.log('target lost');
-        //   document.getElementById('card_1').classList.add('hidden');
-        //   document.getElementById('scene1').classList.add('hidden');
-        //   pauseMusic();
-        // });
       });
 
       const card1 = document.getElementById('card_1');
@@ -210,15 +149,17 @@
         document.getElementById('card_2').classList.add('hidden');
         document.getElementById('scene2').classList.add('hidden');
         document.getElementById('card_3').classList.remove('hidden');
-        audioPlay();
-        console.log('playpusic');
-        messageElement.addEventListener("click", event =>{
-          console.log('card_1 clicked');
-            document.getElementById('card_3').classList.add('hidden');
-            document.getElementById('scene3').classList.add('hidden');
-            pauseMusic();
-        })
+        playMusic('assets/accompaniment.mp3');
+        console.log('Music playing');
       };
+
+      const card3 = document.getElementById('card_3');
+      card3.addEventListener("click", event => {
+        console.log('card_3 clicked');
+        document.getElementById('card_3').classList.add('hidden');
+        document.getElementById('scene3').classList.add('hidden');
+        pauseMusic();
+      });
 
       optionA.addEventListener("click", () => {
         console.log('Option A clicked');
