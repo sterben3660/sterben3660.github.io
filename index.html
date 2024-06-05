@@ -64,6 +64,30 @@
         </div>
       </div>
     </a-entity>
+    <a-entity target id="targetA" mindar-image="imageTargetSrc: assets/targets2.mind; filterMinCF:0.0001; filterBeta: 0.001" color-space="sRGB"
+      renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: false" mindar-image-target="targetIndex: 0" rotation="75 0 0">
+      <div id="card_1" class="hidden clickable">
+        <div id="scene1" class="hidden">
+          <p class="dialog">你好呀，我是你今天的導覽員小花，歡迎你來到美濃窯－陶藝基地</p>
+        </div>
+      </div>
+      <div id="card_2" class="hidden">
+        <div id="scene2" class="hidden">
+          <p class="dialog">你在美濃會想到什麼呢？</p>
+          <div class="selection" style="display: flex; flex-direction: column;">
+            <button id="optionA">A.月光山</button>
+            <button id="optionB">B.美濃窯</button>
+            <button id="optionC">C.客家紙傘</button>
+          </div>
+        </div>
+      </div>
+      <div id="card_3" class="hidden">
+        <div id="scene3">
+          <p class="dialog" id="message"></p>
+        </div>
+      </div>
+    </a-entity>
   </a-scene>
 
   <script>
