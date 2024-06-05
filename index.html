@@ -122,18 +122,18 @@
       sourceNode.start();
       console.log('Music started');
     };
-    // const audioplay = async () => {
-    //   if (!audioContext) {
-    //     await resumeAudioContext();
-    //   }
-    //   const audioBuffer = await getAudio('assets/accompaniment.mp3');
-    //   const decodedData = await audioContext.decodeAudioData(audioBuffer);
-    //   sourceNode = audioContext.createBufferSource();
-    //   sourceNode.buffer = decodedData;
-    //   sourceNode.connect(audioContext.destination);
-    //   sourceNode.start();
-    //   console.log('Music started');
-    // };
+    const audioPlay = async () => {
+      if (!audioContext) {
+        await resumeAudioContext();
+      }
+      const audioBuffer = await getAudio('assets/accompaniment.mp3');
+      const decodedData = await audioContext.decodeAudioData(audioBuffer);
+      sourceNode = audioContext.createBufferSource();
+      sourceNode.buffer = decodedData;
+      sourceNode.connect(audioContext.destination);
+      sourceNode.start();
+      console.log('Music started');
+    };
 
     const pauseMusic = () => {
       if (sourceNode) {
@@ -210,6 +210,8 @@
         document.getElementById('card_2').classList.add('hidden');
         document.getElementById('scene2').classList.add('hidden');
         document.getElementById('card_3').classList.remove('hidden');
+        audioPlay();
+        console.log('playpusic')
       };
 
       optionA.addEventListener("click", () => {
