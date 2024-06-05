@@ -14,7 +14,10 @@
 
     #card_1,
     #card_2,
-    #card_3 {
+    #card_3,
+    #card_4,
+    #card_5,
+    #card_6 {
       position: fixed;
       bottom: 0;
       left: 50%;
@@ -40,54 +43,55 @@
     <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;"
       raycaster="near: 10; far: 30000; objects: .clickable"></a-camera>
 
-    <a-entity target id="targetA" mindar-image="imageTargetSrc: assets/targets.mind; filterMinCF:0.0001; filterBeta: 0.001" color-space="sRGB"
+    <a-entity mindar-image="imageTargetSrc: assets/targets.mind; filterMinCF:0.0001; filterBeta: 0.001" color-space="sRGB"
       renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
-      device-orientation-permission-ui="enabled: false" mindar-image-target="targetIndex: 0" rotation="75 0 0">
-      <div id="card_1" class="hidden clickable">
-        <div id="scene1" class="hidden">
-          <p class="dialog">你好呀，我是你今天的導覽員小花，歡迎你來到美濃窯－陶藝基地</p>
-        </div>
-      </div>
-      <div id="card_2" class="hidden">
-        <div id="scene2" class="hidden">
-          <p class="dialog">你在美濃會想到什麼呢？</p>
-          <div class="selection" style="display: flex; flex-direction: column;">
-            <button id="optionA">A.月光山</button>
-            <button id="optionB">B.美濃窯</button>
-            <button id="optionC">C.客家紙傘</button>
+      device-orientation-permission-ui="enabled: false">
+      
+      <a-entity id="targetA" mindar-image-target="targetIndex: 0" rotation="75 0 0">
+        <div id="card_1" class="hidden clickable">
+          <div id="scene1" class="hidden">
+            <p class="dialog">你好呀，我是你今天的導覽員小花，歡迎你來到美濃窯－陶藝基地</p>
           </div>
         </div>
-      </div>
-      <div id="card_3" class="hidden">
-        <div id="scene3">
-          <p class="dialog" id="message"></p>
+        <div id="card_2" class="hidden">
+          <div id="scene2" class="hidden">
+            <p class="dialog">你在美濃會想到什麼呢？</p>
+            <div class="selection" style="display: flex; flex-direction: column;">
+              <button id="optionA">A.月光山</button>
+              <button id="optionB">B.美濃窯</button>
+              <button id="optionC">C.客家紙傘</button>
+            </div>
+          </div>
         </div>
-      </div>
-    </a-entity>
+        <div id="card_3" class="hidden">
+          <div id="scene3">
+            <p class="dialog" id="message"></p>
+          </div>
+        </div>
+      </a-entity>
 
-    <a-entity target id="targetB" mindar-image="imageTargetSrc: assets/targets2.mind; filterMinCF:0.0001; filterBeta: 0.001" color-space="sRGB"
-      renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
-      device-orientation-permission-ui="enabled: false" mindar-image-target="targetIndex: 0" rotation="75 0 0">
-      <div id="card_4" class="hidden clickable">
-        <div id="scene4" class="hidden">
-          <p class="dialog">這是新目標圖的對話內容。歡迎來到新場景！</p>
-        </div>
-      </div>
-      <div id="card_5" class="hidden">
-        <div id="scene5" class="hidden">
-          <p class="dialog">這是新的選項，你可以做出選擇。</p>
-          <div class="selection" style="display: flex; flex-direction: column;">
-            <button id="optionD">D.新選項1</button>
-            <button id="optionE">E.新選項2</button>
-            <button id="optionF">F.新選項3</button>
+      <a-entity id="targetB" mindar-image-target="targetIndex: 1" rotation="75 0 0">
+        <div id="card_4" class="hidden clickable">
+          <div id="scene4" class="hidden">
+            <p class="dialog">這是新目標圖的對話內容。歡迎來到新場景！</p>
           </div>
         </div>
-      </div>
-      <div id="card_6" class="hidden">
-        <div id="scene6">
-          <p class="dialog" id="newMessage"></p>
+        <div id="card_5" class="hidden">
+          <div id="scene5" class="hidden">
+            <p class="dialog">這是新的選項，你可以做出選擇。</p>
+            <div class="selection" style="display: flex; flex-direction: column;">
+              <button id="optionD">D.新選項1</button>
+              <button id="optionE">E.新選項2</button>
+              <button id="optionF">F.新選項3</button>
+            </div>
+          </div>
         </div>
-      </div>
+        <div id="card_6" class="hidden">
+          <div id="scene6">
+            <p class="dialog" id="newMessage"></p>
+          </div>
+        </div>
+      </a-entity>
     </a-entity>
   </a-scene>
 
@@ -141,28 +145,28 @@
         const targetB = document.querySelector("#targetB");
 
         targetA.addEventListener("targetFound", async event => {
-          console.log('target found');
+          console.log('target A found');
           document.getElementById('scene1').classList.remove('hidden');
           document.getElementById('card_1').classList.remove('hidden');
           await playMusic('assets/firstdia.wav');
         });
 
         targetA.addEventListener("targetLost", event => {
-          console.log('target lost');
+          console.log('target A lost');
           document.getElementById('card_1').classList.add('hidden');
           document.getElementById('scene1').classList.add('hidden');
           pauseMusic();
         });
 
         targetB.addEventListener("targetFound", async event => {
-          console.log('target found');
+          console.log('target B found');
           document.getElementById('scene4').classList.remove('hidden');
           document.getElementById('card_4').classList.remove('hidden');
           await playMusic('assets/secondaudio.wav');
         });
 
         targetB.addEventListener("targetLost", event => {
-          console.log('target lost');
+          console.log('target B lost');
           document.getElementById('card_4').classList.add('hidden');
           document.getElementById('scene4').classList.add('hidden');
           pauseMusic();
