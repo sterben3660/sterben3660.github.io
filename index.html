@@ -1,116 +1,150 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v7.0.0/dist/aframe-extras.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-    <style>
-      .hidden {
-        display: none;
-      }
-  
-      #card_1,
-      #card_2,
-      #card_3,
-      #card_4,
-      #card_5,
-      #card_6 {
-        position: fixed;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 150px;
-        height: 200px;
-        background-color: aliceblue;
-        padding: 20px;
-        align-items: center;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        cursor: pointer;
-        z-index: 10;
-      }
-  
-      .dialog span.hidden {
-        visibility: hidden;
-      }
-    </style>
-  </head>
-  <body>
-    <a-scene mindar-image="imageTargetSrc: assets/targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
-      <a-assets>
-        <a-asset-item id="test_boy" src="assets/results.jpg"></a-asset-item>
-        <a-asset-item id="test_girl" src="assets/0523.jpg"></a-asset-item>
-      </a-assets>
+<html lang="utf-8">
 
-      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+<head>
+  <title>testwebar</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
+  <style>
+    .hidden {
+      display: none;
+    }
 
-      <a-entity id="targetA" mindar-image-target="targetIndex: 0">
-        <div id="card_1" class="hidden clickable">
-          <div id="scene1" class="hidden" src="#test_boy">
-            <img src="assets/results.jpg" alt="">
-            <p class="dialog">這是新目標圖的對話內容。歡迎來到新場景！</p>
-          </div>
+    .card {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 200px;
+      background-color: aliceblue;
+      padding: 20px;
+      align-items: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      z-index: 10;
+    }
+  </style>
+</head>
+
+<body>
+  <a-scene>
+    <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;"
+      raycaster="near: 10; far: 30000; objects: .clickable"></a-camera>
+
+    <!-- First set of targets -->
+    <a-entity id="targetA" mindar-image="imageTargetSrc: assets/targets.mind; filterMinCF:0.0001; filterBeta: 0.001"
+      color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: false" rotation="75 0 0">
+      <div class="card hidden clickable">
+        <div class="scene hidden">
+          <p class="dialog">你好呀，我是你今天的導覽員小花，歡迎你來到美濃窯－陶藝基地</p>
         </div>
-      </a-entity>
-      <a-entity id="targetB" mindar-image-target="targetIndex: 1">
-        <div id="card_2" class="hidden clickable">
-          <div id="scene2" class="hidden" src="#test_girl">
-            <p class="dialog">這是新目標圖的對話內容。歡迎來到新場景！</p>
-          </div>
+      </div>
+      <!-- 更多卡片和场景 -->
+    </a-entity>
+
+    <!-- Second set of targets -->
+    <a-entity id="targetB" mindar-image="imageTargetSrc: assets/targets2.mind; filterMinCF:0.0001; filterBeta: 0.001"
+      color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: false" rotation="75 0 0">
+      <div class="card hidden clickable">
+        <div class="scene hidden">
+          <p class="dialog">這是新目標圖的對話內容。歡迎來到新場景！</p>
         </div>
-      </a-entity>
-    </a-scene>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-      const sceneEl = document.querySelector('a-scene');
-      let arSystem;
+      </div>
+      <!-- 更多卡片和场景 -->
+    </a-entity>
+  </a-scene>
 
-      sceneEl.addEventListener('loaded', function () {
-        console.log('AR scene loaded');
-        arSystem = sceneEl.systems["mindar-image-system"];
+  <script>
+    (async function () {
+      let audioContext;
+      let sourceNode;
 
-        const targetA = document.querySelector("#targetA");
-        const targetB = document.querySelector("#targetB");
+      const resumeAudioContext = async () => {
+        console.log('Resuming AudioContext');
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        await audioContext.resume();
+        console.log('AudioContext resumed');
+      };
 
-        targetA.addEventListener("targetFound", async event => {
-          console.log('target A found');
-          document.getElementById('scene1').classList.remove('hidden');
-          document.getElementById('card_1').classList.remove('hidden');
-          // await playMusic('assets/firstdia.wav');
+      const getAudio = async (url) => {
+        console.log(`Fetching audio from ${url}`);
+        const response = await fetch(url);
+        const buffer = await response.arrayBuffer();
+        return buffer;
+      };
+
+      const playMusic = async (url) => {
+        if (!audioContext) {
+          await resumeAudioContext();
+        }
+        try {
+          const audioBuffer = await getAudio(url);
+          const decodedData = await audioContext.decodeAudioData(audioBuffer);
+          sourceNode = audioContext.createBufferSource();
+          sourceNode.buffer = decodedData;
+          sourceNode.connect(audioContext.destination);
+          sourceNode.start();
+          console.log('Music started');
+        } catch (error) {
+          console.error('Error playing music:', error);
+        }
+      };
+
+      const pauseMusic = () => {
+        if (sourceNode) {
+          sourceNode.stop();
+          console.log('Music stopped');
+        }
+      };
+
+      const handleTargetEvents = (targetId, sceneId, cardId, musicUrl) => {
+        const target = document.getElementById(targetId);
+        const card = document.getElementById(cardId);
+
+        target.addEventListener("targetFound", async () => {
+          console.log(`Target ${targetId} found`);
+          document.getElementById(sceneId).classList.remove('hidden');
+          card.classList.remove('hidden');
+          await playMusic(musicUrl);
         });
 
-        targetA.addEventListener("targetLost", event => {
-          console.log('target A lost');
-          document.getElementById('card_1').classList.add('hidden');
-          document.getElementById('scene1').classList.add('hidden');
-          // pauseMusic();
+        target.addEventListener("targetLost", () => {
+          console.log(`Target ${targetId} lost`);
+          card.classList.add('hidden');
+          document.getElementById(sceneId).classList.add('hidden');
+          pauseMusic();
         });
 
-        targetB.addEventListener("targetFound", async event => {
-          console.log('target B found');
-          // document.getElementById('scene4').classList.remove('hidden');
-          // document.getElementById('card_4').classList.remove('hidden');
-          // await playMusic('assets/secondaudio.wav');
+        card.addEventListener("click", () => {
+          console.log(`${cardId} clicked`);
+          card.classList.add('hidden');
+          document.getElementById(sceneId).classList.add('hidden');
+          pauseMusic();
         });
+      };
 
-        targetB.addEventListener("targetLost", event => {
-          console.log('target B lost');
-          // document.getElementById('card_4').classList.add('hidden');
-          // document.getElementById('scene4').classList.add('hidden');
-          // pauseMusic();
+      const handleClickEvents = () => {
+        document.addEventListener("click", (event) => {
+          const target = event.target;
+          if (target.classList.contains('clickable')) {
+            target.click();
+          }
         });
+      };
+
+      document.addEventListener("DOMContentLoaded", () => {
+        console.log('DOMContentLoaded');
+        handleTargetEvents("targetA", "scene1", "card_1", "assets/firstdia.wav");
+        handleTargetEvents("targetB", "scene4", "card_4", "assets/secondaudio.wav");
+        handleClickEvents();
       });
+    })();
+  </script>
+</body>
 
-      const card1 = document.getElementById('card_1');
-      card1.addEventListener("click", event => {
-        console.log('card_1 clicked');
-        document.getElementById('card_1').classList.add('hidden');
-        document.getElementById('scene1').classList.add('hidden');
-        document.getElementById('card_2').classList.remove('hidden');
-        document.getElementById('scene2').classList.remove('hidden');
-        // pauseMusic();
-      });
-    }); 
-    </script>
-  </body>
 </html>
