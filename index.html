@@ -64,6 +64,31 @@
         </div>
       </div>
     </a-entity>
+
+    <a-entity target id="targetB" mindar-image="imageTargetSrc: assets/targets2.mind; filterMinCF:0.0001; filterBeta: 0.001" color-space="sRGB"
+      renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: false" mindar-image-target="targetIndex: 0" rotation="75 0 0">
+      <div id="card_4" class="hidden clickable">
+        <div id="scene4" class="hidden">
+          <p class="dialog">這是新目標圖的對話內容。歡迎來到新場景！</p>
+        </div>
+      </div>
+      <div id="card_5" class="hidden">
+        <div id="scene5" class="hidden">
+          <p class="dialog">這是新的選項，你可以做出選擇。</p>
+          <div class="selection" style="display: flex; flex-direction: column;">
+            <button id="optionD">D.新選項1</button>
+            <button id="optionE">E.新選項2</button>
+            <button id="optionF">F.新選項3</button>
+          </div>
+        </div>
+      </div>
+      <div id="card_6" class="hidden">
+        <div id="scene6">
+          <p class="dialog" id="newMessage"></p>
+        </div>
+      </div>
+    </a-entity>
   </a-scene>
 
   <script>
@@ -113,6 +138,7 @@
         arSystem = sceneEl.systems["mindar-image-system"];
 
         const targetA = document.querySelector("#targetA");
+        const targetB = document.querySelector("#targetB");
 
         targetA.addEventListener("targetFound", async event => {
           console.log('target found');
@@ -125,6 +151,20 @@
           console.log('target lost');
           document.getElementById('card_1').classList.add('hidden');
           document.getElementById('scene1').classList.add('hidden');
+          pauseMusic();
+        });
+
+        targetB.addEventListener("targetFound", async event => {
+          console.log('target found');
+          document.getElementById('scene4').classList.remove('hidden');
+          document.getElementById('card_4').classList.remove('hidden');
+          await playMusic('assets/secondaudio.wav');
+        });
+
+        targetB.addEventListener("targetLost", event => {
+          console.log('target lost');
+          document.getElementById('card_4').classList.add('hidden');
+          document.getElementById('scene4').classList.add('hidden');
           pauseMusic();
         });
       });
@@ -174,6 +214,53 @@
       optionC.addEventListener("click", () => {
         console.log('Option C clicked');
         showMessage('歡迎你第一次來美濃窯，今天我將會帶你探索這充滿歷史故事的奇妙之地！');
+      });
+
+      const card4 = document.getElementById('card_4');
+      card4.addEventListener("click", event => {
+        console.log('card_4 clicked');
+        document.getElementById('card_4').classList.add('hidden');
+        document.getElementById('scene4').classList.add('hidden');
+        document.getElementById('card_5').classList.remove('hidden');
+        document.getElementById('scene5').classList.remove('hidden');
+        pauseMusic();
+      });
+
+      const optionD = document.getElementById('optionD');
+      const optionE = document.getElementById('optionE');
+      const optionF = document.getElementById('optionF');
+
+      const showNewMessage = (message) => {
+        const messageElement = document.getElementById('newMessage');
+        messageElement.textContent = message;
+        document.getElementById('card_5').classList.add('hidden');
+        document.getElementById('scene5').classList.add('hidden');
+        document.getElementById('card_6').classList.remove('hidden');
+        playMusic('assets/newaccompaniment.mp3');
+        console.log('New music playing');
+      };
+
+      const card6 = document.getElementById('card_6');
+      card6.addEventListener("click", event => {
+        console.log('card_6 clicked');
+        document.getElementById('card_6').classList.add('hidden');
+        document.getElementById('scene6').classList.add('hidden');
+        pauseMusic();
+      });
+
+      optionD.addEventListener("click", () => {
+        console.log('Option D clicked');
+        showNewMessage('這是新選項1的回應。');
+      });
+
+      optionE.addEventListener("click", () => {
+        console.log('Option E clicked');
+        showNewMessage('這是新選項2的回應。');
+      });
+
+      optionF.addEventListener("click", () => {
+        console.log('Option F clicked');
+        showNewMessage('這是新選項3的回應。');
       });
     });
   </script>
