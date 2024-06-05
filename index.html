@@ -46,14 +46,14 @@
 
       <a-entity id="targetA" mindar-image-target="targetIndex: 0">
         <div id="card_1" class="hidden clickable">
-          <div id="scene4" class="hidden" src="#test_boy">
+          <div id="scene1" class="hidden" src="#test_boy">
             <p class="dialog">這是新目標圖的對話內容。歡迎來到新場景！</p>
           </div>
         </div>
       </a-entity>
       <a-entity id="targetB" mindar-image-target="targetIndex: 1">
         <div id="card_2" class="hidden clickable">
-          <div id="scene4" class="hidden" src="#test_girl">
+          <div id="scene2" class="hidden" src="#test_girl">
             <p class="dialog">這是新目標圖的對話內容。歡迎來到新場景！</p>
           </div>
         </div>
@@ -81,7 +81,7 @@
         targetA.addEventListener("targetLost", event => {
           console.log('target A lost');
           document.getElementById('card_1').classList.add('hidden');
-          // document.getElementById('scene1').classList.add('hidden');
+          document.getElementById('scene1').classList.add('hidden');
           // pauseMusic();
         });
 
@@ -104,9 +104,9 @@
       card1.addEventListener("click", event => {
         console.log('card_1 clicked');
         document.getElementById('card_1').classList.add('hidden');
-        // document.getElementById('scene1').classList.add('hidden');
+        document.getElementById('scene1').classList.add('hidden');
         document.getElementById('card_2').classList.remove('hidden');
-        // document.getElementById('scene2').classList.remove('hidden');
+        document.getElementById('scene2').classList.remove('hidden');
         // pauseMusic();
       });
     }); 
