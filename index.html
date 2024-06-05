@@ -122,18 +122,18 @@
       sourceNode.start();
       console.log('Music started');
     };
-    const audioplay = async () => {
-      if (!audioContext) {
-        await resumeAudioContext();
-      }
-      const audioBuffer = await getAudio('assets/accompaniment.mp3');
-      const decodedData = await audioContext.decodeAudioData(audioBuffer);
-      sourceNode = audioContext.createBufferSource();
-      sourceNode.buffer = decodedData;
-      sourceNode.connect(audioContext.destination);
-      sourceNode.start();
-      console.log('Music started');
-    };
+    // const audioplay = async () => {
+    //   if (!audioContext) {
+    //     await resumeAudioContext();
+    //   }
+    //   const audioBuffer = await getAudio('assets/accompaniment.mp3');
+    //   const decodedData = await audioContext.decodeAudioData(audioBuffer);
+    //   sourceNode = audioContext.createBufferSource();
+    //   sourceNode.buffer = decodedData;
+    //   sourceNode.connect(audioContext.destination);
+    //   sourceNode.start();
+    //   console.log('Music started');
+    // };
 
     const pauseMusic = () => {
       if (sourceNode) {
@@ -141,12 +141,12 @@
         console.log('Music stopped');
       }
     };
-    const audiopause = () => {
-      if (sourceNode) {
-        sourceNode.stop();
-        console.log('Music stopped');
-      }
-    };
+    // const audiopause = () => {
+    //   if (sourceNode) {
+    //     sourceNode.stop();
+    //     console.log('Music stopped');
+    //   }
+    // };
 
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -168,12 +168,12 @@
           
         });
 
-        targetB.addEventListener("targetFound", async event => {
-          console.log('target found');
-          document.getElementById('scene1').classList.remove('hidden');
-          document.getElementById('card_1').classList.remove('hidden');
-          await playMusic();
-        });
+        // targetB.addEventListener("targetFound", async event => {
+        //   console.log('target found');
+        //   document.getElementById('scene1').classList.remove('hidden');
+        //   document.getElementById('card_1').classList.remove('hidden');
+        //   await playMusic();
+        // });
 
         targetA.addEventListener("targetLost", event => {
           console.log('target lost');
@@ -182,12 +182,12 @@
           pauseMusic();
         });
 
-        targetB.addEventListener("targetLost", event => {
-          console.log('target lost');
-          document.getElementById('card_1').classList.add('hidden');
-          document.getElementById('scene1').classList.add('hidden');
-          pauseMusic();
-        });
+        // targetB.addEventListener("targetLost", event => {
+        //   console.log('target lost');
+        //   document.getElementById('card_1').classList.add('hidden');
+        //   document.getElementById('scene1').classList.add('hidden');
+        //   pauseMusic();
+        // });
       });
 
       const card1 = document.getElementById('card_1');
