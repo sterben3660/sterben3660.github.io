@@ -12,7 +12,9 @@
       display: none;
     }
 
-    .card {
+    #card_1,
+    #card_2,
+    #card_3 {
       position: fixed;
       bottom: 0;
       left: 50%;
@@ -34,56 +36,53 @@
 </head>
 
 <body>
-  <a-scene>
+  <a-scene mindar-image="imageTargetSrc: assets/targets.mind; filterMinCF:0.0001; filterBeta: 0.001" color-space="sRGB"
+  renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
+  device-orientation-permission-ui="enabled: false" >
     <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;"
       raycaster="near: 10; far: 30000; objects: .clickable"></a-camera>
 
-    <a-entity id="targetA1" mindar-image="imageTargetSrc: assets/targets.mind; filterMinCF:0.0001; filterBeta: 0.001"
-      color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
-      device-orientation-permission-ui="enabled: false" mindar-image-target="targetIndex: 0" rotation="75 0 0">
-      <div id="card_1A" class="card hidden clickable">
-        <div id="scene1A" class="hidden">
+    <a-entity target id="targetA" mindar-image-target="targetIndex: 0" rotation="75 0 0">
+      <div id="card_1" class="hidden clickable">
+        <div id="scene1" class="hidden">
           <p class="dialog">你好呀，我是你今天的導覽員小花，歡迎你來到美濃窯－陶藝基地</p>
         </div>
       </div>
-      <div id="card_2A" class="card hidden">
-        <div id="scene2A" class="hidden">
+      <div id="card_2" class="hidden">
+        <div id="scene2" class="hidden">
           <p class="dialog">你在美濃會想到什麼呢？</p>
           <div class="selection" style="display: flex; flex-direction: column;">
-            <button id="optionA1">A.月光山</button>
-            <button id="optionB1">B.美濃窯</button>
-            <button id="optionC1">C.客家紙傘</button>
+            <button id="optionA">A.月光山</button>
+            <button id="optionB">B.美濃窯</button>
+            <button id="optionC">C.客家紙傘</button>
           </div>
         </div>
       </div>
-      <div id="card_3A" class="card hidden">
-        <div id="scene3A">
-          <p class="dialog" id="messageA"></p>
+      <div id="card_3" class="hidden">
+        <div id="scene3">
+          <p class="dialog" id="message"></p>
         </div>
       </div>
     </a-entity>
-
-    <a-entity id="targetA2" mindar-image="imageTargetSrc: assets/targets2.mind; filterMinCF:0.0001; filterBeta: 0.001"
-      color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
-      device-orientation-permission-ui="enabled: false" mindar-image-target="targetIndex: 1" rotation="75 0 0">
-      <div id="card_1B" class="card hidden clickable">
-        <div id="scene1B" class="hidden">
+    <a-entity target id="targetB" mindar-image-target="targetIndex: 1" rotation="75 0 0">
+      <div id="card_1" class="hidden clickable">
+        <div id="scene1" class="hidden">
           <p class="dialog">你好呀，我是你今天的導覽員小花，歡迎你來到美濃窯－陶藝基地</p>
         </div>
       </div>
-      <div id="card_2B" class="card hidden">
-        <div id="scene2B" class="hidden">
+      <div id="card_2" class="hidden">
+        <div id="scene2" class="hidden">
           <p class="dialog">你在美濃會想到什麼呢？</p>
           <div class="selection" style="display: flex; flex-direction: column;">
-            <button id="optionA2">A.月光山</button>
-            <button id="optionB2">B.美濃窯</button>
-            <button id="optionC2">C.客家紙傘</button>
+            <button id="optionA">A.月光山</button>
+            <button id="optionB">B.美濃窯</button>
+            <button id="optionC">C.客家紙傘</button>
           </div>
         </div>
       </div>
-      <div id="card_3B" class="card hidden">
-        <div id="scene3B">
-          <p class="dialog" id="messageB"></p>
+      <div id="card_3" class="hidden">
+        <div id="scene3">
+          <p class="dialog" id="message"></p>
         </div>
       </div>
     </a-entity>
@@ -135,74 +134,81 @@
         console.log('AR scene loaded');
         arSystem = sceneEl.systems["mindar-image-system"];
 
-        const targetA1 = document.querySelector("#targetA1");
-        const targetA2 = document.querySelector("#targetA2");
+        const targetA = document.querySelector("#targetA");
+        const targetB = document.querySelector("#targetB");
+        targetA.addEventListener("targetFound", async event => {
+          console.log('target found');
+          document.getElementById('scene1').classList.remove('hidden');
+          document.getElementById('card_1').classList.remove('hidden');
+          await playMusic('assets/firstdia.wav');
+        });
 
-        const handleTargetEvents = (target, sceneId, cardId, musicUrl) => {
-          target.addEventListener("targetFound", async event => {
-            console.log(`target ${target.id} found`);
-            document.getElementById(sceneId).classList.remove('hidden');
-            document.getElementById(cardId).classList.remove('hidden');
-            await playMusic(musicUrl);
-          });
-
-          target.addEventListener("targetLost", event => {
-            console.log(`target ${target.id} lost`);
-            document.getElementById(cardId).classList.add('hidden');
-            document.getElementById(sceneId).classList.add('hidden');
-            pauseMusic();
-          });
-        };
-
-        handleTargetEvents(targetA1, 'scene1A', 'card_1A', 'assets/firstdia.wav');
-        handleTargetEvents(targetA2, 'scene1B', 'card_1B', 'assets/firstdia.wav');
-      });
-
-      const cardClickHandler = (cardId, nextCardId, nextSceneId) => {
-        document.getElementById(cardId).addEventListener("click", event => {
-          console.log(`${cardId} clicked`);
-          document.getElementById(cardId).classList.add('hidden');
-          document.getElementById(cardId.replace('card', 'scene')).classList.add('hidden');
-          document.getElementById(nextCardId).classList.remove('hidden');
-          document.getElementById(nextSceneId).classList.remove('hidden');
+        targetA.addEventListener("targetLost", event => {
+          console.log('target lost');
+          document.getElementById('card_1').classList.add('hidden');
+          document.getElementById('scene1').classList.add('hidden');
           pauseMusic();
         });
-      };
-
-      cardClickHandler('card_1A', 'card_2A', 'scene2A');
-      cardClickHandler('card_1B', 'card_2B', 'scene2B');
-
-      const optionClickHandler = (optionId, messageId, message) => {
-        document.getElementById(optionId).addEventListener("click", () => {
-          console.log(`${optionId} clicked`);
-          document.getElementById(messageId).textContent = message;
-          document.getElementById(optionId.replace('option', 'card_2')).classList.add('hidden');
-          document.getElementById(optionId.replace('option', 'scene2')).classList.add('hidden');
-          document.getElementById(optionId.replace('option', 'card_3')).classList.remove('hidden');
-          playMusic('assets/accompaniment.mp3');
-          console.log('Music playing');
+        targetB.addEventListener("targetFound", async event => {
+          console.log('target found');
+          document.getElementById('scene1').classList.remove('hidden');
+          document.getElementById('card_1').classList.remove('hidden');
+          await playMusic('assets/firstdia.wav');
         });
-      };
 
-      optionClickHandler('optionA1', 'messageA', '歡迎你第一次來美濃窯，今天我將會帶你探索這充滿歷史故事的奇妙之地！');
-      optionClickHandler('optionB1', 'messageA', '哇！太好了！今天我將會帶你探索這充滿歷史故事的奇妙之地！');
-      optionClickHandler('optionC1', 'messageA', '歡迎你第一次來美濃窯，今天我將會帶你探索這充滿歷史故事的奇妙之地！');
-      optionClickHandler('optionA2', 'messageB', '歡迎你第一次來美濃窯，今天我將會帶你探索這充滿歷史故事的奇妙之地！');
-      optionClickHandler('optionB2', 'messageB', '哇！太好了！今天我將會帶你探索這充滿歷史故事的奇妙之地！');
-      optionClickHandler('optionC2', 'messageB', '歡迎你第一次來美濃窯，今天我將會帶你探索這充滿歷史故事的奇妙之地！');
+        targetB.addEventListener("targetLost", event => {
+          console.log('target lost');
+          document.getElementById('card_1').classList.add('hidden');
+          document.getElementById('scene1').classList.add('hidden');
+          pauseMusic();
+        });
+      });
 
-      document.getElementById('card_3A').addEventListener("click", event => {
-        console.log('card_3A clicked');
-        document.getElementById('card_3A').classList.add('hidden');
-        document.getElementById('scene3A').classList.add('hidden');
+      const card1 = document.getElementById('card_1');
+      card1.addEventListener("click", event => {
+        console.log('card_1 clicked');
+        document.getElementById('card_1').classList.add('hidden');
+        document.getElementById('scene1').classList.add('hidden');
+        document.getElementById('card_2').classList.remove('hidden');
+        document.getElementById('scene2').classList.remove('hidden');
         pauseMusic();
       });
 
-      document.getElementById('card_3B').addEventListener("click", event => {
-        console.log('card_3B clicked');
-        document.getElementById('card_3B').classList.add('hidden');
-        document.getElementById('scene3B').classList.add('hidden');
+      const optionA = document.getElementById('optionA');
+      const optionB = document.getElementById('optionB');
+      const optionC = document.getElementById('optionC');
+
+      const showMessage = (message) => {
+        const messageElement = document.getElementById('message');
+        messageElement.textContent = message;
+        document.getElementById('card_2').classList.add('hidden');
+        document.getElementById('scene2').classList.add('hidden');
+        document.getElementById('card_3').classList.remove('hidden');
+        playMusic('assets/firstdia2.wav');
+        console.log('Music playing');
+      };
+
+      const card3 = document.getElementById('card_3');
+      card3.addEventListener("click", event => {
+        console.log('card_3 clicked');
+        document.getElementById('card_3').classList.add('hidden');
+        document.getElementById('scene3').classList.add('hidden');
         pauseMusic();
+      });
+
+      optionA.addEventListener("click", () => {
+        console.log('Option A clicked');
+        showMessage('歡迎你第一次來美濃窯，今天我將會帶你探索這充滿歷史故事的奇妙之地！');
+      });
+
+      optionB.addEventListener("click", () => {
+        console.log('Option B clicked');
+        showMessage('哇！太好了！今天我將會帶你探索這充滿歷史故事的奇妙之地！');
+      });
+
+      optionC.addEventListener("click", () => {
+        console.log('Option C clicked');
+        showMessage('歡迎你第一次來美濃窯，今天我將會帶你探索這充滿歷史故事的奇妙之地！');
       });
     });
   </script>
