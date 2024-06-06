@@ -1,287 +1,152 @@
+
 <!DOCTYPE html>
 <html lang="utf-8">
 
 <head>
-  <title>testwebar</title>
+  <title>麥寮圖書館</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
-  <style>
-    .hidden {
-      display: none;
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-67XYFL5HTM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-67XYFL5HTM');
+  </script>
+
+  <script>
+    let audioContext;
+    let sourceNode;
+    let pngArrays = [];
+    let currentIndex = 0;
+    let animationInterval;
+    let imagesPreloaded = false;
+
+    const resumeAudioContext = async () => {
+      audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      await audioContext.resume();
+    };
+
+    const getAudio = async (url) => {
+      const response = await fetch(url);
+      const buffer = await response.arrayBuffer();
+      return buffer;
     }
 
-    #card_1,
-    #card_2,
-    #card_3,
-    #card_4,
-    #card_5,
-    #card_6,
-    #card_7,
-    #card_8 {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 150px;
-      height: 200px;
-      background-color: aliceblue;
-      padding: 20px;
-      align-items: center;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-      z-index: 10;
+    const playMusic = async () => {
+      if (!audioContext) {
+        await resumeAudioContext();
+      }
+      const audioBuffer = await getAudio('assets/BGM.mp3');
+      const decodedData = await audioContext.decodeAudioData(audioBuffer);
+      sourceNode = audioContext.createBufferSource();
+      sourceNode.buffer = decodedData;
+      sourceNode.connect(audioContext.destination);
+      sourceNode.start();
     }
 
-    .dialog span.hidden {
-      visibility: hidden;
+    const pauseMusic = () => {
+      if (sourceNode) {
+        sourceNode.stop();
+      }
     }
-  </style>
-    <script>
-      let audioContext;
-      let sourceNode;
-  
-      const resumeAudioContext = async () => {
-        console.log('Resuming AudioContext');
-        audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        await audioContext.resume();
-        console.log('AudioContext resumed');
-      };
-  
-      const getAudio = async (url) => {
-        console.log(`Fetching audio from ${url}`);
-        const response = await fetch(url);
-        const buffer = await response.arrayBuffer();
-        return buffer;
-      };
-  
-      const playMusic = async (url) => {
-        if (!audioContext) {
-          await resumeAudioContext();
+
+    async function preloadImages(folderNames) {
+      let loader = new THREE.TextureLoader();
+
+      for (let folderName of folderNames) {
+        let imageArray = [];
+        for (let j = 0; j < 4; j++) {
+          let filename = `${folderName}_${j.toString().padStart(3, '0')}.webp`;
+          imageArray.push(loader.load(`assets/${folderName}/${filename}`));
         }
-        const audioBuffer = await getAudio(url);
-        const decodedData = await audioContext.decodeAudioData(audioBuffer);
-        sourceNode = audioContext.createBufferSource();
-        sourceNode.buffer = decodedData;
-        sourceNode.connect(audioContext.destination);
-        sourceNode.start();
-        console.log('Music started');
-      };
-  
-      const pauseMusic = () => {
-        if (sourceNode) {
-          sourceNode.stop();
-          console.log('Music stopped');
-        }
-      };
-  
-      document.addEventListener("DOMContentLoaded", function () {
-        const sceneEl = document.querySelector('a-scene');
-        let arSystem;
-  
-        sceneEl.addEventListener('loaded', function () {
-          console.log('AR scene loaded');
-          arSystem = sceneEl.systems["mindar-image-system"];
-  
-          const targetA = document.querySelector("#targetA");
-          const targetB = document.querySelector("#targetB");
-          targetA.addEventListener("targetFound", async event => {
-            console.log('target found');
-            document.getElementById('scene1').classList.remove('hidden');
-            document.getElementById('card_1').classList.remove('hidden');
-            await playMusic('assets/firstdia.wav');
-          });
-  
-          targetA.addEventListener("targetLost", event => {
-            console.log('target lost');
-            document.getElementById('card_1').classList.add('hidden');
-            document.getElementById('scene1').classList.add('hidden');
-            pauseMusic();
-          });
-          targetB.addEventListener("targetFound", async event => {
-            console.log('target found');
-            document.getElementById('scene5').classList.remove('hidden');
-            document.getElementById('card_5').classList.remove('hidden');
-            await playMusic('assets/secondia.wav');
-          });
-  
-          targetB.addEventListener("targetLost", event => {
-            console.log('target lost');
-            document.getElementById('card_5').classList.add('hidden');
-            document.getElementById('scene5').classList.add('hidden');
-            pauseMusic();
-          });
-        });
-  
-        const card1 = document.getElementById('card_1');
-        card1.addEventListener("click", event => {
-          console.log('card_1 clicked');
-          document.getElementById('card_1').classList.add('hidden');
-          document.getElementById('scene1').classList.add('hidden');
-          document.getElementById('card_2').classList.remove('hidden');
-          document.getElementById('scene2').classList.remove('hidden');
-          pauseMusic();
-        });
-  
-        const optionA = document.getElementById('optionA');
-        const optionB = document.getElementById('optionB');
-        const optionC = document.getElementById('optionC');
-        const optionD = document.getElementById('optionD');
-        const optionE = document.getElementById('optionE');
-        const optionF = document.getElementById('optionF');
-  
-        const showMessage = (message) => {
-          const messageElement = document.getElementById('message');
-          messageElement.textContent = message;
-          document.getElementById('card_2').classList.add('hidden');
-          document.getElementById('scene2').classList.add('hidden');
-          document.getElementById('card_3').classList.remove('hidden');
-          
-        };
-  
-        const card3 = document.getElementById('card_3');
-        card3.addEventListener("click", event => {
-          console.log('card_3 clicked');
-          document.getElementById('card_3').classList.add('hidden');
-          document.getElementById('scene3').classList.add('hidden');
-          pauseMusic();
-          document.getElementById('card_4').classList.remove('hidden');
-          document.getElementById('scene4').classList.remove('hidden');
-          playMusic('assets/firstdia2.wav');
-          console.log('Music playing');
-        });
-  
-        const card4 = document.getElementById('card_4');
-        card4.addEventListener("click", event => {
-          console.log('card_4 clicked');
-          document.getElementById('card_4').classList.add('hidden');
-          document.getElementById('scene4').classList.add('hidden');
-          pauseMusic();
-        });
-        const card5 = document.getElementById('card_5');
-        card5.addEventListener("click", event => {
-          console.log('card_5 clicked');
-          document.getElementById('card_5').classList.add('hidden');
-          document.getElementById('scene5').classList.add('hidden');
-          document.getElementById('card_6').classList.remove('hidden');
-          document.getElementById('scene6').classList.remove('hidden');
-          pauseMusic();
-        });
-        const card6 = document.getElementById('card_6');
-        card6.addEventListener("click", event => {
-          console.log('card_6 clicked');
-          document.getElementById('card_6').classList.add('hidden');
-          document.getElementById('scene6').classList.add('hidden');
-          document.getElementById('card_7').classList.remove('hidden');
-          document.getElementById('scene7').classList.remove('hidden');
-          playMusic('assets/secondia2.wav');
-          console.log('Music playing');
-        });
-        const card7 = document.getElementById('card_7');
-        card7.addEventListener("click", event => {
-          console.log('card_7 clicked');
-          document.getElementById('card_7').classList.add('hidden');
-          document.getElementById('scene7').classList.add('hidden');
-          pauseMusic();
-          document.getElementById('card_8').classList.remove('hidden');
-          document.getElementById('scene8').classList.remove('hidden');
-          playMusic('assets/secondia3.wav');
-          console.log('Music playing');
-        });
-        const card8 = document.getElementById('card_8');
-        card8.addEventListener("click", event => {
-          console.log('card_8 clicked');
-          document.getElementById('card_8').classList.add('hidden');
-          document.getElementById('scene8').classList.add('hidden');
-          pauseMusic();
-        });
-        // 選項控制
-        optionA.addEventListener("click", () => {
-          console.log('Option A clicked');
-          showMessage('歡迎你第一次來美濃窯');
-        });
-  
-        optionB.addEventListener("click", () => {
-          console.log('Option B clicked');
-          showMessage('哇！太好了！');
-        });
-  
-        optionC.addEventListener("click", () => {
-          console.log('Option C clicked');
-          showMessage('歡迎你第一次來美濃窯');
-        });
+        pngArrays.push(imageArray);
+      }
+    }
 
+    function randomImage() {
+      if (pngArrays.length === 0) {
+        return undefined;
+      }
 
+      let images = pngArrays[currentIndex];
+      currentIndex = (currentIndex + 1) % pngArrays.length;
+      return images;
+    }
+
+    async function playAnimation() {
+      let plane = document.querySelector('#animation');
+      let images = randomImage();
+
+      if (!images) {
+        console.error("No images to display.");
+        return;
+      }
+
+      let animationIndex = 0;
+      animationInterval = setInterval(() => {
+        plane.setAttribute('src', images[animationIndex].image.src);
+        animationIndex = (animationIndex + 1) % images.length; // 循環播放圖片
+      }, 100);
+    }
+
+    function stopAnimation() {
+      clearInterval(animationInterval);
+    }
+
+    document.addEventListener("DOMContentLoaded", async function () {
+      if (!imagesPreloaded) {
+        await preloadImages(['AR1', 'AR2', 'AR3', 'AR4', 'AR5']); // 預先載入資料夾的圖片
+        imagesPreloaded = true;
+      }
+
+      const sceneEl = document.querySelector("a-scene");
+      let arSystem;
+
+      sceneEl.addEventListener("loaded", function () {
+        arSystem = sceneEl.systems["mindar-image-system"];
       });
-    </script>
+
+      const targetA = document.querySelector("#targetA");
+
+      // 設置 targetFound 的事件
+      targetA.addEventListener("targetFound", async event => {
+        await playMusic();
+        // 確認圖片已預載入後再播放動畫
+        console.log(pngArrays);
+        if (pngArrays.length > 0) {
+          playAnimation();
+        } else {
+          console.error("Images not preloaded.");
+        }
+      });
+
+      // 設置 targetLost 的事件
+      targetA.addEventListener("targetLost", event => {
+        pauseMusic();
+        stopAnimation();
+        let plane = document.querySelector('#animation');
+        plane.setAttribute('src', '');  // 設置為空值，停止顯示圖片
+      });
+    });
+  </script>
 </head>
 
 <body>
-  <a-scene mindar-image="imageTargetSrc: assets/targets.mind; filterMinCF:0.0001; filterBeta: 0.001" color-space="sRGB"
-  renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
-  device-orientation-permission-ui="enabled: false" >
+  <a-scene mindar-image="imageTargetSrc: ./target/targets.mind; filterMinCF:0.0001; filterBeta: 0.001"
+    color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false">
+
     <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;"
       raycaster="near: 10; far: 30000; objects: .clickable"></a-camera>
-
     <a-entity target id="targetA" mindar-image-target="targetIndex: 0" rotation="75 0 0">
-      <div id="card_1" class="hidden clickable">
-        <div id="scene1" class="hidden">
-          <p class="dialog">你好呀，我是導覽員小花，歡迎你來到美濃窯－陶藝基地</p>
-        </div>
-      </div>
-      <div id="card_2" class="hidden">
-        <div id="scene2" class="hidden">
-          <p class="dialog">你在美濃會想到什麼呢？</p>
-          <div class="selection" style="display: flex; flex-direction: column;">
-            <button id="optionA">A.月光山</button>
-            <button id="optionB">B.美濃窯</button>
-            <button id="optionC">C.客家紙傘</button>
-          </div>
-        </div>
-      </div>
-      <div id="card_3" class="hidden">
-        <div id="scene3">
-          <p class="dialog" id="message"></p>
-        </div>
-      </div>
-      <div id="card_4" class="hidden">
-        <div id="scene4">
-          <p class="dialog">今天我將會帶你探索這充滿歷史故事的奇妙之地，現在我們先去門口看看吧！</p>
-        </div>
-      </div>
-    </a-entity>
-    <a-entity target id="targetB" mindar-image-target="targetIndex: 1" rotation="75 0 0">
-      <div id="card_5" class="hidden clickable">
-        <div id="scene5" class="hidden">
-          <p class="dialog">你好啊，我是小朱，讓我為你解說門口這些美麗的陶片吧</p>
-        </div>
-      </div>
-      <div id="card_6" class="hidden">
-        <div id="scene6" class="hidden">
-          <p class="dialog">你來猜猜看牆面上的陶片尺寸是多少吧？</p>
-          <div class="selection" style="display: flex; flex-direction: column;">
-            <button id="optionD">A.冰掌(兵長)一米六</button>
-            <button id="optionE">B.20*10公分</button>
-            <button id="optionF">C.18*6公分
-            </button>
-          </div>
-        </div>
-      </div>
-      <div id="card_7" class="hidden">
-        <div id="scene7">
-          <p class="dialog">這些陶片的尺寸為20*10公分，剛上釉料時是無法看到色彩的，要等燒製完成後，顏色才會顯現出來，所以製作陶藝，就是一場藝術冒險哦。</p>
-        </div>
-      </div>
-      <div id="card_8" class="hidden">
-        <div id="scene8">
-          <p class="dialog">而且每塊陶片都是由三到五位師傅共同創造出來的，他們在創作過程中互相合作，是非常有默契的藝術家團隊。等到陶片都燒製完成後，再固定在牆上，這些陶片的尺寸雖小，但背後蘊含著師傅們的心血和努力。</p>
-        </div>
-      </div>
+      <a-plane id="animation" width="1.5" height="1.5" position="0 0 0" rotation="0 0 0" transparent="true"></a-plane>
     </a-entity>
   </a-scene>
-
-
 </body>
 
 </html>
