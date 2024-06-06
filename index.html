@@ -97,15 +97,15 @@
           });
           targetB.addEventListener("targetFound", async event => {
             console.log('target found');
-            document.getElementById('scene1').classList.remove('hidden');
-            document.getElementById('card_1').classList.remove('hidden');
-            await playMusic('assets/firstdia.wav');
+            document.getElementById('scene5').classList.remove('hidden');
+            document.getElementById('card_5').classList.remove('hidden');
+            await playMusic('assets/secondia.wav');
           });
   
           targetB.addEventListener("targetLost", event => {
             console.log('target lost');
-            document.getElementById('card_1').classList.add('hidden');
-            document.getElementById('scene1').classList.add('hidden');
+            document.getElementById('card_5').classList.add('hidden');
+            document.getElementById('scene5').classList.add('hidden');
             pauseMusic();
           });
         });
@@ -123,6 +123,9 @@
         const optionA = document.getElementById('optionA');
         const optionB = document.getElementById('optionB');
         const optionC = document.getElementById('optionC');
+        const optionD = document.getElementById('optionD');
+        const optionE = document.getElementById('optionE');
+        const optionF = document.getElementById('optionF');
   
         const showMessage = (message) => {
           const messageElement = document.getElementById('message');
@@ -145,6 +148,51 @@
           console.log('Music playing');
         });
   
+        const card4 = document.getElementById('card_4');
+        card4.addEventListener("click", event => {
+          console.log('card_4 clicked');
+          document.getElementById('card_4').classList.add('hidden');
+          document.getElementById('scene4').classList.add('hidden');
+          pauseMusic();
+        });
+        const card5 = document.getElementById('card_5');
+        card5.addEventListener("click", event => {
+          console.log('card_5 clicked');
+          document.getElementById('card_5').classList.add('hidden');
+          document.getElementById('scene5').classList.add('hidden');
+          document.getElementById('card_6').classList.remove('hidden');
+          document.getElementById('scene6').classList.remove('hidden');
+          pauseMusic();
+        });
+        const card6 = document.getElementById('card_6');
+        card6.addEventListener("click", event => {
+          console.log('card_6 clicked');
+          document.getElementById('card_6').classList.add('hidden');
+          document.getElementById('scene6').classList.add('hidden');
+          document.getElementById('card_7').classList.remove('hidden');
+          document.getElementById('scene7').classList.remove('hidden');
+          playMusic('assets/secondia2.wav');
+          console.log('Music playing');
+        });
+        const card7 = document.getElementById('card_7');
+        card7.addEventListener("click", event => {
+          console.log('card_7 clicked');
+          document.getElementById('card_7').classList.add('hidden');
+          document.getElementById('scene7').classList.add('hidden');
+          pauseMusic();
+          document.getElementById('card_8').classList.remove('hidden');
+          document.getElementById('scene8').classList.remove('hidden');
+          playMusic('assets/secondia3.wav');
+          console.log('Music playing');
+        });
+        const card8 = document.getElementById('card_8');
+        card8.addEventListener("click", event => {
+          console.log('card_8 clicked');
+          document.getElementById('card_8').classList.add('hidden');
+          document.getElementById('scene8').classList.add('hidden');
+          pauseMusic();
+        });
+        // 選項控制
         optionA.addEventListener("click", () => {
           console.log('Option A clicked');
           showMessage('歡迎你第一次來美濃窯');
@@ -160,12 +208,19 @@
           showMessage('歡迎你第一次來美濃窯');
         });
 
-        const card4 = document.getElementById('card_4');
-        card4.addEventListener("click", event => {
-          console.log('card_4 clicked');
-          document.getElementById('card_4').classList.add('hidden');
-          document.getElementById('scene4').classList.add('hidden');
-          pauseMusic();
+        optionD.addEventListener("click", () => {
+          console.log('Option D clicked');
+          showMessage('歡迎你第一次來美濃窯');
+        });
+  
+        optionE.addEventListener("click", () => {
+          console.log('Option E clicked');
+          showMessage('哇！太好了！');
+        });
+  
+        optionF.addEventListener("click", () => {
+          console.log('Option F clicked');
+          showMessage('歡迎你第一次來美濃窯');
         });
 
       });
@@ -182,7 +237,7 @@
     <a-entity target id="targetA" mindar-image-target="targetIndex: 0" rotation="75 0 0">
       <div id="card_1" class="hidden clickable">
         <div id="scene1" class="hidden">
-          <p class="dialog">你好呀，我是你今天的導覽員小花，歡迎你來到美濃窯－陶藝基地</p>
+          <p class="dialog">你好呀，我是導覽員小花，歡迎你來到美濃窯－陶藝基地</p>
         </div>
       </div>
       <div id="card_2" class="hidden">
@@ -202,29 +257,35 @@
       </div>
       <div id="card_4" class="hidden">
         <div id="scene4">
-          <p class="dialog">今天我將會帶你探索這充滿歷史故事的奇妙之地，我們去門口看看吧！</p>
+          <p class="dialog">今天我將會帶你探索這充滿歷史故事的奇妙之地，現在我們先去門口看看吧！</p>
         </div>
       </div>
     </a-entity>
     <a-entity target id="targetB" mindar-image-target="targetIndex: 1" rotation="75 0 0">
-      <div id="card_1" class="hidden clickable">
-        <div id="scene1" class="hidden">
-          <p class="dialog">我們去門口看看吧！</p>
+      <div id="card_5" class="hidden clickable">
+        <div id="scene4" class="hidden">
+          <p class="dialog">你好啊，我是小朱，讓我為你解說門口這些美麗的陶片吧</p>
         </div>
       </div>
-      <div id="card_2" class="hidden">
-        <div id="scene2" class="hidden">
-          <p class="dialog">你在美濃會想到什麼呢？</p>
+      <div id="card_6" class="hidden">
+        <div id="scene6" class="hidden">
+          <p class="dialog">你來猜猜看牆面上的陶片尺寸是多少吧？</p>
           <div class="selection" style="display: flex; flex-direction: column;">
-            <button id="option">A.月光山</button>
-            <button id="optionB">B.美濃窯</button>
-            <button id="optionC">C.客家紙傘</button>
+            <button id="optionD">A.冰掌(兵長)一米六</button>
+            <button id="optionE">B.20*10公分</button>
+            <button id="optionF">C.18*6公分
+            </button>
           </div>
         </div>
       </div>
-      <div id="card_3" class="hidden">
-        <div id="scene3">
-          <p class="dialog" id="message"></p>
+      <div id="card_7" class="hidden">
+        <div id="scene7">
+          <p class="dialog">這些陶片的尺寸為20*10公分，剛上釉料時是無法看到色彩的，要等燒製完成後，顏色才會顯現出來，所以製作陶藝，就是一場藝術冒險哦。</p>
+        </div>
+      </div>
+      <div id="card_8" class="hidden">
+        <div id="scene8">
+          <p class="dialog">而且每塊陶片都是由三到五位師傅共同創造出來的，他們在創作過程中互相合作，是非常有默契的藝術家團隊。等到陶片都燒製完成後，再固定在牆上，這些陶片的尺寸雖小，但背後蘊含著師傅們的心血和努力。</p>
         </div>
       </div>
     </a-entity>
