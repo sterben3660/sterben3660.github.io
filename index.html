@@ -33,6 +33,142 @@
       visibility: hidden;
     }
   </style>
+    <script>
+      let audioContext;
+      let sourceNode;
+  
+      const resumeAudioContext = async () => {
+        console.log('Resuming AudioContext');
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        await audioContext.resume();
+        console.log('AudioContext resumed');
+      };
+  
+      const getAudio = async (url) => {
+        console.log(`Fetching audio from ${url}`);
+        const response = await fetch(url);
+        const buffer = await response.arrayBuffer();
+        return buffer;
+      };
+  
+      const playMusic = async (url) => {
+        if (!audioContext) {
+          await resumeAudioContext();
+        }
+        const audioBuffer = await getAudio(url);
+        const decodedData = await audioContext.decodeAudioData(audioBuffer);
+        sourceNode = audioContext.createBufferSource();
+        sourceNode.buffer = decodedData;
+        sourceNode.connect(audioContext.destination);
+        sourceNode.start();
+        console.log('Music started');
+      };
+  
+      const pauseMusic = () => {
+        if (sourceNode) {
+          sourceNode.stop();
+          console.log('Music stopped');
+        }
+      };
+  
+      document.addEventListener("DOMContentLoaded", function () {
+        const sceneEl = document.querySelector('a-scene');
+        let arSystem;
+  
+        sceneEl.addEventListener('loaded', function () {
+          console.log('AR scene loaded');
+          arSystem = sceneEl.systems["mindar-image-system"];
+  
+          const targetA = document.querySelector("#targetA");
+          const targetB = document.querySelector("#targetB");
+          targetA.addEventListener("targetFound", async event => {
+            console.log('target found');
+            document.getElementById('scene1').classList.remove('hidden');
+            document.getElementById('card_1').classList.remove('hidden');
+            await playMusic('assets/firstdia.wav');
+          });
+  
+          targetA.addEventListener("targetLost", event => {
+            console.log('target lost');
+            document.getElementById('card_1').classList.add('hidden');
+            document.getElementById('scene1').classList.add('hidden');
+            pauseMusic();
+          });
+          targetB.addEventListener("targetFound", async event => {
+            console.log('target found');
+            document.getElementById('scene1').classList.remove('hidden');
+            document.getElementById('card_1').classList.remove('hidden');
+            await playMusic('assets/firstdia.wav');
+          });
+  
+          targetB.addEventListener("targetLost", event => {
+            console.log('target lost');
+            document.getElementById('card_1').classList.add('hidden');
+            document.getElementById('scene1').classList.add('hidden');
+            pauseMusic();
+          });
+        });
+  
+        const card1 = document.getElementById('card_1');
+        card1.addEventListener("click", event => {
+          console.log('card_1 clicked');
+          document.getElementById('card_1').classList.add('hidden');
+          document.getElementById('scene1').classList.add('hidden');
+          document.getElementById('card_2').classList.remove('hidden');
+          document.getElementById('scene2').classList.remove('hidden');
+          pauseMusic();
+        });
+  
+        const optionA = document.getElementById('optionA');
+        const optionB = document.getElementById('optionB');
+        const optionC = document.getElementById('optionC');
+  
+        const showMessage = (message) => {
+          const messageElement = document.getElementById('message');
+          messageElement.textContent = message;
+          document.getElementById('card_2').classList.add('hidden');
+          document.getElementById('scene2').classList.add('hidden');
+          document.getElementById('card_3').classList.remove('hidden');
+          
+        };
+  
+        const card3 = document.getElementById('card_3');
+        card3.addEventListener("click", event => {
+          console.log('card_3 clicked');
+          document.getElementById('card_3').classList.add('hidden');
+          document.getElementById('scene3').classList.add('hidden');
+          pauseMusic();
+          document.getElementById('card_4').classList.remove('hidden');
+          document.getElementById('scene4').classList.remove('hidden');
+          playMusic('assets/firstdia2.wav');
+          console.log('Music playing');
+        });
+  
+        optionA.addEventListener("click", () => {
+          console.log('Option A clicked');
+          showMessage('歡迎你第一次來美濃窯');
+        });
+  
+        optionB.addEventListener("click", () => {
+          console.log('Option B clicked');
+          showMessage('哇！太好了！');
+        });
+  
+        optionC.addEventListener("click", () => {
+          console.log('Option C clicked');
+          showMessage('歡迎你第一次來美濃窯');
+        });
+
+        const card4 = document.getElementById('card_4');
+        card4.addEventListener("click", event => {
+          console.log('card_4 clicked');
+          document.getElementById('card_4').classList.add('hidden');
+          document.getElementById('scene4').classList.add('hidden');
+          pauseMusic();
+        });
+
+      });
+    </script>
 </head>
 
 <body>
@@ -63,6 +199,11 @@
           <p class="dialog" id="message"></p>
         </div>
       </div>
+      <div id="card_4" class="hidden">
+        <div id="scene4">
+          <p class="dialog">今天我將會帶你探索這充滿歷史故事的奇妙之地！</p>
+        </div>
+      </div>
     </a-entity>
     <a-entity target id="targetB" mindar-image-target="targetIndex: 1" rotation="75 0 0">
       <div id="card_1" class="hidden clickable">
@@ -88,130 +229,7 @@
     </a-entity>
   </a-scene>
 
-  <script>
-    let audioContext;
-    let sourceNode;
 
-    const resumeAudioContext = async () => {
-      console.log('Resuming AudioContext');
-      audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      await audioContext.resume();
-      console.log('AudioContext resumed');
-    };
-
-    const getAudio = async (url) => {
-      console.log(`Fetching audio from ${url}`);
-      const response = await fetch(url);
-      const buffer = await response.arrayBuffer();
-      return buffer;
-    };
-
-    const playMusic = async (url) => {
-      if (!audioContext) {
-        await resumeAudioContext();
-      }
-      const audioBuffer = await getAudio(url);
-      const decodedData = await audioContext.decodeAudioData(audioBuffer);
-      sourceNode = audioContext.createBufferSource();
-      sourceNode.buffer = decodedData;
-      sourceNode.connect(audioContext.destination);
-      sourceNode.start();
-      console.log('Music started');
-    };
-
-    const pauseMusic = () => {
-      if (sourceNode) {
-        sourceNode.stop();
-        console.log('Music stopped');
-      }
-    };
-
-    document.addEventListener("DOMContentLoaded", function () {
-      const sceneEl = document.querySelector('a-scene');
-      let arSystem;
-
-      sceneEl.addEventListener('loaded', function () {
-        console.log('AR scene loaded');
-        arSystem = sceneEl.systems["mindar-image-system"];
-
-        const targetA = document.querySelector("#targetA");
-        const targetB = document.querySelector("#targetB");
-        targetA.addEventListener("targetFound", async event => {
-          console.log('target found');
-          document.getElementById('scene1').classList.remove('hidden');
-          document.getElementById('card_1').classList.remove('hidden');
-          await playMusic('assets/firstdia.wav');
-        });
-
-        targetA.addEventListener("targetLost", event => {
-          console.log('target lost');
-          document.getElementById('card_1').classList.add('hidden');
-          document.getElementById('scene1').classList.add('hidden');
-          pauseMusic();
-        });
-        targetB.addEventListener("targetFound", async event => {
-          console.log('target found');
-          document.getElementById('scene1').classList.remove('hidden');
-          document.getElementById('card_1').classList.remove('hidden');
-          await playMusic('assets/firstdia.wav');
-        });
-
-        targetB.addEventListener("targetLost", event => {
-          console.log('target lost');
-          document.getElementById('card_1').classList.add('hidden');
-          document.getElementById('scene1').classList.add('hidden');
-          pauseMusic();
-        });
-      });
-
-      const card1 = document.getElementById('card_1');
-      card1.addEventListener("click", event => {
-        console.log('card_1 clicked');
-        document.getElementById('card_1').classList.add('hidden');
-        document.getElementById('scene1').classList.add('hidden');
-        document.getElementById('card_2').classList.remove('hidden');
-        document.getElementById('scene2').classList.remove('hidden');
-        pauseMusic();
-      });
-
-      const optionA = document.getElementById('optionA');
-      const optionB = document.getElementById('optionB');
-      const optionC = document.getElementById('optionC');
-
-      const showMessage = (message) => {
-        const messageElement = document.getElementById('message');
-        messageElement.textContent = message;
-        document.getElementById('card_2').classList.add('hidden');
-        document.getElementById('scene2').classList.add('hidden');
-        document.getElementById('card_3').classList.remove('hidden');
-        playMusic('assets/firstdia2.wav');
-        console.log('Music playing');
-      };
-
-      const card3 = document.getElementById('card_3');
-      card3.addEventListener("click", event => {
-        console.log('card_3 clicked');
-        document.getElementById('card_3').classList.add('hidden');
-        document.getElementById('scene3').classList.add('hidden');
-        pauseMusic();
-      });
-
-      optionA.addEventListener("click", () => {
-        console.log('Option A clicked');
-        showMessage('歡迎你第一次來美濃窯，今天我將會帶你探索這充滿歷史故事的奇妙之地！');
-      });
-
-      optionB.addEventListener("click", () => {
-        console.log('Option B clicked');
-        showMessage('哇！太好了！今天我將會帶你探索這充滿歷史故事的奇妙之地！');
-      });
-
-      optionC.addEventListener("click", () => {
-        console.log('Option C clicked');
-        showMessage('歡迎你第一次來美濃窯，今天我將會帶你探索這充滿歷史故事的奇妙之地！');
-      });
-    });
-  </script>
 </body>
 
 </html>
