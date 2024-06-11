@@ -143,15 +143,15 @@
           });
           targetD.addEventListener("targetFound", async event => {
             console.log('target found');
-            document.getElementById('scene13').classList.remove('hidden');
-            document.getElementById('card_13').classList.remove('hidden');
+            document.getElementById('scene14').classList.remove('hidden');
+            document.getElementById('card_14').classList.remove('hidden');
             await playMusic('assets/fourthdia.wav');
           });
   
           targetD.addEventListener("targetLost", event => {
             console.log('target lost');
-            document.getElementById('card_13').classList.add('hidden');
-            document.getElementById('scene13').classList.add('hidden');
+            document.getElementById('card_14').classList.add('hidden');
+            document.getElementById('scene14').classList.add('hidden');
             pauseMusic();
           });
           targetE.addEventListener("targetFound", async event => {
@@ -327,7 +327,7 @@
         });
 
         const card15 = document.getElementById('card_15');
-        card13.addEventListener("click", event => {
+        card15.addEventListener("click", event => {
           console.log('card_15 clicked');
           document.getElementById('card_15').classList.add('hidden');
           document.getElementById('scene15').classList.add('hidden');
@@ -336,7 +336,7 @@
           playMusic('assets/fourthdia2.wav');
         });
         const card16 = document.getElementById('card_16');
-        card13.addEventListener("click", event => {
+        card16.addEventListener("click", event => {
           console.log('card_16 clicked');
           document.getElementById('card_16').classList.add('hidden');
           document.getElementById('scene16').classList.add('hidden');
@@ -345,7 +345,7 @@
           document.getElementById('scene17').classList.remove('hidden');
         });
         const card17 = document.getElementById('card_17');
-        card13.addEventListener("click", event => {
+        card17.addEventListener("click", event => {
           console.log('card_17 clicked');
           document.getElementById('card_17').classList.add('hidden');
           document.getElementById('scene17').classList.add('hidden');
