@@ -156,16 +156,14 @@
           });
           targetE.addEventListener("targetFound", async event => {
             console.log('target found');
-            document.getElementById('scene17').classList.remove('hidden');
-            document.getElementById('card_17').classList.remove('hidden');
-            await playMusic('assets/fifthdia.wav');
+            document.getElementById('scene19').classList.remove('hidden');
+            document.getElementById('card_19').classList.remove('hidden');
           });
   
           targetE.addEventListener("targetLost", event => {
             console.log('target lost');
-            document.getElementById('card_17').classList.add('hidden');
-            document.getElementById('scene17').classList.add('hidden');
-            pauseMusic();
+            document.getElementById('card_19').classList.add('hidden');
+            document.getElementById('scene19').classList.add('hidden');
           });
         });
 
@@ -324,6 +322,8 @@
           document.getElementById('card_14').classList.add('hidden');
           document.getElementById('scene14').classList.add('hidden');
           pauseMusic();
+          document.getElementById('card_15').classList.remove('hidden');
+          document.getElementById('scene15').classList.remove('hidden');
         });
 
         const card15 = document.getElementById('card_15');
@@ -331,7 +331,9 @@
           console.log('card_15 clicked');
           document.getElementById('card_15').classList.add('hidden');
           document.getElementById('scene15').classList.add('hidden');
-          pauseMusic();
+          document.getElementById('card_15').classList.remove('hidden');
+          document.getElementById('scene15').classList.remove('hidden');
+          playMusic('assets/fourthdia2.wav');
         });
         const card16 = document.getElementById('card_16');
         card13.addEventListener("click", event => {
@@ -339,13 +341,17 @@
           document.getElementById('card_16').classList.add('hidden');
           document.getElementById('scene16').classList.add('hidden');
           pauseMusic();
+          document.getElementById('card_17').classList.remove('hidden');
+          document.getElementById('scene17').classList.remove('hidden');
         });
         const card17 = document.getElementById('card_17');
         card13.addEventListener("click", event => {
           console.log('card_17 clicked');
           document.getElementById('card_17').classList.add('hidden');
           document.getElementById('scene17').classList.add('hidden');
-          pauseMusic();
+          document.getElementById('card_18').classList.remove('hidden');
+          document.getElementById('scene18').classList.remove('hidden');
+          playMusic('assets/fourthdia3.wav');
         });
         const card18 = document.getElementById('card_18');
         card18.addEventListener("click", event => {
@@ -359,7 +365,9 @@
           console.log('card_19 clicked');
           document.getElementById('card_19').classList.add('hidden');
           document.getElementById('scene19').classList.add('hidden');
-          pauseMusic();
+          document.getElementById('card_20').classList.remove('hidden');
+          document.getElementById('scene20').classList.remove('hidden');
+          playMusic('assets/fifthdia.wav');
         });
         const card20 = document.getElementById('card_20');
         card20.addEventListener("click", event => {
@@ -367,13 +375,17 @@
           document.getElementById('card_20').classList.add('hidden');
           document.getElementById('scene20').classList.add('hidden');
           pauseMusic();
+          document.getElementById('card_21').classList.remove('hidden');
+          document.getElementById('scene21').classList.remove('hidden');
         });
         const card21 = document.getElementById('card_21');
         card21.addEventListener("click", event => {
           console.log('card_21 clicked');
           document.getElementById('card_21').classList.add('hidden');
           document.getElementById('scene21').classList.add('hidden');
-          pauseMusic();
+          document.getElementById('card_22').classList.remove('hidden');
+          document.getElementById('scene22').classList.remove('hidden');
+          playMusic('assets/fifthdia2.wav');
         });
         const card22 = document.getElementById('card_22');
         card22.addEventListener("click", event => {
