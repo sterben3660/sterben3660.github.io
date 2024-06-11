@@ -279,7 +279,6 @@
           pauseMusic();
           document.getElementById('card_10').classList.remove('hidden');
           document.getElementById('scene10').classList.remove('hidden');
-          playMusic('assets/thirdia2.wav');
         });
 
         const card10 = document.getElementById('card_10');
@@ -287,9 +286,9 @@
           console.log('card_10 clicked');
           document.getElementById('card_10').classList.add('hidden');
           document.getElementById('scene10').classList.add('hidden');
-          pauseMusic();
           document.getElementById('card_11').classList.remove('hidden');
           document.getElementById('scene11').classList.remove('hidden');
+          playMusic('assets/thirdia2.wav');
         });
 
         const card11 = document.getElementById('card_11');
@@ -300,7 +299,6 @@
           pauseMusic();
           document.getElementById('card_12').classList.remove('hidden');
           document.getElementById('scene12').classList.remove('hidden');
-          playMusic('assets/thirdia3.wav');
         });
 
         const card12 = document.getElementById('card_12');
@@ -308,7 +306,9 @@
           console.log('card_12 clicked');
           document.getElementById('card_12').classList.add('hidden');
           document.getElementById('scene12').classList.add('hidden');
-          pauseMusic();
+          document.getElementById('card_13').classList.remove('hidden');
+          document.getElementById('scene13').classList.remove('hidden');
+          playMusic('assets/thirdia3.wav');
         });
         const card13 = document.getElementById('card_13');
         card13.addEventListener("click", event => {
@@ -316,6 +316,7 @@
           document.getElementById('card_13').classList.add('hidden');
           document.getElementById('scene13').classList.add('hidden');
           pauseMusic();
+
         });
 
         const card14 = document.getElementById('card_14');
