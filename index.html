@@ -276,10 +276,10 @@
           console.log('card_9 clicked');
           document.getElementById('card_9').classList.add('hidden');
           document.getElementById('scene9').classList.add('hidden');
-          playMusic('assets/thirdia.wav');
+          pauseMusic();
           document.getElementById('card_10').classList.remove('hidden');
           document.getElementById('scene10').classList.remove('hidden');
-          pauseMusic();
+          playMusic('assets/thirdia2.wav');
         });
 
         const card10 = document.getElementById('card_10');
@@ -288,6 +288,8 @@
           document.getElementById('card_10').classList.add('hidden');
           document.getElementById('scene10').classList.add('hidden');
           pauseMusic();
+          document.getElementById('card_11').classList.remove('hidden');
+          document.getElementById('scene11').classList.remove('hidden');
         });
 
         const card11 = document.getElementById('card_11');
@@ -296,6 +298,9 @@
           document.getElementById('card_11').classList.add('hidden');
           document.getElementById('scene11').classList.add('hidden');
           pauseMusic();
+          document.getElementById('card_12').classList.remove('hidden');
+          document.getElementById('scene12').classList.remove('hidden');
+          playMusic('assets/thirdia3.wav');
         });
 
         const card12 = document.getElementById('card_12');
