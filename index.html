@@ -131,243 +131,104 @@
         });
 
 
-        const card1 = document.getElementById('card_1');
-        card1.addEventListener("click", event => {
-          console.log('card_1 clicked');
-          document.getElementById('card_1').classList.add('hidden');
-          document.getElementById('scene1').classList.add('hidden');
-          document.getElementById('card_2').classList.remove('hidden');
-          document.getElementById('scene2').classList.remove('hidden');
-          pauseMusic();
-        });
-  
-        const optionA = document.getElementById('optionA');
-        const optionB = document.getElementById('optionB');
-        const optionC = document.getElementById('optionC');
-        const optionD = document.getElementById('optionD');
-        const optionE = document.getElementById('optionE');
-        const optionF = document.getElementById('optionF');
-        const optionG = document.getElementById('optionG');
-        const optionH = document.getElementById('optionH');
-        const optionI = document.getElementById('optionI');
-        const optionJ = document.getElementById('optionJ');
-        const optionK = document.getElementById('optionK');
-        const optionL = document.getElementById('optionL');
-        const optionM = document.getElementById('optionM');
-        const optionN = document.getElementById('optionN');
-        const optionO = document.getElementById('optionO');
-        const optionP = document.getElementById('optionP');
-        const optionQ = document.getElementById('optionQ');
-        const optionR = document.getElementById('optionR');
-        const optionS = document.getElementById('optionS');
-        const optionT = document.getElementById('optionT');
-        const optionU = document.getElementById('optionU');
-        const optionV = document.getElementById('optionV');
-        const optionW = document.getElementById('optionW');
-        const optionX = document.getElementById('optionX');
 
-  
-        const showMessage = (message) => {
-          const messageElement = document.getElementById('message');
-          messageElement.textContent = message;
-          document.getElementById('card_2').classList.add('hidden');
-          document.getElementById('scene2').classList.add('hidden');
-          document.getElementById('card_3').classList.remove('hidden');
-          
-        };
-  
-        const card3 = document.getElementById('card_3');
-        card3.addEventListener("click", event => {
-          console.log('card_3 clicked');
-          document.getElementById('card_3').classList.add('hidden');
-          document.getElementById('scene3').classList.add('hidden');
-          pauseMusic();
-          document.getElementById('card_4').classList.remove('hidden');
-          document.getElementById('scene4').classList.remove('hidden');
-          playMusic('assets/1-2.wav');
-          console.log('Music playing');
-        });
-  
-        const card4 = document.getElementById('card_4');
-        card4.addEventListener("click", event => {
-          console.log('card_4 clicked');
-          document.getElementById('card_4').classList.add('hidden');
-          document.getElementById('scene4').classList.add('hidden');
-          pauseMusic();
-        });
-        const card5 = document.getElementById('card_5');
-        card5.addEventListener("click", event => {
-          console.log('card_5 clicked');
-          document.getElementById('card_5').classList.add('hidden');
-          document.getElementById('scene5').classList.add('hidden');
-          document.getElementById('card_6').classList.remove('hidden');
-          document.getElementById('scene6').classList.remove('hidden');
-          pauseMusic();
-        });
-        const card6 = document.getElementById('card_6');
-        card6.addEventListener("click", event => {
-          console.log('card_6 clicked');
-          document.getElementById('card_6').classList.add('hidden');
-          document.getElementById('scene6').classList.add('hidden');
-          document.getElementById('card_7').classList.remove('hidden');
-          document.getElementById('scene7').classList.remove('hidden');
-          playMusic('assets/2-2.wav');
-          console.log('Music playing');
-        });
-        const card7 = document.getElementById('card_7');
-        card7.addEventListener("click", event => {
-          console.log('card_7 clicked');
-          document.getElementById('card_7').classList.add('hidden');
-          document.getElementById('scene7').classList.add('hidden');
-          pauseMusic();
-          document.getElementById('card_8').classList.remove('hidden');
-          document.getElementById('scene8').classList.remove('hidden');
-          playMusic('assets/2-3.wav');
-          console.log('Music playing');
-        });
-        const card8 = document.getElementById('card_8');
-        card8.addEventListener("click", event => {
-          console.log('card_8 clicked');
-          document.getElementById('card_8').classList.add('hidden');
-          document.getElementById('scene8').classList.add('hidden');
-          pauseMusic();
 
-        });
-        const card9 = document.getElementById('card_9');
-        card9.addEventListener("click", event => {
-          console.log('card_9 clicked');
-          document.getElementById('card_9').classList.add('hidden');
-          document.getElementById('scene9').classList.add('hidden');
-          pauseMusic();
-          document.getElementById('card_10').classList.remove('hidden');
-          document.getElementById('scene10').classList.remove('hidden');
+          targets.forEach(target => {
+            const { id, sceneId, cardId, music } = target;
+            const targetElement = document.querySelector(`#${id}`);
+            const sceneElement = document.getElementById(sceneId);
+            const cardElement = document.getElementById(cardId);
+
+            targetElement.addEventListener("targetFound", async event => {
+              console.log(`${id} found`);
+              sceneElement.classList.remove('hidden');
+              cardElement.classList.remove('hidden');
+              if (music) await playMusic(music);
+            });
+
+            targetElement.addEventListener("targetLost", event => {
+              console.log(`${id} lost`);
+              cardElement.classList.add('hidden');
+              sceneElement.classList.add('hidden');
+              if (music) pauseMusic();
+            });
+          });
+
+          // General function to handle card clicks
+          const handleCardClick = (currentCard, currentScene, nextCard, nextScene, music) => {
+            console.log(`${currentCard.id} clicked`);
+            currentCard.classList.add('hidden');
+            currentScene.classList.add('hidden');
+            pauseMusic();
+            if (nextCard && nextScene) {
+              nextCard.classList.remove('hidden');
+              nextScene.classList.remove('hidden');
+              if (music) playMusic(music);
+            }
+          };
+
+          // Array of card sequences
+          const cards = [
+            { currentCard: 'card_1', currentScene: 'scene1', nextCard: 'card_2', nextScene: 'scene2', music: null },
+            { currentCard: 'card_3', currentScene: 'scene3', nextCard: 'card_4', nextScene: 'scene4', music: 'assets/1-2.wav' },
+            { currentCard: 'card_4', currentScene: 'scene4', nextCard: null, nextScene: null, music: null },
+            { currentCard: 'card_5', currentScene: 'scene5', nextCard: 'card_6', nextScene: 'scene6', music: null },
+            { currentCard: 'card_6', currentScene: 'scene6', nextCard: 'card_7', nextScene: 'scene7', music: 'assets/2-2.wav' },
+            { currentCard: 'card_7', currentScene: 'scene7', nextCard: 'card_8', nextScene: 'scene8', music: 'assets/2-3.wav' },
+            { currentCard: 'card_8', currentScene: 'scene8', nextCard: null, nextScene: null, music: null },
+            { currentCard: 'card_9', currentScene: 'scene9', nextCard: 'card_10', nextScene: 'scene10', music: null },
+            { currentCard: 'card_10', currentScene: 'scene10', nextCard: 'card_11', nextScene: 'scene11', music: 'assets/3-2.wav' },
+            { currentCard: 'card_11', currentScene: 'scene11', nextCard: 'card_12', nextScene: 'scene12', music: null },
+            { currentCard: 'card_12', currentScene: 'scene12', nextCard: 'card_13', nextScene: 'scene13', music: 'assets/3-3.wav' },
+            { currentCard: 'card_13', currentScene: 'scene13', nextCard: null, nextScene: null, music: null },
+            { currentCard: 'card_14', currentScene: 'scene14', nextCard: 'card_15', nextScene: 'scene15', music: null },
+            { currentCard: 'card_15', currentScene: 'scene15', nextCard: 'card_16', nextScene: 'scene16', music: 'assets/4-2.wav' },
+            { currentCard: 'card_16', currentScene: 'scene16', nextCard: 'card_17', nextScene: 'scene17', music: null },
+            { currentCard: 'card_17', currentScene: 'scene17', nextCard: 'card_18', nextScene: 'scene18', music: 'assets/4-3.wav' },
+            { currentCard: 'card_18', currentScene: 'scene18', nextCard: null, nextScene: null, music: null },
+            { currentCard: 'card_19', currentScene: 'scene19', nextCard: 'card_20', nextScene: 'scene20', music: 'assets/5.wav' },
+            { currentCard: 'card_20', currentScene: 'scene20', nextCard: 'card_21', nextScene: 'scene21', music: null },
+            { currentCard: 'card_21', currentScene: 'scene21', nextCard: 'card_22', nextScene: 'scene22', music: 'assets/5-2.wav' },
+            { currentCard: 'card_22', currentScene: 'scene22', nextCard: 'card_23', nextScene: 'scene23', music: 'assets/5-3.wav' },
+            { currentCard: 'card_23', currentScene: 'scene23', nextCard: null, nextScene: null, music: null },
+          ];
+
+          cards.forEach(({ currentCard, currentScene, nextCard, nextScene, music }) => {
+            const currentCardElement = document.getElementById(currentCard);
+            const currentSceneElement = document.getElementById(currentScene);
+            const nextCardElement = nextCard ? document.getElementById(nextCard) : null;
+            const nextSceneElement = nextScene ? document.getElementById(nextScene) : null;
+
+            currentCardElement.addEventListener("click", event => {
+              handleCardClick(currentCardElement, currentSceneElement, nextCardElement, nextSceneElement, music);
+            });
+          });
+
+          // Function to handle option selection and show message
+          const showMessage = (message) => {
+            const messageElement = document.getElementById('message');
+            messageElement.textContent = message;
+            document.getElementById('card_2').classList.add('hidden');
+            document.getElementById('scene2').classList.add('hidden');
+            document.getElementById('card_3').classList.remove('hidden');
+          };
+
+          // Array of options
+          const options = [
+            'optionA', 'optionB', 'optionC', 'optionD', 'optionE', 'optionF',
+            'optionG', 'optionH', 'optionI', 'optionJ', 'optionK', 'optionL',
+            'optionM', 'optionN', 'optionO', 'optionP', 'optionQ', 'optionR',
+            'optionS', 'optionT', 'optionU', 'optionV', 'optionW', 'optionX'
+          ];
+
+          options.forEach(optionId => {
+            const optionElement = document.getElementById(optionId);
+            optionElement.addEventListener("click", event => {
+              showMessage(optionId + ' selected');
+            });
+          });
         });
 
-        const card10 = document.getElementById('card_10');
-        card10.addEventListener("click", event => {
-          console.log('card_10 clicked');
-          document.getElementById('card_10').classList.add('hidden');
-          document.getElementById('scene10').classList.add('hidden');
-          document.getElementById('card_11').classList.remove('hidden');
-          document.getElementById('scene11').classList.remove('hidden');
-          playMusic('assets/3-2.wav');
-        });
-
-        const card11 = document.getElementById('card_11');
-        card11.addEventListener("click", event => {
-          console.log('card_11 clicked');
-          document.getElementById('card_11').classList.add('hidden');
-          document.getElementById('scene11').classList.add('hidden');
-          pauseMusic();
-          document.getElementById('card_12').classList.remove('hidden');
-          document.getElementById('scene12').classList.remove('hidden');
-        });
-
-        const card12 = document.getElementById('card_12');
-        card12.addEventListener("click", event => {
-          console.log('card_12 clicked');
-          document.getElementById('card_12').classList.add('hidden');
-          document.getElementById('scene12').classList.add('hidden');
-          document.getElementById('card_13').classList.remove('hidden');
-          document.getElementById('scene13').classList.remove('hidden');
-          playMusic('assets/3-3.wav');
-        });
-        const card13 = document.getElementById('card_13');
-        card13.addEventListener("click", event => {
-          console.log('card_13 clicked');
-          document.getElementById('card_13').classList.add('hidden');
-          document.getElementById('scene13').classList.add('hidden');
-          pauseMusic();
-        });
-
-        const card14 = document.getElementById('card_14');
-        card14.addEventListener("click", event => {
-          console.log('card_14 clicked');
-          document.getElementById('card_14').classList.add('hidden');
-          document.getElementById('scene14').classList.add('hidden');
-          pauseMusic();
-          document.getElementById('card_15').classList.remove('hidden');
-          document.getElementById('scene15').classList.remove('hidden');
-        });
-
-        const card15 = document.getElementById('card_15');
-        card15.addEventListener("click", event => {
-          console.log('card_15 clicked');
-          document.getElementById('card_15').classList.add('hidden');
-          document.getElementById('scene15').classList.add('hidden');
-          document.getElementById('card_16').classList.remove('hidden');
-          document.getElementById('scene16').classList.remove('hidden');
-          playMusic('assets/4-2.wav');
-        });
-        const card16 = document.getElementById('card_16');
-        card16.addEventListener("click", event => {
-          console.log('card_16 clicked');
-          document.getElementById('card_16').classList.add('hidden');
-          document.getElementById('scene16').classList.add('hidden');
-          pauseMusic();
-          document.getElementById('card_17').classList.remove('hidden');
-          document.getElementById('scene17').classList.remove('hidden');
-        });
-        const card17 = document.getElementById('card_17');
-        card17.addEventListener("click", event => {
-          console.log('card_17 clicked');
-          document.getElementById('card_17').classList.add('hidden');
-          document.getElementById('scene17').classList.add('hidden');
-          document.getElementById('card_18').classList.remove('hidden');
-          document.getElementById('scene18').classList.remove('hidden');
-          playMusic('assets/4-3.wav');
-        });
-        const card18 = document.getElementById('card_18');
-        card18.addEventListener("click", event => {
-          console.log('card_18 clicked');
-          document.getElementById('card_18').classList.add('hidden');
-          document.getElementById('scene18').classList.add('hidden');
-          pauseMusic();
-        });
-        const card19 = document.getElementById('card_19');
-        card19.addEventListener("click", event => {
-          console.log('card_19 clicked');
-          document.getElementById('card_19').classList.add('hidden');
-          document.getElementById('scene19').classList.add('hidden');
-          document.getElementById('card_20').classList.remove('hidden');
-          document.getElementById('scene20').classList.remove('hidden');
-          playMusic('assets/5.wav');
-        });
-        const card20 = document.getElementById('card_20');
-        card20.addEventListener("click", event => {
-          console.log('card_20 clicked');
-          document.getElementById('card_20').classList.add('hidden');
-          document.getElementById('scene20').classList.add('hidden');
-          pauseMusic();
-          document.getElementById('card_21').classList.remove('hidden');
-          document.getElementById('scene21').classList.remove('hidden');
-        });
-        const card21 = document.getElementById('card_21');
-        card21.addEventListener("click", event => {
-          console.log('card_21 clicked');
-          document.getElementById('card_21').classList.add('hidden');
-          document.getElementById('scene21').classList.add('hidden');
-          document.getElementById('card_22').classList.remove('hidden');
-          document.getElementById('scene22').classList.remove('hidden');
-          playMusic('assets/5-2.wav');
-        });
-        const card22 = document.getElementById('card_22');
-        card22.addEventListener("click", event => {
-          console.log('card_22 clicked');
-          document.getElementById('card_22').classList.add('hidden');
-          document.getElementById('scene22').classList.add('hidden');
-          pauseMusic();
-          document.getElementById('card_23').classList.remove('hidden');
-          document.getElementById('scene23').classList.remove('hidden');
-          playMusic('assets/5-3.wav');
-        });
-        const card23 = document.getElementById('card_23');
-        card23.addEventListener("click", event => {
-          console.log('card_23 clicked');
-          document.getElementById('card_23').classList.add('hidden');
-          document.getElementById('scene23').classList.add('hidden');
-          pauseMusic();
-        });
         // 選項控制
         optionA.addEventListener("click", () => {
           console.log('Option A clicked');
