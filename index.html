@@ -95,80 +95,41 @@
       document.addEventListener("DOMContentLoaded", function () {
         const sceneEl = document.querySelector('a-scene');
         let arSystem;
-  
+
         sceneEl.addEventListener('loaded', function () {
           console.log('AR scene loaded');
           arSystem = sceneEl.systems["mindar-image-system"];
-  
-          const targetA = document.querySelector("#targetA");
-          const targetB = document.querySelector("#targetB");
-          const targetC = document.querySelector("#targetC");
-          const targetD = document.querySelector("#targetD");
-          const targetE = document.querySelector("#targetE");
-          targetA.addEventListener("targetFound", async event => {
-            console.log('target found');
-            document.getElementById('scene1').classList.remove('hidden');
-            document.getElementById('card_1').classList.remove('hidden');
-            await playMusic('assets/firstdia.wav');
-          });
-  
-          targetA.addEventListener("targetLost", event => {
-            console.log('target lost');
-            document.getElementById('card_1').classList.add('hidden');
-            document.getElementById('scene1').classList.add('hidden');
-            pauseMusic();
-          });
-          targetB.addEventListener("targetFound", async event => {
-            console.log('target found');
-            document.getElementById('scene5').classList.remove('hidden');
-            document.getElementById('card_5').classList.remove('hidden');
-            await playMusic('assets/secondia.wav');
-          });
-  
-          targetB.addEventListener("targetLost", event => {
-            console.log('target lost');
-            document.getElementById('card_5').classList.add('hidden');
-            document.getElementById('scene5').classList.add('hidden');
-            pauseMusic();
-          });
-          targetC.addEventListener("targetFound", async event => {
-            console.log('target found');
-            document.getElementById('scene9').classList.remove('hidden');
-            document.getElementById('card_9').classList.remove('hidden');
-            await playMusic('assets/thirdia.wav');
-          });
-  
-          targetC.addEventListener("targetLost", event => {
-            console.log('target lost');
-            document.getElementById('card_9').classList.add('hidden');
-            document.getElementById('scene9').classList.add('hidden');
-            pauseMusic();
-          });
-          targetD.addEventListener("targetFound", async event => {
-            console.log('target found');
-            document.getElementById('scene14').classList.remove('hidden');
-            document.getElementById('card_14').classList.remove('hidden');
-            await playMusic('assets/fourthdia.wav');
-          });
-  
-          targetD.addEventListener("targetLost", event => {
-            console.log('target lost');
-            document.getElementById('card_14').classList.add('hidden');
-            document.getElementById('scene14').classList.add('hidden');
-            pauseMusic();
-          });
-          targetE.addEventListener("targetFound", async event => {
-            console.log('target found');
-            document.getElementById('scene19').classList.remove('hidden');
-            document.getElementById('card_19').classList.remove('hidden');
-          });
-  
-          targetE.addEventListener("targetLost", event => {
-            console.log('target lost');
-            document.getElementById('card_19').classList.add('hidden');
-            document.getElementById('scene19').classList.add('hidden');
+
+          const targets = [
+            { id: 'targetA', sceneId: 'scene1', cardId: 'card_1', music: 'assets/1.wav' },
+            { id: 'targetB', sceneId: 'scene5', cardId: 'card_5', music: 'assets/2.wav' },
+            { id: 'targetC', sceneId: 'scene9', cardId: 'card_9', music: 'assets/3.wav' },
+            { id: 'targetD', sceneId: 'scene14', cardId: 'card_14', music: 'assets/4.wav' },
+            { id: 'targetE', sceneId: 'scene19', cardId: 'card_19', music: null }
+          ];
+
+          targets.forEach(target => {
+            const { id, sceneId, cardId, music } = target;
+            const targetElement = document.querySelector(`#${id}`);
+            const sceneElement = document.getElementById(sceneId);
+            const cardElement = document.getElementById(cardId);
+
+            targetElement.addEventListener("targetFound", async event => {
+              console.log('target found');
+              sceneElement.classList.remove('hidden');
+              cardElement.classList.remove('hidden');
+              if (music) await playMusic(music);
+            });
+
+            targetElement.addEventListener("targetLost", event => {
+              console.log('target lost');
+              cardElement.classList.add('hidden');
+              sceneElement.classList.add('hidden');
+              if (music) pauseMusic();
+            });
           });
         });
+
 
         const card1 = document.getElementById('card_1');
         card1.addEventListener("click", event => {
@@ -223,7 +184,7 @@
           pauseMusic();
           document.getElementById('card_4').classList.remove('hidden');
           document.getElementById('scene4').classList.remove('hidden');
-          playMusic('assets/firstdia2.wav');
+          playMusic('assets/1-2.wav');
           console.log('Music playing');
         });
   
@@ -250,7 +211,7 @@
           document.getElementById('scene6').classList.add('hidden');
           document.getElementById('card_7').classList.remove('hidden');
           document.getElementById('scene7').classList.remove('hidden');
-          playMusic('assets/secondia2.wav');
+          playMusic('assets/2-2.wav');
           console.log('Music playing');
         });
         const card7 = document.getElementById('card_7');
@@ -261,7 +222,7 @@
           pauseMusic();
           document.getElementById('card_8').classList.remove('hidden');
           document.getElementById('scene8').classList.remove('hidden');
-          playMusic('assets/secondia3.wav');
+          playMusic('assets/2-3.wav');
           console.log('Music playing');
         });
         const card8 = document.getElementById('card_8');
@@ -289,7 +250,7 @@
           document.getElementById('scene10').classList.add('hidden');
           document.getElementById('card_11').classList.remove('hidden');
           document.getElementById('scene11').classList.remove('hidden');
-          playMusic('assets/thirdia2.wav');
+          playMusic('assets/3-2.wav');
         });
 
         const card11 = document.getElementById('card_11');
@@ -309,7 +270,7 @@
           document.getElementById('scene12').classList.add('hidden');
           document.getElementById('card_13').classList.remove('hidden');
           document.getElementById('scene13').classList.remove('hidden');
-          playMusic('assets/thirdia3.wav');
+          playMusic('assets/3-3.wav');
         });
         const card13 = document.getElementById('card_13');
         card13.addEventListener("click", event => {
@@ -336,7 +297,7 @@
           document.getElementById('scene15').classList.add('hidden');
           document.getElementById('card_16').classList.remove('hidden');
           document.getElementById('scene16').classList.remove('hidden');
-          playMusic('assets/fourthdia2.wav');
+          playMusic('assets/4-2.wav');
         });
         const card16 = document.getElementById('card_16');
         card16.addEventListener("click", event => {
@@ -354,7 +315,7 @@
           document.getElementById('scene17').classList.add('hidden');
           document.getElementById('card_18').classList.remove('hidden');
           document.getElementById('scene18').classList.remove('hidden');
-          playMusic('assets/fourthdia3.wav');
+          playMusic('assets/4-3.wav');
         });
         const card18 = document.getElementById('card_18');
         card18.addEventListener("click", event => {
@@ -370,7 +331,7 @@
           document.getElementById('scene19').classList.add('hidden');
           document.getElementById('card_20').classList.remove('hidden');
           document.getElementById('scene20').classList.remove('hidden');
-          playMusic('assets/fifthdia.wav');
+          playMusic('assets/5.wav');
         });
         const card20 = document.getElementById('card_20');
         card20.addEventListener("click", event => {
@@ -388,7 +349,7 @@
           document.getElementById('scene21').classList.add('hidden');
           document.getElementById('card_22').classList.remove('hidden');
           document.getElementById('scene22').classList.remove('hidden');
-          playMusic('assets/fifthdia2.wav');
+          playMusic('assets/5-2.wav');
         });
         const card22 = document.getElementById('card_22');
         card22.addEventListener("click", event => {
@@ -398,7 +359,7 @@
           pauseMusic();
           document.getElementById('card_23').classList.remove('hidden');
           document.getElementById('scene23').classList.remove('hidden');
-          playMusic('assets/final.wav');
+          playMusic('assets/5-3.wav');
         });
         const card23 = document.getElementById('card_23');
         card23.addEventListener("click", event => {
