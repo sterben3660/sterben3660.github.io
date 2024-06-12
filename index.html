@@ -215,13 +215,6 @@
             console.log('Option C clicked');
             showMessage('歡迎你第一次來美濃窯');
           });
-
-          options.forEach(optionId => {
-            const optionElement = document.getElementById(optionId);
-            optionElement.addEventListener("click", event => {
-              showMessage(optionId + ' selected');
-            });
-          });
         });
 
         
