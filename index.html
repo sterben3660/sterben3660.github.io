@@ -93,39 +93,82 @@
       };
   
       document.addEventListener("DOMContentLoaded", function () {
-      const sceneEl = document.querySelector('a-scene');
-      let arSystem;
-
-      sceneEl.addEventListener('loaded', function () {
-        console.log('AR scene loaded');
-        arSystem = sceneEl.systems["mindar-image-system"];
-
-        // 定义目标元素的 ID 列表
-        const targetIds = ["targetA", "targetB", "targetC", "targetD", "targetE"];
-
-        // 遍历目标元素，为每个目标元素绑定事件处理程序
-        targetIds.forEach(targetId => {
-          const target = document.querySelector(`#${targetId}`);
-          target.addEventListener("targetFound", async event => {
-              console.log(`${targetId} target found`);
-              document.getElementById(`scene${targetId.slice(-1)}`).classList.remove('hidden');
-              document.getElementById(`card_${targetId.slice(-1)}`).classList.remove('hidden');
-              if (targetId !== "targetE") {
-                  await playMusic(`assets/${targetId.slice(-1)}dia.wav`);
-              }
+        const sceneEl = document.querySelector('a-scene');
+        let arSystem;
+  
+        sceneEl.addEventListener('loaded', function () {
+          console.log('AR scene loaded');
+          arSystem = sceneEl.systems["mindar-image-system"];
+  
+          const targetA = document.querySelector("#targetA");
+          const targetB = document.querySelector("#targetB");
+          const targetC = document.querySelector("#targetC");
+          const targetD = document.querySelector("#targetD");
+          const targetE = document.querySelector("#targetE");
+          targetA.addEventListener("targetFound", async event => {
+            console.log('target found');
+            document.getElementById('scene1').classList.remove('hidden');
+            document.getElementById('card_1').classList.remove('hidden');
+            await playMusic('assets/firstdia.wav');
           });
-
-          target.addEventListener("targetLost", event => {
-              console.log(`${targetId} target lost`);
-              document.getElementById(`card_${targetId.slice(-1)}`).classList.add('hidden');
-              document.getElementById(`scene${targetId.slice(-1)}`).classList.add('hidden');
-              if (targetId !== "targetE") {
-                  pauseMusic();
-              }
+  
+          targetA.addEventListener("targetLost", event => {
+            console.log('target lost');
+            document.getElementById('card_1').classList.add('hidden');
+            document.getElementById('scene1').classList.add('hidden');
+            pauseMusic();
+          });
+          targetB.addEventListener("targetFound", async event => {
+            console.log('target found');
+            document.getElementById('scene5').classList.remove('hidden');
+            document.getElementById('card_5').classList.remove('hidden');
+            await playMusic('assets/secondia.wav');
+          });
+  
+          targetB.addEventListener("targetLost", event => {
+            console.log('target lost');
+            document.getElementById('card_5').classList.add('hidden');
+            document.getElementById('scene5').classList.add('hidden');
+            pauseMusic();
+          });
+          targetC.addEventListener("targetFound", async event => {
+            console.log('target found');
+            document.getElementById('scene9').classList.remove('hidden');
+            document.getElementById('card_9').classList.remove('hidden');
+            await playMusic('assets/thirdia.wav');
+          });
+  
+          targetC.addEventListener("targetLost", event => {
+            console.log('target lost');
+            document.getElementById('card_9').classList.add('hidden');
+            document.getElementById('scene9').classList.add('hidden');
+            pauseMusic();
+          });
+          targetD.addEventListener("targetFound", async event => {
+            console.log('target found');
+            document.getElementById('scene14').classList.remove('hidden');
+            document.getElementById('card_14').classList.remove('hidden');
+            await playMusic('assets/fourthdia.wav');
+          });
+  
+          targetD.addEventListener("targetLost", event => {
+            console.log('target lost');
+            document.getElementById('card_14').classList.add('hidden');
+            document.getElementById('scene14').classList.add('hidden');
+            pauseMusic();
+          });
+          targetE.addEventListener("targetFound", async event => {
+            console.log('target found');
+            document.getElementById('scene19').classList.remove('hidden');
+            document.getElementById('card_19').classList.remove('hidden');
+          });
+  
+          targetE.addEventListener("targetLost", event => {
+            console.log('target lost');
+            document.getElementById('card_19').classList.add('hidden');
+            document.getElementById('scene19').classList.add('hidden');
           });
         });
-      });
-    
 
         const card1 = document.getElementById('card_1');
         card1.addEventListener("click", event => {
@@ -381,7 +424,7 @@
         });
 
 
-      }); 
+      });
     </script>
 </head>
 
