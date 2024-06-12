@@ -133,26 +133,6 @@
 
 
 
-          targets.forEach(target => {
-            const { id, sceneId, cardId, music } = target;
-            const targetElement = document.querySelector(`#${id}`);
-            const sceneElement = document.getElementById(sceneId);
-            const cardElement = document.getElementById(cardId);
-
-            targetElement.addEventListener("targetFound", async event => {
-              console.log(`${id} found`);
-              sceneElement.classList.remove('hidden');
-              cardElement.classList.remove('hidden');
-              if (music) await playMusic(music);
-            });
-
-            targetElement.addEventListener("targetLost", event => {
-              console.log(`${id} lost`);
-              cardElement.classList.add('hidden');
-              sceneElement.classList.add('hidden');
-              if (music) pauseMusic();
-            });
-          });
 
           // General function to handle card clicks
           const handleCardClick = (currentCard, currentScene, nextCard, nextScene, music) => {
