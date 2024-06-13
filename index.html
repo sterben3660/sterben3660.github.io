@@ -260,15 +260,16 @@
           console.log('Option C clicked');
           showMessage('歡迎你第一次來美濃窯');
         });
+        document.getElementById('start-ar-button').addEventListener("click", () => {
+          document.getElementById('usage-instructions').classList.add('hidden');
+          document.getElementById('experience').classList.remove('hidden');
+        });
       });
 
       
   </script>
   <script>
-    document.getElementById('start-ar-button').addEventListener('click', function() {
-      document.getElementById('usage-instructions').classList.add('hidden');
-      document.getElementById('experience').classList.remove('hidden');
-    });
+    
   </script>
 </head>
 
@@ -277,12 +278,6 @@
     
   <div id="usage-instructions" class="dialog">
     <img src="assets/hua.jpg" alt="Usage Instructions" style="width: 100%; max-width: 600px;">
-    <br>
-    <!-- <audio id="instruction-audio" controls>
-      <source src="assets/instruction-audio.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio> -->
-    <br>
     <button id="start-ar-button">Start AR Experience</button>
   </div>
   <a-scene mindar-image="imageTargetSrc: assets/targets.mind; filterMinCF:0.0001; filterBeta: 0.001" color-space="sRGB"
