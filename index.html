@@ -34,7 +34,8 @@
     #card_20,
     #card_21,
     #card_22,
-    #card_23
+    #card_23,
+    #card_24
      {
       position: fixed;
       bottom: 5%;
@@ -260,18 +261,19 @@
 </head>
 
 <body>
+  <div id="beginning">
+    <img id="character" src="assets/hua.jpg" alt="">
+    <h3 class="dialog">你好呀，我是導覽員小花，歡迎你來到美濃窯－陶藝基地</h3>
+  </div>
   <a-scene mindar-image="imageTargetSrc: assets/targets.mind; filterMinCF:0.0001; filterBeta: 0.001" color-space="sRGB"
   renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
   device-orientation-permission-ui="enabled: false" >
     <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;"
       raycaster="near: 10; far: 30000; objects: .clickable"></a-camera>
 
-    <a-entity>
-      <div id="beginning">
-        <img id="character" src="assets/hua.jpg" alt="">
-        <h3 class="dialog">你好呀，我是導覽員小花，歡迎你來到美濃窯－陶藝基地</h3>
-      </div>
-    </a-entity>
+    
+      
+    
     <a-entity target id="targetA" mindar-image-target="targetIndex: 0" rotation="75 0 0">
       <div id="card_1" class="hidden clickable">
         <div id="scene1" class="hidden">
@@ -320,7 +322,7 @@
       </div>
       <div id="card_7" class="hidden">
         <div id="scene7">
-          <h3 class="dialog">這些陶片的尺寸為20*10公分，剛上釉料時是無法看到色彩的，要等燒製完成後，顏色才會顯現出來，所以製作陶藝，就是一場藝術冒險哦。</h3>
+          <h3 class="dialog">這些陶片的尺寸為10×20公分，剛上釉料時是無法看到色彩的，要等燒製完成後，顏色才會顯現出來，所以製作陶藝，就是一場藝術冒險哦。</h3>
         </div>
       </div>
       <div id="card_8" class="hidden">
