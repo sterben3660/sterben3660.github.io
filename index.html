@@ -178,95 +178,98 @@
 
 
 
-          // General function to handle card clicks
-          const handleCardClick = (currentCard, currentScene, nextCard, nextScene, music) => {
-            console.log(`${currentCard.id} clicked`);
-            currentCard.classList.add('hidden');
-            currentScene.classList.add('hidden');
-            pauseMusic();
-            if (nextCard && nextScene) {
-              nextCard.classList.remove('hidden');
-              nextScene.classList.remove('hidden');
-              if (music) playMusic(music);
-            }
-          };
+        // General function to handle card clicks
+        const handleCardClick = (currentCard, currentScene, nextCard, nextScene, music) => {
+          console.log(`${currentCard.id} clicked`);
+          currentCard.classList.add('hidden');
+          currentScene.classList.add('hidden');
+          pauseMusic();
+          if (nextCard && nextScene) {
+            nextCard.classList.remove('hidden');
+            nextScene.classList.remove('hidden');
+            if (music) playMusic(music);
+          }
+        };
 
-          // Array of card sequences
-          const cards = [
-            { currentCard: 'card_1', currentScene: 'scene1', nextCard: 'card_2', nextScene: 'scene2', music: null },
-            { currentCard: 'card_3', currentScene: 'scene3', nextCard: 'card_4', nextScene: 'scene4', music: 'assets/1-2.wav' },
-            { currentCard: 'card_4', currentScene: 'scene4', nextCard: null, nextScene: null, music: null },
-            { currentCard: 'card_5', currentScene: 'scene5', nextCard: 'card_6', nextScene: 'scene6', music: null },
-            { currentCard: 'card_6', currentScene: 'scene6', nextCard: 'card_7', nextScene: 'scene7', music: 'assets/2-2.wav' },
-            { currentCard: 'card_7', currentScene: 'scene7', nextCard: 'card_8', nextScene: 'scene8', music: 'assets/2-3.wav' },
-            { currentCard: 'card_8', currentScene: 'scene8', nextCard: null, nextScene: null, music: null },
-            { currentCard: 'card_9', currentScene: 'scene9', nextCard: 'card_10', nextScene: 'scene10', music: null },
-            { currentCard: 'card_10', currentScene: 'scene10', nextCard: 'card_11', nextScene: 'scene11', music: 'assets/3-2.wav' },
-            { currentCard: 'card_11', currentScene: 'scene11', nextCard: 'card_12', nextScene: 'scene12', music: null },
-            { currentCard: 'card_12', currentScene: 'scene12', nextCard: 'card_13', nextScene: 'scene13', music: 'assets/3-3.wav' },
-            { currentCard: 'card_13', currentScene: 'scene13', nextCard: null, nextScene: null, music: null },
-            { currentCard: 'card_14', currentScene: 'scene14', nextCard: 'card_15', nextScene: 'scene15', music: null },
-            { currentCard: 'card_15', currentScene: 'scene15', nextCard: 'card_16', nextScene: 'scene16', music: 'assets/4-2.wav' },
-            { currentCard: 'card_16', currentScene: 'scene16', nextCard: 'card_17', nextScene: 'scene17', music: null },
-            { currentCard: 'card_17', currentScene: 'scene17', nextCard: 'card_18', nextScene: 'scene18', music: 'assets/4-3.wav' },
-            { currentCard: 'card_18', currentScene: 'scene18', nextCard: null, nextScene: null, music: null },
-            { currentCard: 'card_19', currentScene: 'scene19', nextCard: 'card_20', nextScene: 'scene20', music: 'assets/5.wav' },
-            { currentCard: 'card_20', currentScene: 'scene20', nextCard: 'card_21', nextScene: 'scene21', music: null },
-            { currentCard: 'card_21', currentScene: 'scene21', nextCard: 'card_22', nextScene: 'scene22', music: 'assets/5-2.wav' },
-            { currentCard: 'card_22', currentScene: 'scene22', nextCard: 'card_23', nextScene: 'scene23', music: 'assets/5-3.wav' },
-            { currentCard: 'card_23', currentScene: 'scene23', nextCard: 'card_24', nextScene: 'scene24', music: 'assets/5-4.wav' },
-            { currentCard: 'card_24', currentScene: 'scene24', nextCard: null, nextScene: null, music: null },
-          ];
+        // Array of card sequences
+        const cards = [
+          { currentCard: 'card_1', currentScene: 'scene1', nextCard: 'card_2', nextScene: 'scene2', music: null },
+          { currentCard: 'card_3', currentScene: 'scene3', nextCard: 'card_4', nextScene: 'scene4', music: 'assets/1-2.wav' },
+          { currentCard: 'card_4', currentScene: 'scene4', nextCard: null, nextScene: null, music: null },
+          { currentCard: 'card_5', currentScene: 'scene5', nextCard: 'card_6', nextScene: 'scene6', music: null },
+          { currentCard: 'card_6', currentScene: 'scene6', nextCard: 'card_7', nextScene: 'scene7', music: 'assets/2-2.wav' },
+          { currentCard: 'card_7', currentScene: 'scene7', nextCard: 'card_8', nextScene: 'scene8', music: 'assets/2-3.wav' },
+          { currentCard: 'card_8', currentScene: 'scene8', nextCard: null, nextScene: null, music: null },
+          { currentCard: 'card_9', currentScene: 'scene9', nextCard: 'card_10', nextScene: 'scene10', music: null },
+          { currentCard: 'card_10', currentScene: 'scene10', nextCard: 'card_11', nextScene: 'scene11', music: 'assets/3-2.wav' },
+          { currentCard: 'card_11', currentScene: 'scene11', nextCard: 'card_12', nextScene: 'scene12', music: null },
+          { currentCard: 'card_12', currentScene: 'scene12', nextCard: 'card_13', nextScene: 'scene13', music: 'assets/3-3.wav' },
+          { currentCard: 'card_13', currentScene: 'scene13', nextCard: null, nextScene: null, music: null },
+          { currentCard: 'card_14', currentScene: 'scene14', nextCard: 'card_15', nextScene: 'scene15', music: null },
+          { currentCard: 'card_15', currentScene: 'scene15', nextCard: 'card_16', nextScene: 'scene16', music: 'assets/4-2.wav' },
+          { currentCard: 'card_16', currentScene: 'scene16', nextCard: 'card_17', nextScene: 'scene17', music: null },
+          { currentCard: 'card_17', currentScene: 'scene17', nextCard: 'card_18', nextScene: 'scene18', music: 'assets/4-3.wav' },
+          { currentCard: 'card_18', currentScene: 'scene18', nextCard: null, nextScene: null, music: null },
+          { currentCard: 'card_19', currentScene: 'scene19', nextCard: 'card_20', nextScene: 'scene20', music: 'assets/5.wav' },
+          { currentCard: 'card_20', currentScene: 'scene20', nextCard: 'card_21', nextScene: 'scene21', music: null },
+          { currentCard: 'card_21', currentScene: 'scene21', nextCard: 'card_22', nextScene: 'scene22', music: 'assets/5-2.wav' },
+          { currentCard: 'card_22', currentScene: 'scene22', nextCard: 'card_23', nextScene: 'scene23', music: 'assets/5-3.wav' },
+          { currentCard: 'card_23', currentScene: 'scene23', nextCard: 'card_24', nextScene: 'scene24', music: 'assets/5-4.wav' },
+          { currentCard: 'card_24', currentScene: 'scene24', nextCard: null, nextScene: null, music: null },
+        ];
 
-          cards.forEach(({ currentCard, currentScene, nextCard, nextScene, music }) => {
-            const currentCardElement = document.getElementById(currentCard);
-            const currentSceneElement = document.getElementById(currentScene);
-            const nextCardElement = nextCard ? document.getElementById(nextCard) : null;
-            const nextSceneElement = nextScene ? document.getElementById(nextScene) : null;
+        cards.forEach(({ currentCard, currentScene, nextCard, nextScene, music }) => {
+          const currentCardElement = document.getElementById(currentCard);
+          const currentSceneElement = document.getElementById(currentScene);
+          const nextCardElement = nextCard ? document.getElementById(nextCard) : null;
+          const nextSceneElement = nextScene ? document.getElementById(nextScene) : null;
 
-            currentCardElement.addEventListener("click", event => {
-              handleCardClick(currentCardElement, currentSceneElement, nextCardElement, nextSceneElement, music);
-            });
-          });
-
-          // Function to handle option selection and show message
-          const showMessage = (message) => {
-            const messageElement = document.getElementById('message');
-            messageElement.textContent = message;
-            document.getElementById('card_2').classList.add('hidden');
-            document.getElementById('scene2').classList.add('hidden');
-            document.getElementById('card_3').classList.remove('hidden');
-          };
-
-          // Array of options
-          const options = [
-            'optionA', 'optionB', 'optionC', 'optionD', 'optionE', 'optionF',
-            'optionG', 'optionH', 'optionI', 'optionJ', 'optionK', 'optionL',
-            'optionM', 'optionN', 'optionO', 'optionP', 'optionQ', 'optionR',
-            'optionS', 'optionT', 'optionU', 'optionV', 'optionW', 'optionX'
-          ];
-          // 選項控制
-          optionA.addEventListener("click", () => {
-            console.log('Option A clicked');
-            showMessage('歡迎你第一次來美濃窯');
-          });
-    
-          optionB.addEventListener("click", () => {
-            console.log('Option B clicked');
-            showMessage('哇！太好了！');
-          });
-    
-          optionC.addEventListener("click", () => {
-            console.log('Option C clicked');
-            showMessage('歡迎你第一次來美濃窯');
+          currentCardElement.addEventListener("click", event => {
+            handleCardClick(currentCardElement, currentSceneElement, nextCardElement, nextSceneElement, music);
           });
         });
 
-      document.getElementById('start-ar-button').addEventListener('click', function() {
+        // Function to handle option selection and show message
+        const showMessage = (message) => {
+          const messageElement = document.getElementById('message');
+          messageElement.textContent = message;
+          document.getElementById('card_2').classList.add('hidden');
+          document.getElementById('scene2').classList.add('hidden');
+          document.getElementById('card_3').classList.remove('hidden');
+        };
+
+        // Array of options
+        const options = [
+          'optionA', 'optionB', 'optionC', 'optionD', 'optionE', 'optionF',
+          'optionG', 'optionH', 'optionI', 'optionJ', 'optionK', 'optionL',
+          'optionM', 'optionN', 'optionO', 'optionP', 'optionQ', 'optionR',
+          'optionS', 'optionT', 'optionU', 'optionV', 'optionW', 'optionX'
+        ];
+        // 選項控制
+        optionA.addEventListener("click", () => {
+          console.log('Option A clicked');
+          showMessage('歡迎你第一次來美濃窯');
+        });
+  
+        optionB.addEventListener("click", () => {
+          console.log('Option B clicked');
+          showMessage('哇！太好了！');
+        });
+  
+        optionC.addEventListener("click", () => {
+          console.log('Option C clicked');
+          showMessage('歡迎你第一次來美濃窯');
+        });
+      });
+
+      
+  </script>
+  <script>
+    document.getElementById('start-ar-button').addEventListener('click', function() {
       document.getElementById('usage-instructions').classList.add('hidden');
       document.getElementById('experience').classList.remove('hidden');
     });
-    </script>
+  </script>
 </head>
 
 <body>
