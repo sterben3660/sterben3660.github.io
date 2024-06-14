@@ -101,7 +101,15 @@
     <script>
       let audioContext;
       let sourceNode;
-  
+      
+      function addScene() {
+        var scene = document.createElement("i-frame")
+        scene.setAttribute("src", "ar.html")
+        scene.setAttribute("height", "300")
+        scene.setAttribute("width", "300")
+        document.querySelector("#somecontainer").appendChild(scene)
+      }
+
       const resumeAudioContext = async () => {
         console.log('Resuming AudioContext');
         audioContext = new (window.AudioContext || window.webkitAudioContext)();
