@@ -17,7 +17,7 @@ a{
 
 .backgroundimg{
     position: relative;
-    max-width: 1200px;
+    max-width: 100%;
 }
 .backgroundimg>img{
     max-width: 100%;
@@ -28,7 +28,7 @@ a{
     left: 360px;
     border: 1px solid #ccc;
     padding: 20px;
-    width: 100%;
+    width: 60%;
     height:200px;
     
     text-align: center;
