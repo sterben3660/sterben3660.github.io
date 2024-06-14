@@ -6,47 +6,302 @@
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-face-aframe.prod.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function() {
-	const sceneEl = document.querySelector('a-scene');
-  let arSystem;
-  sceneEl.addEventListener('loaded', function () {
-	  arSystem = sceneEl.systems["mindar-face-system"];
-	});
-	const startButton = document.querySelector("#example-start-button");
-	const stopButton = document.querySelector("#example-stop-button");
-	const switchCameraButton = document.querySelector("#example-switch-camera-button");
-	// arReady event triggered when ready
+	    const sceneEl = document.querySelector('a-scene');
+      let arSystem;
+      sceneEl.addEventListener('loaded', function () {
+        arSystem = sceneEl.systems["mindar-face-system"];
+      });
+      const startButton = document.querySelector("#example-start-button");
+      const stopButton = document.querySelector("#example-stop-button");
+      const switchCameraButton = document.querySelector("#example-switch-camera-button");
+      // arReady event triggered when ready
         sceneEl.addEventListener("arReady", (event) => {
-	  console.log("ar ready");
-        });
-	// detect target found
+        console.log("ar ready");
+            });
+      // detect target found
         sceneEl.addEventListener("targetFound", event => {
           console.log("target found");
         });
-	// detect target lost
+      // detect target lost
         sceneEl.addEventListener("targetLost", event => {
           console.log("target lost");
         });
-	// arError event triggered when something went wrong. Mostly browser compatbility issue
+      // arError event triggered when something went wrong. Mostly browser compatbility issue
         sceneEl.addEventListener("arError", (event) => {
-	  console.log("ar error");
+        console.log("ar error");
         });
-	startButton.addEventListener('click', () => {
-	  arSystem.start(); // start AR 
+        startButton.addEventListener('click', () => {
+        arSystem.start(); // start AR 
         });
-	stopButton.addEventListener('click', () => {
-	  arSystem.stop(); // stop
-	});
-	switchCameraButton.addEventListener('click', () => {
-	  arSystem.switchCamera();
-	});
+        stopButton.addEventListener('click', () => {
+        arSystem.stop(); // stop
+        });
+        switchCameraButton.addEventListener('click', () => {
+        arSystem.switchCamera();
+        });
       });
     </script>
-    <style>
-      body {
-        margin: 0;
-      }
-
-    </style>
+      <style>
+        button{
+          background-color:rgba(120, 196, 240, 0.849);
+          margin: 1% 0;
+          border-radius: 30px;
+          border-color: transparent;
+        }
+        .hidden {
+          display: none;
+        }
+    
+        #card_1,
+        #card_2,
+        #card_3,
+        #card_4,
+        #card_5,
+        #card_6,
+        #card_7,
+        #card_8,
+        #card_9,
+        #card_10,
+        #card_11,
+        #card_12,
+        #card_13,
+        #card_14,
+        #card_15,
+        #card_16,
+        #card_17,
+        #card_18,
+        #card_19,
+        #card_20,
+        #card_21,
+        #card_22,
+        #card_23,
+        #card_24
+         {
+          position: fixed;
+          bottom: 5%;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 80%;
+          height: 15%;
+          background-color: aliceblue;
+          padding: 20px;
+          align-items: center;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          cursor: pointer;
+          z-index: 10;
+        }
+    
+        .dialog span.hidden {
+          visibility: hidden;
+        }
+    
+        @media screen and (max-width:576px) { 
+          h3{
+            font-size: 16px;
+          }
+        }
+        @media screen and (max-width:400px) { 
+          h3{
+            font-size: 14px;
+          }
+          #card_1,
+          #card_2,
+          #card_3,
+          #card_4,
+          #card_5,
+          #card_6,
+          #card_7,
+          #card_8,
+          #card_9,
+          #card_10,
+          #card_11,
+          #card_12,
+          #card_13,
+          #card_14,
+          #card_15,
+          #card_16,
+          #card_17,
+          #card_18,
+          #card_19,
+          #card_20,
+          #card_21,
+          #card_22,
+          #card_23
+          {
+            height:20%;
+          }
+        }  
+      </style>
+        <script>
+          let audioContext;
+          let sourceNode;
+      
+          const resumeAudioContext = async () => {
+            console.log('Resuming AudioContext');
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            await audioContext.resume();
+            console.log('AudioContext resumed');
+          };
+      
+          const getAudio = async (url) => {
+            console.log(`Fetching audio from ${url}`);
+            const response = await fetch(url);
+            const buffer = await response.arrayBuffer();
+            return buffer;
+          };
+      
+          const playMusic = async (url) => {
+            if (!audioContext) {
+              await resumeAudioContext();
+            }
+            const audioBuffer = await getAudio(url);
+            const decodedData = await audioContext.decodeAudioData(audioBuffer);
+            sourceNode = audioContext.createBufferSource();
+            sourceNode.buffer = decodedData;
+            sourceNode.connect(audioContext.destination);
+            sourceNode.start();
+            console.log('Music started');
+          };
+      
+          const pauseMusic = () => {
+            if (sourceNode) {
+              sourceNode.stop();
+              console.log('Music stopped');
+            }
+          };
+      
+          document.addEventListener("DOMContentLoaded", function () {
+            const sceneEl = document.querySelector('a-scene');
+            let arSystem;
+    
+            sceneEl.addEventListener('loaded', function () {
+              console.log('AR scene loaded');
+              arSystem = sceneEl.systems["mindar-image-system"];
+    
+              const targets = [
+                { id: 'targetA', sceneId: 'scene1', cardId: 'card_1', music: 'assets/1.wav' },
+                { id: 'targetB', sceneId: 'scene5', cardId: 'card_5', music: 'assets/2.wav' },
+                { id: 'targetC', sceneId: 'scene9', cardId: 'card_9', music: 'assets/3.wav' },
+                { id: 'targetD', sceneId: 'scene14', cardId: 'card_14', music: 'assets/4.wav' },
+                { id: 'targetE', sceneId: 'scene19', cardId: 'card_19', music: null }
+              ];
+    
+              targets.forEach(target => {
+                const { id, sceneId, cardId, music } = target;
+                const targetElement = document.querySelector(`#${id}`);
+                const sceneElement = document.getElementById(sceneId);
+                const cardElement = document.getElementById(cardId);
+    
+                targetElement.addEventListener("targetFound", async event => {
+                  console.log('target found');
+                  sceneElement.classList.remove('hidden');
+                  cardElement.classList.remove('hidden');
+                  if (music) await playMusic(music);
+                });
+    
+                targetElement.addEventListener("targetLost", event => {
+                  console.log('target lost');
+                  cardElement.classList.add('hidden');
+                  sceneElement.classList.add('hidden');
+                  if (music) pauseMusic();
+                });
+              });
+            });
+    
+    
+    
+    
+    
+            // General function to handle card clicks
+            const handleCardClick = (currentCard, currentScene, nextCard, nextScene, music) => {
+              console.log(`${currentCard.id} clicked`);
+              currentCard.classList.add('hidden');
+              currentScene.classList.add('hidden');
+              pauseMusic();
+              if (nextCard && nextScene) {
+                nextCard.classList.remove('hidden');
+                nextScene.classList.remove('hidden');
+                if (music) playMusic(music);
+              }
+            };
+    
+            // Array of card sequences
+            const cards = [
+              { currentCard: 'card_1', currentScene: 'scene1', nextCard: 'card_2', nextScene: 'scene2', music: null },
+              { currentCard: 'card_3', currentScene: 'scene3', nextCard: 'card_4', nextScene: 'scene4', music: 'assets/1-2.wav' },
+              { currentCard: 'card_4', currentScene: 'scene4', nextCard: null, nextScene: null, music: null },
+              { currentCard: 'card_5', currentScene: 'scene5', nextCard: 'card_6', nextScene: 'scene6', music: null },
+              { currentCard: 'card_6', currentScene: 'scene6', nextCard: 'card_7', nextScene: 'scene7', music: 'assets/2-2.wav' },
+              { currentCard: 'card_7', currentScene: 'scene7', nextCard: 'card_8', nextScene: 'scene8', music: 'assets/2-3.wav' },
+              { currentCard: 'card_8', currentScene: 'scene8', nextCard: null, nextScene: null, music: null },
+              { currentCard: 'card_9', currentScene: 'scene9', nextCard: 'card_10', nextScene: 'scene10', music: null },
+              { currentCard: 'card_10', currentScene: 'scene10', nextCard: 'card_11', nextScene: 'scene11', music: 'assets/3-2.wav' },
+              { currentCard: 'card_11', currentScene: 'scene11', nextCard: 'card_12', nextScene: 'scene12', music: null },
+              { currentCard: 'card_12', currentScene: 'scene12', nextCard: 'card_13', nextScene: 'scene13', music: 'assets/3-3.wav' },
+              { currentCard: 'card_13', currentScene: 'scene13', nextCard: null, nextScene: null, music: null },
+              { currentCard: 'card_14', currentScene: 'scene14', nextCard: 'card_15', nextScene: 'scene15', music: null },
+              { currentCard: 'card_15', currentScene: 'scene15', nextCard: 'card_16', nextScene: 'scene16', music: 'assets/4-2.wav' },
+              { currentCard: 'card_16', currentScene: 'scene16', nextCard: 'card_17', nextScene: 'scene17', music: null },
+              { currentCard: 'card_17', currentScene: 'scene17', nextCard: 'card_18', nextScene: 'scene18', music: 'assets/4-3.wav' },
+              { currentCard: 'card_18', currentScene: 'scene18', nextCard: null, nextScene: null, music: null },
+              { currentCard: 'card_19', currentScene: 'scene19', nextCard: 'card_20', nextScene: 'scene20', music: 'assets/5.wav' },
+              { currentCard: 'card_20', currentScene: 'scene20', nextCard: 'card_21', nextScene: 'scene21', music: null },
+              { currentCard: 'card_21', currentScene: 'scene21', nextCard: 'card_22', nextScene: 'scene22', music: 'assets/5-2.wav' },
+              { currentCard: 'card_22', currentScene: 'scene22', nextCard: 'card_23', nextScene: 'scene23', music: 'assets/5-3.wav' },
+              { currentCard: 'card_23', currentScene: 'scene23', nextCard: 'card_24', nextScene: 'scene24', music: 'assets/5-4.wav' },
+              { currentCard: 'card_24', currentScene: 'scene24', nextCard: null, nextScene: null, music: null },
+            ];
+    
+            cards.forEach(({ currentCard, currentScene, nextCard, nextScene, music }) => {
+              const currentCardElement = document.getElementById(currentCard);
+              const currentSceneElement = document.getElementById(currentScene);
+              const nextCardElement = nextCard ? document.getElementById(nextCard) : null;
+              const nextSceneElement = nextScene ? document.getElementById(nextScene) : null;
+    
+              currentCardElement.addEventListener("click", event => {
+                handleCardClick(currentCardElement, currentSceneElement, nextCardElement, nextSceneElement, music);
+              });
+            });
+    
+            // Function to handle option selection and show message
+            const showMessage = (message) => {
+              const messageElement = document.getElementById('message');
+              messageElement.textContent = message;
+              document.getElementById('card_2').classList.add('hidden');
+              document.getElementById('scene2').classList.add('hidden');
+              document.getElementById('card_3').classList.remove('hidden');
+            };
+    
+            // Array of options
+            const options = [
+              'optionA', 'optionB', 'optionC', 'optionD', 'optionE', 'optionF',
+              'optionG', 'optionH', 'optionI', 'optionJ', 'optionK', 'optionL',
+              'optionM', 'optionN', 'optionO', 'optionP', 'optionQ', 'optionR',
+              'optionS', 'optionT', 'optionU', 'optionV', 'optionW', 'optionX'
+            ];
+            // 選項控制
+            optionA.addEventListener("click", () => {
+              console.log('Option A clicked');
+              showMessage('歡迎你第一次來美濃窯');
+            });
+      
+            optionB.addEventListener("click", () => {
+              console.log('Option B clicked');
+              showMessage('哇！太好了！');
+            });
+      
+            optionC.addEventListener("click", () => {
+              console.log('Option C clicked');
+              showMessage('歡迎你第一次來美濃窯');
+            });
+            document.getElementById('start-ar-button').addEventListener("click", () => {
+              document.getElementById('usage-instructions').classList.add('hidden');
+              document.getElementById('experience').classList.remove('hidden');
+            });
+          });
+    
+          
+      </script>
   </head>
   <body>
     <div class="example-container">
