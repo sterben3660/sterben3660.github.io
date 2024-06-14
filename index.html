@@ -268,9 +268,7 @@
 
       
   </script>
-  <script>
-    
-  </script>
+
 </head>
 
 <body>
@@ -288,7 +286,7 @@
   <a-scene mindar-image="imageTargetSrc: assets/targets.mind; filterMinCF:0.0001; filterBeta: 0.001" color-space="sRGB"
   renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
   device-orientation-permission-ui="enabled: false" id="experience" class="hidden">
-    <a-camera active="false" position="0 0 0" look-controls="false" cursor="fuse: false; rayOrigin: mouse;"
+    <a-camera active="false" position="0 0 0" look-controls="enabled:false" cursor="fuse: false; rayOrigin: mouse;"
       raycaster="near: 10; far: 30000; objects: .clickable"></a-camera>
 
     <a-assets>
