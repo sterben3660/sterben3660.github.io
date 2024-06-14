@@ -1,46 +1,104 @@
+<!DOCTYPE html>
+<html lang="utf-8">
 
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-face-aframe.prod.js"></script>
+<head>
+  <title>testwebar</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
+  <style>
+    button{
+      background-color:rgba(120, 196, 240, 0.849);
+      margin: 1% 0;
+      border-radius: 30px;
+      border-color: transparent;
+    }
+    .hidden {
+      display: none;
+    }
+
+    #card_1,
+    #card_2,
+    #card_3,
+    #card_4,
+    #card_5,
+    #card_6,
+    #card_7,
+    #card_8,
+    #card_9,
+    #card_10,
+    #card_11,
+    #card_12,
+    #card_13,
+    #card_14,
+    #card_15,
+    #card_16,
+    #card_17,
+    #card_18,
+    #card_19,
+    #card_20,
+    #card_21,
+    #card_22,
+    #card_23,
+    #card_24
+     {
+      position: fixed;
+      bottom: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 15%;
+      background-color: aliceblue;
+      padding: 20px;
+      align-items: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .dialog span.hidden {
+      visibility: hidden;
+    }
+
+    @media screen and (max-width:576px) { 
+      h3{
+        font-size: 16px;
+      }
+    }
+    @media screen and (max-width:400px) { 
+      h3{
+        font-size: 14px;
+      }
+      #card_1,
+      #card_2,
+      #card_3,
+      #card_4,
+      #card_5,
+      #card_6,
+      #card_7,
+      #card_8,
+      #card_9,
+      #card_10,
+      #card_11,
+      #card_12,
+      #card_13,
+      #card_14,
+      #card_15,
+      #card_16,
+      #card_17,
+      #card_18,
+      #card_19,
+      #card_20,
+      #card_21,
+      #card_22,
+      #card_23
+      {
+        height:20%;
+      }
+    }  
+  </style>
     <script>
-      document.addEventListener("DOMContentLoaded", function() {
-	const sceneEl = document.querySelector('a-scene');
-  let arSystem;
-  sceneEl.addEventListener('loaded', function () {
-	  arSystem = sceneEl.systems["mindar-face-system"];
-	});
-	const startButton = document.querySelector("#example-start-button");
-	const stopButton = document.querySelector("#example-stop-button");
-	const switchCameraButton = document.querySelector("#example-switch-camera-button");
-	// arReady event triggered when ready
-        sceneEl.addEventListener("arReady", (event) => {
-	  console.log("ar ready");
-        });
-	// detect target found
-        sceneEl.addEventListener("targetFound", event => {
-          console.log("target found");
-        });
-	// detect target lost
-        sceneEl.addEventListener("targetLost", event => {
-          console.log("target lost");
-        });
-	// arError event triggered when something went wrong. Mostly browser compatbility issue
-        sceneEl.addEventListener("arError", (event) => {
-	  console.log("ar error");
-        });
-	startButton.addEventListener('click', () => {
-	  arSystem.start(); // start AR 
-        });
-	stopButton.addEventListener('click', () => {
-	  arSystem.stop(); // stop
-	});
-	switchCameraButton.addEventListener('click', () => {
-	  arSystem.switchCamera();
-	});
-      });
-
       let audioContext;
       let sourceNode;
   
@@ -202,322 +260,218 @@
           console.log('Option C clicked');
           showMessage('歡迎你第一次來美濃窯');
         });
-        // document.getElementById('start-ar-button').addEventListener("click", () => {
-        //   document.getElementById('usage-instructions').classList.add('hidden');
-        //   document.getElementById('experience').classList.remove('hidden');
-        // });
+        document.getElementById('start-ar-button').addEventListener("click", () => {
+          document.getElementById('usage-instructions').classList.add('hidden');
+          document.getElementById('experience').classList.remove('hidden');
+        });
       });
 
-    </script>
-    <style>
-      body {
-        margin: 0;
-      }
-      .example-container {
-        overflow: hidden;
-        position: absolute;
-        width: 100%;
-        height: 100%;
-      }
-      #example-control-overlay {
-        position: fixed;
-        top: 0;
-        right: 0;
-        background: none;
-        height: 30px;
-        z-index: 2;
-      }
-      #example-control-overlay >div {
-        position: absolute;
-        right: 0;
-      }
-      button{
-      background-color:rgba(120, 196, 240, 0.849);
-      margin: 1% 0;
-      border-radius: 30px;
-      border-color: transparent;
-    }
-    .hidden {
-      display: none;
-    }
-
-    #card_1,
-    #card_2,
-    #card_3,
-    #card_4,
-    #card_5,
-    #card_6,
-    #card_7,
-    #card_8,
-    #card_9,
-    #card_10,
-    #card_11,
-    #card_12,
-    #card_13,
-    #card_14,
-    #card_15,
-    #card_16,
-    #card_17,
-    #card_18,
-    #card_19,
-    #card_20,
-    #card_21,
-    #card_22,
-    #card_23,
-    #card_24
-     {
-      position: fixed;
-      bottom: 5%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80%;
-      height: 15%;
-      background-color: aliceblue;
-      padding: 20px;
-      align-items: center;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-      z-index: 10;
-    }
-
-    .dialog span.hidden {
-      visibility: hidden;
-    }
-
-    @media screen and (max-width:576px) { 
-      h3{
-        font-size: 16px;
-      }
-    }
-    @media screen and (max-width:400px) { 
-      h3{
-        font-size: 14px;
-      }
-      #card_1,
-      #card_2,
-      #card_3,
-      #card_4,
-      #card_5,
-      #card_6,
-      #card_7,
-      #card_8,
-      #card_9,
-      #card_10,
-      #card_11,
-      #card_12,
-      #card_13,
-      #card_14,
-      #card_15,
-      #card_16,
-      #card_17,
-      #card_18,
-      #card_19,
-      #card_20,
-      #card_21,
-      #card_22,
-      #card_23
-      {
-        height:20%;
-      }
-    }  
-    </style>
-  </head>
-  <body>
-    <div class="example-container">
-      <div id="example-control-overlay" class="overlay"></div>
-	  
-      <button id="example-start-button">Start</button>
-      <button id="example-stop-button">Stop</button>
-      <button id="example-switch-camera-button">Switch Camera</button>
-	  </div>
       
-    <a-scene mindar-image="imageTargetSrc: assets/targets.mind; filterMinCF:0.0001; filterBeta: 0.001" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" id="experience" class="hidden">
-      <a-camera active="false" position="0 0 0" look-controls="false" cursor="fuse: false; rayOrigin: mouse;" raycaster="near: 10; far: 30000; objects: .clickable"></a-camera>
-
-      <a-assets>
-        <img id="character" src="assets/hua.jpg" alt="">
-        <h3 class="dialog">你好呀，我是導覽員小花，歡迎你來到美濃窯－陶藝基地</h3>
-      </a-assets>
-        
-      
-      <a-entity target id="targetA" mindar-image-target="targetIndex: 0" rotation="75 0 0">
-        <div id="card_1" class="hidden clickable">
-          <div id="scene1" class="hidden">
-            <img id="character" src="assets/hua.jpg" alt="">
-            <h3 class="dialog">你好呀，我是導覽員小花，歡迎你來到美濃窯－陶藝基地</h3>
-          </div>
-        </div>
-        <div id="card_2" class="hidden">
-          <div id="scene2" class="hidden">
-            <h3 class="dialog">你在美濃會想到什麼呢？</h3>
-            <div class="selection" style="display: flex; flex-direction: column;">
-              <button id="optionA">A.月光山</button>
-              <button id="optionB">B.美濃窯</button>
-              <button id="optionC">C.客家紙傘</button>
-            </div>
-          </div>
-        </div>
-        <div id="card_3" class="hidden">
-          <div id="scene3">
-            <h3 class="dialog" id="message"></h3>
-          </div>
-        </div>
-        <div id="card_4" class="hidden">
-          <div id="scene4">
-            <img src="assets/hua.jpg" alt="">
-            <h3 class="dialog">今天我將會帶你探索這充滿歷史故事的奇妙之地，現在我們先去門口看看吧！</h3>
-          </div>
-        </div>
-      </a-entity>
-      <a-entity target id="targetB" mindar-image-target="targetIndex: 1" rotation="75 0 0">
-        <div id="card_5" class="hidden clickable">
-          <div id="scene5" class="hidden">
-            <h3 class="dialog">你好啊，我是小朱，接下來讓我為你解說門口這些美麗的陶片吧</h3>
-          </div>
-        </div>
-        <div id="card_6" class="hidden">
-          <div id="scene6" class="hidden">
-            <h3 class="dialog">你來猜猜看牆面上的陶片尺寸是多少吧？</h3>
-            <div class="selection" style="display: flex; flex-direction: column;">
-              <button id="optionD">A.冰掌(兵長)一米六</button>
-              <button id="optionE">B.10×20公分</button>
-              <button id="optionF">C.18×6公分
-              </button>
-            </div>
-          </div>
-        </div>
-        <div id="card_7" class="hidden">
-          <div id="scene7">
-            <h3 class="dialog">這些陶片的尺寸為10×20公分，剛上釉料時是無法看到色彩的，要等燒製完成後，顏色才會顯現出來，所以製作陶藝，就是一場藝術冒險哦。</h3>
-          </div>
-        </div>
-        <div id="card_8" class="hidden">
-          <div id="scene8">
-            <h3 class="dialog">而且每塊陶片都是由三到五位師傅共同創造出來的，他們在創作過程中互相合作，是非常有默契的藝術家團隊。等到陶片都燒製完成後，再固定在牆上，這些陶片的尺寸雖小，但背後蘊含著師傅們的心血和努力。</h3>
-          </div>
-        </div>
-      </a-entity>
-      <a-entity target id="targetC" mindar-image-target="targetIndex: 2" rotation="75 0 0">
-        <div id="card_9" class="hidden clickable">
-          <div id="scene9" class="hidden">
-            <h3 class="dialog">讓我們一起前往餐廳吧。餐廳附近，有不少公共藝術的殘件，這些不僅僅是藝術品，更是我們美濃窯的實力象徵。跟隨我的腳步，一起去探索這些藝術殘件背後的故事吧！</h3>
-          </div>
-        </div>
-        <div id="card_10" class="hidden">
-          <div id="scene10" class="hidden">
-            <h3 class="dialog">你知道面前這件作品的原件在哪裡嗎?</h3>
-            <div class="selection" style="display: flex; flex-direction: column;">
-              <button id="optionG">A.美濃窯的心裡</button>
-              <button id="optionH">B.某個藍色機器貓的百寶袋</button>
-              <button id="optionI">C.成大文學院修齊大樓
-              </button>
-            </div>
-          </div>
-        </div>
-        <div id="card_11" class="hidden">
-          <div id="scene11">
-            <h3 class="dialog">你快看看，這些殘件是成大文學院修齊大樓裡的作品，作品名稱就叫《修身齊家》，當初校方請美濃窯幫忙製作塑像與陶壁，以表達對吳修齊董事長捐建大樓的感謝，同時蘊含吳董事長重視教育、回饋社會的美德，以及勉勵學生修養自身的涵義。</h3>
-          </div>
-        </div>
-        <div id="card_12" class="hidden">
-          <div id="scene12">
-            <h3 class="dialog">你知道面前這件作品使用什麼樣的技法嗎?</h3>
-            <div class="selection" style="display: flex; flex-direction: column;">
-              <button id="optionJ">A.陰刻</button>
-              <button id="optionK">B.陽刻</button>
-              <button id="optionL">C.一時半刻</button>
-            </div>
-          </div>
-        </div>
-        <div id="card_13" class="hidden">
-          <div id="scene13">
-            <h3 class="dialog">另外，你有沒有發現每個中文字都是凸起的，這是屬於「陽刻」的方式，如果是陰刻的話，字體則會凹進去。</h3>
-          </div>
-        </div>
-      </a-entity>
-      <a-entity target id="targetD" mindar-image-target="targetIndex: 3" rotation="75 0 0">
-        <div id="card_14" class="hidden clickable">
-          <div id="scene14" class="hidden">
-            <h3 class="dialog">再往後面走的話，我們將會看到更多的公共藝術作品殘件，follow me～讓我來帶你了解美濃窯的成長歷史吧！
-            </h3>
-          </div>
-        </div>
-        <div id="card_15" class="hidden">
-          <div id="scene15" class="hidden">
-            <h3 class="dialog">你知道面前這件作品的原件在哪裡嗎?</h3>
-            <div class="selection" style="display: flex; flex-direction: column;">
-              <button id="optionM">A.樹德科技大學</button>
-              <button id="optionN">B.高雄餐旅學校</button>
-              <button id="optionO">C.高雄科技大學</button>
-            </div>
-          </div>
-        </div>
-        <div id="card_16" class="hidden">
-          <div id="scene16">
-            <h3 class="dialog">這是朱邦雄博士為高雄餐旅學校製作的第二件作品，利用陶壁作品設置在洗石子的牆面，突顯出雕塑的粗獷質感，像是牆上掛著一個大型的浮雕作品。</h3>
-          </div>
-        </div>
-        <div id="card_17" class="hidden">
-          <div id="scene17">
-            <h3 class="dialog">你知道面前這件作品蘊含著怎樣的期望嗎?</h3>
-            <div class="selection" style="display: flex; flex-direction: column;">
-              <button id="optionP">A.多多種樹</button>
-              <button id="optionQ">B.人名</button>
-              <button id="optionR">C.有所建樹，發揮所長之祝福</button>
-            </div>
-          </div>
-        </div>
-        <div id="card_18" class="hidden">
-          <div id="scene18">
-            <h3 class="dialog">《建樹》的命名，更是期望學生發揮所長，在工作崗位上有所建樹，至於「樹木」則延伸具有獨立自主、成就非凡的祝福。看到這個作品的你，也希望你可以飛黃騰達哦！有機會的話，到高雄餐旅學校看看陶壁原件吧～</h3>
-          </div>
-        </div>
-      </a-entity>
-      <a-entity target id="targetE" mindar-image-target="targetIndex: 4" rotation="75 0 0">
-        <div id="card_19" class="hidden">
-          <div id="scene19" class="hidden">
-            <h3 class="dialog">你猜猜看這幅作品的地點為何?</h3>
-            <div class="selection" style="display: flex; flex-direction: column;">
-              <button id="optionS">A.澄清湖棒球場</button>
-              <button id="optionT">B.臺南市立棒球場</button>
-              <button id="optionU">C.臺中洲際棒球場</button>
-            </div>
-          </div>
-        </div>
-        <div id="card_20" class="hidden">
-          <div id="scene20">
-            <h3 class="dialog">終於來到我們要解說的最後一片陶壁啦！這個公共藝術的殘件叫做《九命球體》，在澄清湖棒球場的樣子極為壯觀。</h3>
-          </div>
-        </div>
-        <div id="card_21" class="hidden">
-          <div id="scene21" class="hidden">
-            <h3 class="dialog">你猜猜看這幅作品的創作理念與下列何者有關?</h3>
-            <div class="selection" style="display: flex; flex-direction: column;">
-              <button id="optionV">A.影分身之術</button>
-              <button id="optionW">B.魔球進壘</button>
-              <button id="optionX">C.九命怪貓</button>
-            </div>
-          </div>
-        </div>
-        <div id="card_22" class="hidden">
-          <div id="scene22">
-            <h3 class="dialog">雖然是陶壁藝術作品，但作品裡的這些球，事實上只有一顆，創作理念是模擬漫畫中「魔球進壘」的畫面，打擊者就像是看到球的影分身一樣，運用數顆球的圖像，來呈現棒球打擊者的第一視角。</h3>
-          </div>
-        </div>
-        <div id="card_23" class="hidden">
-          <div id="scene23">
-            <h3 class="dialog">在這趟探險結束之後，我們將帶著收穫和啟發重新回到現實生活中。藝術不僅存在於畫廊和博物館中，它也隱藏在我們日常生活的某些角落。
-            </h3>
-          </div>
-        </div>
-        <div id="card_24" class="hidden">
-          <div id="scene24">
-            <h3 class="dialog">這趟旅程不僅是一次對藝術的探索，更是一次對美濃窯的深度走訪。讓我們將這份感動和體驗帶回去與親朋好友分享，並在日常生活中尋找更多藝術之美。這就是美濃窯藝術之旅的真正意義！
-            </h3>
-          </div>
-        </div>
-      </a-entity>
-    </a-scene>
+  </script>
+  <script>
     
-  </body>
-</html>
+  </script>
+</head>
+
+<body>
+  
+    
+  <div id="usage-instructions" class="dialog">
+    <img src="assets/hua.jpg" alt="Usage Instructions" style="width: 100%;">
+    <div class="card">
+      <h3 class="dialog">導覽解說
+        歡迎使用本AR導覽系統！透過掃描美濃窯園區內的圖片，您將能夠在手機畫面中即時呈現相關歷史、藝術及文化資訊，讓您更深入了解美濃窯的精髓。希望您能享受這次別具一格的導覽之旅。</h3>
+      <button id="start-ar-button">Start AR Experience</button>
+    </div>
+    
+  </div>
+  <a-scene mindar-image="imageTargetSrc: assets/targets.mind; filterMinCF:0.0001; filterBeta: 0.001" color-space="sRGB"
+  renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
+  device-orientation-permission-ui="enabled: false" id="experience" class="hidden">
+    <a-camera active="false" position="0 0 0" look-controls="false" cursor="fuse: false; rayOrigin: mouse;"
+      raycaster="near: 10; far: 30000; objects: .clickable"></a-camera>
+
+    <a-assets>
+      <img id="character" src="assets/hua.jpg" alt="">
+      <h3 class="dialog">你好呀，我是導覽員小花，歡迎你來到美濃窯－陶藝基地</h3>
+    </a-assets>
+      
+    
+    <a-entity target id="targetA" mindar-image-target="targetIndex: 0" rotation="75 0 0">
+      <div id="card_1" class="hidden clickable">
+        <div id="scene1" class="hidden">
+          <img id="character" src="assets/hua.jpg" alt="">
+          <h3 class="dialog">你好呀，我是導覽員小花，歡迎你來到美濃窯－陶藝基地</h3>
+        </div>
+      </div>
+      <div id="card_2" class="hidden">
+        <div id="scene2" class="hidden">
+          <h3 class="dialog">你在美濃會想到什麼呢？</h3>
+          <div class="selection" style="display: flex; flex-direction: column;">
+            <button id="optionA">A.月光山</button>
+            <button id="optionB">B.美濃窯</button>
+            <button id="optionC">C.客家紙傘</button>
+          </div>
+        </div>
+      </div>
+      <div id="card_3" class="hidden">
+        <div id="scene3">
+          <h3 class="dialog" id="message"></h3>
+        </div>
+      </div>
+      <div id="card_4" class="hidden">
+        <div id="scene4">
+          <img src="assets/hua.jpg" alt="">
+          <h3 class="dialog">今天我將會帶你探索這充滿歷史故事的奇妙之地，現在我們先去門口看看吧！</h3>
+        </div>
+      </div>
+    </a-entity>
+    <a-entity target id="targetB" mindar-image-target="targetIndex: 1" rotation="75 0 0">
+      <div id="card_5" class="hidden clickable">
+        <div id="scene5" class="hidden">
+          <h3 class="dialog">你好啊，我是小朱，接下來讓我為你解說門口這些美麗的陶片吧</h3>
+        </div>
+      </div>
+      <div id="card_6" class="hidden">
+        <div id="scene6" class="hidden">
+          <h3 class="dialog">你來猜猜看牆面上的陶片尺寸是多少吧？</h3>
+          <div class="selection" style="display: flex; flex-direction: column;">
+            <button id="optionD">A.冰掌(兵長)一米六</button>
+            <button id="optionE">B.10×20公分</button>
+            <button id="optionF">C.18×6公分
+            </button>
+          </div>
+        </div>
+      </div>
+      <div id="card_7" class="hidden">
+        <div id="scene7">
+          <h3 class="dialog">這些陶片的尺寸為10×20公分，剛上釉料時是無法看到色彩的，要等燒製完成後，顏色才會顯現出來，所以製作陶藝，就是一場藝術冒險哦。</h3>
+        </div>
+      </div>
+      <div id="card_8" class="hidden">
+        <div id="scene8">
+          <h3 class="dialog">而且每塊陶片都是由三到五位師傅共同創造出來的，他們在創作過程中互相合作，是非常有默契的藝術家團隊。等到陶片都燒製完成後，再固定在牆上，這些陶片的尺寸雖小，但背後蘊含著師傅們的心血和努力。</h3>
+        </div>
+      </div>
+    </a-entity>
+    <a-entity target id="targetC" mindar-image-target="targetIndex: 2" rotation="75 0 0">
+      <div id="card_9" class="hidden clickable">
+        <div id="scene9" class="hidden">
+          <h3 class="dialog">讓我們一起前往餐廳吧。餐廳附近，有不少公共藝術的殘件，這些不僅僅是藝術品，更是我們美濃窯的實力象徵。跟隨我的腳步，一起去探索這些藝術殘件背後的故事吧！</h3>
+        </div>
+      </div>
+      <div id="card_10" class="hidden">
+        <div id="scene10" class="hidden">
+          <h3 class="dialog">你知道面前這件作品的原件在哪裡嗎?</h3>
+          <div class="selection" style="display: flex; flex-direction: column;">
+            <button id="optionG">A.美濃窯的心裡</button>
+            <button id="optionH">B.某個藍色機器貓的百寶袋</button>
+            <button id="optionI">C.成大文學院修齊大樓
+            </button>
+          </div>
+        </div>
+      </div>
+      <div id="card_11" class="hidden">
+        <div id="scene11">
+          <h3 class="dialog">你快看看，這些殘件是成大文學院修齊大樓裡的作品，作品名稱就叫《修身齊家》，當初校方請美濃窯幫忙製作塑像與陶壁，以表達對吳修齊董事長捐建大樓的感謝，同時蘊含吳董事長重視教育、回饋社會的美德，以及勉勵學生修養自身的涵義。</h3>
+        </div>
+      </div>
+      <div id="card_12" class="hidden">
+        <div id="scene12">
+          <h3 class="dialog">你知道面前這件作品使用什麼樣的技法嗎?</h3>
+          <div class="selection" style="display: flex; flex-direction: column;">
+            <button id="optionJ">A.陰刻</button>
+            <button id="optionK">B.陽刻</button>
+            <button id="optionL">C.一時半刻</button>
+          </div>
+        </div>
+      </div>
+      <div id="card_13" class="hidden">
+        <div id="scene13">
+          <h3 class="dialog">另外，你有沒有發現每個中文字都是凸起的，這是屬於「陽刻」的方式，如果是陰刻的話，字體則會凹進去。</h3>
+        </div>
+      </div>
+    </a-entity>
+    <a-entity target id="targetD" mindar-image-target="targetIndex: 3" rotation="75 0 0">
+      <div id="card_14" class="hidden clickable">
+        <div id="scene14" class="hidden">
+          <h3 class="dialog">再往後面走的話，我們將會看到更多的公共藝術作品殘件，follow me～讓我來帶你了解美濃窯的成長歷史吧！
+          </h3>
+        </div>
+      </div>
+      <div id="card_15" class="hidden">
+        <div id="scene15" class="hidden">
+          <h3 class="dialog">你知道面前這件作品的原件在哪裡嗎?</h3>
+          <div class="selection" style="display: flex; flex-direction: column;">
+            <button id="optionM">A.樹德科技大學</button>
+            <button id="optionN">B.高雄餐旅學校</button>
+            <button id="optionO">C.高雄科技大學</button>
+          </div>
+        </div>
+      </div>
+      <div id="card_16" class="hidden">
+        <div id="scene16">
+          <h3 class="dialog">這是朱邦雄博士為高雄餐旅學校製作的第二件作品，利用陶壁作品設置在洗石子的牆面，突顯出雕塑的粗獷質感，像是牆上掛著一個大型的浮雕作品。</h3>
+        </div>
+      </div>
+      <div id="card_17" class="hidden">
+        <div id="scene17">
+          <h3 class="dialog">你知道面前這件作品蘊含著怎樣的期望嗎?</h3>
+          <div class="selection" style="display: flex; flex-direction: column;">
+            <button id="optionP">A.多多種樹</button>
+            <button id="optionQ">B.人名</button>
+            <button id="optionR">C.有所建樹，發揮所長之祝福</button>
+          </div>
+        </div>
+      </div>
+      <div id="card_18" class="hidden">
+        <div id="scene18">
+          <h3 class="dialog">《建樹》的命名，更是期望學生發揮所長，在工作崗位上有所建樹，至於「樹木」則延伸具有獨立自主、成就非凡的祝福。看到這個作品的你，也希望你可以飛黃騰達哦！有機會的話，到高雄餐旅學校看看陶壁原件吧～</h3>
+        </div>
+      </div>
+    </a-entity>
+    <a-entity target id="targetE" mindar-image-target="targetIndex: 4" rotation="75 0 0">
+      <div id="card_19" class="hidden">
+        <div id="scene19" class="hidden">
+          <h3 class="dialog">你猜猜看這幅作品的地點為何?</h3>
+          <div class="selection" style="display: flex; flex-direction: column;">
+            <button id="optionS">A.澄清湖棒球場</button>
+            <button id="optionT">B.臺南市立棒球場</button>
+            <button id="optionU">C.臺中洲際棒球場</button>
+          </div>
+        </div>
+      </div>
+      <div id="card_20" class="hidden">
+        <div id="scene20">
+          <h3 class="dialog">終於來到我們要解說的最後一片陶壁啦！這個公共藝術的殘件叫做《九命球體》，在澄清湖棒球場的樣子極為壯觀。</h3>
+        </div>
+      </div>
+      <div id="card_21" class="hidden">
+        <div id="scene21" class="hidden">
+          <h3 class="dialog">你猜猜看這幅作品的創作理念與下列何者有關?</h3>
+          <div class="selection" style="display: flex; flex-direction: column;">
+            <button id="optionV">A.影分身之術</button>
+            <button id="optionW">B.魔球進壘</button>
+            <button id="optionX">C.九命怪貓</button>
+          </div>
+        </div>
+      </div>
+      <div id="card_22" class="hidden">
+        <div id="scene22">
+          <h3 class="dialog">雖然是陶壁藝術作品，但作品裡的這些球，事實上只有一顆，創作理念是模擬漫畫中「魔球進壘」的畫面，打擊者就像是看到球的影分身一樣，運用數顆球的圖像，來呈現棒球打擊者的第一視角。</h3>
+        </div>
+      </div>
+      <div id="card_23" class="hidden">
+        <div id="scene23">
+          <h3 class="dialog">在這趟探險結束之後，我們將帶著收穫和啟發重新回到現實生活中。藝術不僅存在於畫廊和博物館中，它也隱藏在我們日常生活的某些角落。
+          </h3>
+        </div>
+      </div>
+      <div id="card_24" class="hidden">
+        <div id="scene24">
+          <h3 class="dialog">這趟旅程不僅是一次對藝術的探索，更是一次對美濃窯的深度走訪。讓我們將這份感動和體驗帶回去與親朋好友分享，並在日常生活中尋找更多藝術之美。這就是美濃窯藝術之旅的真正意義！
+          </h3>
+        </div>
+      </div>
+    </a-entity>
+  </a-scene>
