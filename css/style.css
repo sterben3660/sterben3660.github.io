@@ -134,3 +134,17 @@ a{
         top:47%;
     }
 }
+
+@media (max-width:576px){
+    .dialogue-box{
+        height: 240px;
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width:480px){
+    .dialogue-box{
+        left:11%;
+        top:47%;
+        width:80%;
+}
