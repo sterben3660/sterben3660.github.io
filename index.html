@@ -6,6 +6,10 @@
     <title>對話框遊戲</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .hidden { display: none; }
+        .clickable { cursor: pointer; }
+    </style>
 </head>
 <body>
     <div id="game-container">
@@ -18,10 +22,70 @@
                 
             </div>
             <div class="options">
-                <button id="continue-btn"><a href="arGuide.html">請點選按鈕繼續</a></button>
+                <button id="continue-btn">請點選按鈕繼續</button>
+            </div>
+            <div id="card_1" class="hidden clickable">
+              <div id="scene1">
+                <img id="character" src="assets/hua.jpg" alt="">
+                <h3 class="dialog">你好呀，我是導覽員小花，歡迎你來到美濃窯－陶藝基地</h3>
+                <button class="next-btn" data-next="card_2">繼續</button>
+              </div>
+            </div>
+            <div id="card_2" class="hidden">
+              <div id="scene2">
+                <h3 class="dialog">你在美濃會想到什麼呢？</h3>
+                <div class="selection" style="display: flex; flex-direction: column;">
+                  <button id="optionA" data-message="歡迎你第一次來美濃窯" data-next="card_3">A.月光山</button>
+                  <button id="optionB" data-message="哇！太好了！" data-next="card_3">B.美濃窯</button>
+                  <button id="optionC" data-message="歡迎你第一次來美濃窯" data-next="card_3">C.客家紙傘</button>
+                </div>
+              </div>
+            </div>
+            <div id="card_3" class="hidden">
+              <div id="scene3">
+                <h3 class="dialog" id="message"></h3>
+                <button class="next-btn" data-next="card_4">繼續</button>
+              </div>
+            </div>
+            <div id="card_4" class="hidden">
+              <div id="scene4">
+                <img src="assets/hua.jpg" alt="">
+                <h3 class="dialog">今天我將會帶你探索這充滿歷史故事的奇妙之地，現在我們先去門口看看吧！</h3>
+                <button class="next-btn" data-next="card_5">繼續</button>
+              </div>
+            </div>
+            <div id="card_5" class="hidden">
+              <div id="scene5">
+                <h3 class="dialog">遊戲結束，謝謝您的參與！</h3>
+              </div>
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('continue-btn').addEventListener('click', function() {
+            document.getElementById('dialogue-1').classList.add('hidden');
+            document.getElementById('card_1').classList.remove('hidden');
+        });
+
+        document.querySelectorAll('.next-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const nextCard = button.getAttribute('data-next');
+                button.closest('.dialogue-box').classList.add('hidden');
+                document.getElementById(nextCard).classList.remove('hidden');
+            });
+        });
+
+        document.querySelectorAll('.selection button').forEach(button => {
+            button.addEventListener('click', function() {
+                const message = button.getAttribute('data-message');
+                document.getElementById('message').innerText = message;
+                const nextCard = button.getAttribute('data-next');
+                button.closest('.dialogue-box').classList.add('hidden');
+                document.getElementById(nextCard).classList.remove('hidden');
+            });
+        });
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
