@@ -116,6 +116,17 @@ a{
     cursor: pointer;
 }
 
+@media (max-width:1200px){
+
+    .dialogue-box{
+        top:30%;
+        left:0%;
+    }
+    .dialogue-box>h3{
+        font-size: 1.2rem;
+    }
+}
+
 @media (max-width:1024px){
     .dialogue-box{
         top:30%;
