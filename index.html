@@ -170,9 +170,15 @@
     </div>
 
     <script>
+        function playAudio(audioSrc) {
+            const audio = new Audio(audioSrc);
+            audio.play();
+        }
+
         document.getElementById('continue-btn').addEventListener('click', function() {
             document.getElementById('dialogue-1').classList.add('hidden');
             document.getElementById('card_1').classList.remove('hidden');
+            playAudio('assets/1.wav'); // Play the audio for card 1
         });
 
         document.querySelectorAll('.next-btn').forEach(button => {
@@ -180,6 +186,10 @@
                 const nextCard = button.getAttribute('data-next');
                 button.closest('.dialogue-box').classList.add('hidden');
                 document.getElementById(nextCard).classList.remove('hidden');
+
+                if (nextCard === 'card_4') {
+                    playAudio('assets/1-2.wav'); // Play the audio for card 4
+                }
             });
         });
 
