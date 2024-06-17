@@ -57,6 +57,7 @@ a{
 .backgroundimg{
     position: relative;
     max-width: 100%;
+    background-image:url("img/scene.png" );
 }
 .backgroundimg>img{
     max-width: 100%;
