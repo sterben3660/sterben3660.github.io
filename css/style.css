@@ -57,7 +57,7 @@ a{
 .backgroundimg{
     position: relative;
     max-width: 100%;
-    background-image:url("https://raw.githubusercontent.com/sterben3660/sterben3660.github.io/main/img/scene.png" );
+    background-image:url("../img/scene.png" );
 }
 .backgroundimg>img{
     max-width: 100%;
