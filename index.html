@@ -55,7 +55,6 @@
             border: 1px solid #ccc;
             padding: 20px;
             width: 80%;
-            text-align: center;
             background-color: rgb(236, 224, 224);
             z-index: 20;
         }
@@ -101,6 +100,11 @@
             align-items: center;
             padding: 30px 60px;
             cursor: pointer;
+        }
+        .selection{
+          display: flex;
+          flex-direction: row;
+          width: 50%;
         }
         #character,#scene4>img {
             position: absolute;
@@ -164,7 +168,7 @@
         <div id="card_2" class="hidden dialogue-box">
             <div id="scene2">
                 <h3 class="dialog">你在美濃會想到什麼呢？</h3>
-                <div class="selection" style="display: flex; flex-direction: column;">
+                <div class="selection">
                     <button id="optionA" data-message="歡迎你第一次來美濃窯" data-next="card_3">A.月光山</button>
                     <button id="optionB" data-message="哇！太好了！" data-next="card_3">B.美濃窯</button>
                     <button id="optionC" data-message="歡迎你第一次來美濃窯" data-next="card_3">C.客家紙傘</button>
