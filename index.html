@@ -83,6 +83,10 @@
             justify-content: center;
             align-items: center;
         }
+        .continue-btn{
+          display: flex;
+          justify-content: flex-end;
+        }
         .next-btn{
           padding: 10px 20px;
         }
@@ -95,11 +99,11 @@
             padding: 30px 60px;
             cursor: pointer;
         }
-        #character, #scene4 > img {
+        #character,#scene4>img {
             position: absolute;
-            top: -235%;
+            top: -210%;
             left: 0;
-            width: 300px;
+            width: 200px;
         }
         @media (max-width:1280px) {
             .dialogue-box {
@@ -147,7 +151,10 @@
             <div id="scene1">
                 <img id="character" src="assets/hua.png" alt="">
                 <h3 class="dialog">你好呀，我是導覽員小花，歡迎你來到美濃窯－陶藝基地</h3>
-                <button class="next-btn" data-next="card_2">繼續</button>
+                <div class="continue-btn">
+                  <button class="next-btn" data-next="card_2">繼續</button>
+                </div>
+                
             </div>
         </div>
         <div id="card_2" class="hidden dialogue-box">
@@ -163,14 +170,18 @@
         <div id="card_3" class="hidden dialogue-box">
             <div id="scene3">
                 <h3 class="dialog" id="message"></h3>
-                <button class="next-btn" data-next="card_4">繼續</button>
+                <div class="continue-btn">
+                  <button class="next-btn" data-next="card_4">繼續</button>
+                </div>
             </div>
         </div>
         <div id="card_4" class="hidden dialogue-box">
             <div id="scene4">
                 <img src="assets/hua.png" alt="">
                 <h3 class="dialog">今天我將會帶你探索這充滿歷史故事的奇妙之地，現在我們先去門口看看吧！</h3>
-                <button class="next-btn" data-next="card_5"><a href="arGuide.html">繼續</a></button>
+                <div class="continue-btn">
+                  <button class="next-btn" data-next="card_5"><a href="arGuide.html">繼續</a></button>
+                </div>
             </div>
         </div>
     </div>
