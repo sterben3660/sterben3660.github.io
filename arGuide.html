@@ -261,12 +261,12 @@
       raycaster="near: 10; far: 30000; objects: .clickable"></a-camera>
     
       <a-entity target id="targetA" mindar-image-target="targetIndex: 0" rotation="75 0 0">
-        <div id="card_1" class="hidden clickable">
+        <a-entity id="card_1" class="hidden clickable">
           <a-image id="mrju" src="#paintandquest-preview" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></a-image>
           <div id="scene1" class="hidden">
               <h3 class="dialog">你好啊，我是小朱，接下來讓我為你解說門口這些美麗的陶片吧</h3>
           </div>
-        </div>
+        </a-entity>
         <div id="card_2" class="hidden">
             <div id="scene2">
                 <h3 class="dialog">你來猜猜看牆面上的陶片尺寸是多少吧？</h3>
