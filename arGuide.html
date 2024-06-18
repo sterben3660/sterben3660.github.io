@@ -438,5 +438,29 @@
         </div>
       </a-entity>
     </a-scene>
+    <script>
+      // 初始化：只显示 card_1
+      document.getElementById('card_1').classList.remove('hidden');
+      document.getElementById('scene1').classList.remove('hidden');
+
+      // 切换函数
+      function showCard(cardId) {
+          const cards = ['card_1', 'card_2', 'card_3', 'card_4'];
+          cards.forEach(id => {
+              document.getElementById(id).classList.add('hidden');
+          });
+          document.getElementById(cardId).classList.remove('hidden');
+      }
+
+        // 添加点击事件监听器（可以根据需要调整）
+        document.getElementById('mrju').addEventListener('click', () => showCard('card_2'));
+        document.getElementById('hua').addEventListener('click', () => showCard('card_3'));
+
+        // 根据按钮选择显示相应的卡片
+        document.getElementById('optionA').addEventListener('click', () => showCard('card_3'));
+        document.getElementById('optionB').addEventListener('click', () => showCard('card_3'));
+        document.getElementById('optionC').addEventListener('click', () => showCard('card_3'));
+    </script>
   </body>
+  
 </html>
