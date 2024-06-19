@@ -67,8 +67,7 @@
     #mrju{
       background-image: url("assets/mrju.png");
       background-repeat: no-repeat;
-      background-size: contain;
-      height:500px;
+      background-size: 30% 50% contain;
       position: absolute;
       width:470px;
       top: -500px;
@@ -285,7 +284,7 @@
       </a-entity>
   
       <div id="card_1" class="hidden clickable">
-        <div id="mrju" src="#mrju-preview" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
+        <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
         <div id="scene1" class="hidden">
           <h3 class="dialog">你好啊，我是小朱，接下來讓我為你解說門口這些美麗的陶片吧</h3>
         </div>
@@ -392,6 +391,9 @@
         
       </a-entity>
       <div id="card_14" class="hidden clickable">
+        <div class="character">
+          <div id="hua" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
+        </div>
         <div id="scene14" class="hidden">
           <h3 class="dialog">再往後面走的話，我們將會看到更多的公共藝術作品殘件，follow me～讓我來帶你了解美濃窯的成長歷史吧！
           </h3>
@@ -408,6 +410,7 @@
         </div>
       </div>
       <div id="card_16" class="hidden">
+        <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
         <div id="scene16">
           <h3 class="dialog">這是朱邦雄博士為高雄餐旅學校製作的第二件作品，利用陶壁作品設置在洗石子的牆面，突顯出雕塑的粗獷質感，像是牆上掛著一個大型的浮雕作品。</h3>
         </div>
@@ -423,54 +426,64 @@
         </div>
       </div>
       <div id="card_18" class="hidden">
+        <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
         <div id="scene18">
           <h3 class="dialog">《建樹》的命名，更是期望學生發揮所長，在工作崗位上有所建樹，至於「樹木」則延伸具有獨立自主、成就非凡的祝福。看到這個作品的你，也希望你可以飛黃騰達哦！有機會的話，到高雄餐旅學校看看陶壁原件吧～</h3>
         </div>
       </div>
       <a-entity target id="targetE" mindar-image-target="targetIndex: 4" rotation="75 0 0">
-        <div id="card_19" class="hidden">
-          <div id="scene19" class="hidden">
-            <h3 class="dialog">你猜猜看這幅作品的地點為何?</h3>
-            <div class="selection" style="display: flex; flex-direction: column;">
-              <button id="optionS">A.澄清湖棒球場</button>
-              <button id="optionT">B.臺南市立棒球場</button>
-              <button id="optionU">C.臺中洲際棒球場</button>
-            </div>
-          </div>
-        </div>
-        <div id="card_20" class="hidden">
-          <div id="scene20">
-            <h3 class="dialog">終於來到我們要解說的最後一片陶壁啦！這個公共藝術的殘件叫做《九命球體》，在澄清湖棒球場的樣子極為壯觀。</h3>
-          </div>
-        </div>
-        <div id="card_21" class="hidden">
-          <div id="scene21" class="hidden">
-            <h3 class="dialog">你猜猜看這幅作品的創作理念與下列何者有關?</h3>
-            <div class="selection" style="display: flex; flex-direction: column;">
-              <button id="optionV">A.影分身之術</button>
-              <button id="optionW">B.魔球進壘</button>
-              <button id="optionX">C.九命怪貓</button>
-            </div>
-          </div>
-        </div>
-        <div id="card_22" class="hidden">
-          <div id="scene22">
-            <h3 class="dialog">雖然是陶壁藝術作品，但作品裡的這些球，事實上只有一顆，創作理念是模擬漫畫中「魔球進壘」的畫面，打擊者就像是看到球的影分身一樣，運用數顆球的圖像，來呈現棒球打擊者的第一視角。</h3>
-          </div>
-        </div>
-        <div id="card_23" class="hidden">
-          <div id="scene23">
-            <h3 class="dialog">在這趟探險結束之後，我們將帶著收穫和啟發重新回到現實生活中。藝術不僅存在於畫廊和博物館中，它也隱藏在我們日常生活的某些角落。
-            </h3>
-          </div>
-        </div>
-        <div id="card_24" class="hidden">
-          <div id="scene24">
-            <h3 class="dialog">這趟旅程不僅是一次對藝術的探索，更是一次對美濃窯的深度走訪。讓我們將這份感動和體驗帶回去與親朋好友分享，並在日常生活中尋找更多藝術之美。這就是美濃窯藝術之旅的真正意義！
-            </h3>
-          </div>
-        </div>
+        
       </a-entity>
+      <div id="card_19" class="hidden">
+        <div id="scene19" class="hidden">
+          <h3 class="dialog">你猜猜看這幅作品的地點為何?</h3>
+          <div class="selection" style="display: flex; flex-direction: column;">
+            <button id="optionS">A.澄清湖棒球場</button>
+            <button id="optionT">B.臺南市立棒球場</button>
+            <button id="optionU">C.臺中洲際棒球場</button>
+          </div>
+        </div>
+      </div>
+      <div id="card_20" class="hidden">
+        <div class="character">
+          <div id="hua" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
+        </div>
+        <div id="scene20">
+          <h3 class="dialog">終於來到我們要解說的最後一片陶壁啦！這個公共藝術的殘件叫做《九命球體》，在澄清湖棒球場的樣子極為壯觀。</h3>
+        </div>
+      </div>
+      <div id="card_21" class="hidden">
+        <div id="scene21" class="hidden">
+          <h3 class="dialog">你猜猜看這幅作品的創作理念與下列何者有關?</h3>
+          <div class="selection" style="display: flex; flex-direction: column;">
+            <button id="optionV">A.影分身之術</button>
+            <button id="optionW">B.魔球進壘</button>
+            <button id="optionX">C.九命怪貓</button>
+          </div>
+        </div>
+      </div>
+      <div id="card_22" class="hidden">
+        <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
+        <div id="scene22">
+          <h3 class="dialog">雖然是陶壁藝術作品，但作品裡的這些球，事實上只有一顆，創作理念是模擬漫畫中「魔球進壘」的畫面，打擊者就像是看到球的影分身一樣，運用數顆球的圖像，來呈現棒球打擊者的第一視角。</h3>
+        </div>
+      </div>
+      <div id="card_23" class="hidden">
+        <div class="character">
+          <div id="hua" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
+        </div>
+        <div id="scene23">
+          <h3 class="dialog">在這趟探險結束之後，我們將帶著收穫和啟發重新回到現實生活中。藝術不僅存在於畫廊和博物館中，它也隱藏在我們日常生活的某些角落。
+          </h3>
+        </div>
+      </div>
+      <div id="card_24" class="hidden">
+        <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
+        <div id="scene24">
+          <h3 class="dialog">這趟旅程不僅是一次對藝術的探索，更是一次對美濃窯的深度走訪。讓我們將這份感動和體驗帶回去與親朋好友分享，並在日常生活中尋找更多藝術之美。這就是美濃窯藝術之旅的真正意義！
+          </h3>
+        </div>
+      </div>
     </a-scene>
   </body>
 </html>
