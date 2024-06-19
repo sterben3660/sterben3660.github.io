@@ -66,7 +66,7 @@
       background-repeat: no-repeat;
       height:500px;
       position: absolute;
-      top: -200%;
+      top: 50%;
     }
 
     @media screen and (max-width:576px) { 
@@ -261,7 +261,10 @@
   </head>
   <body>
     <a-scene mindar-image="imageTargetSrc: assets/targets.mind; filterMinCF:0.0001; filterBeta: 0.001" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
-
+      <!-- <a-assets>
+        <img id="mrju-preview" src="./assets/mrju.png" />
+        <img id="hua-preview" src="./assets/hua.png" />
+      </a-assets> -->
       <a-camera position="0 0 0" look-controls="enabled:false" cursor="fuse: false; rayOrigin: mouse;"
       raycaster="near: 10; far: 30000; objects: .clickable"></a-camera>
     
@@ -269,7 +272,7 @@
         <div id="card_1" class="hidden clickable">   
           <div id="scene1" class="hidden">
             <div class="character">
-              <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1">
+              <div id="mrju" src="#mrju-preview" alpha-test="0.5" position="0 0 0" height="0.552" width="1">
             </div>
             <h3 class="dialog">你好啊，我是小朱，接下來讓我為你解說門口這些美麗的陶片吧</h3>
           </div>
