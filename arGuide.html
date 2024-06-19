@@ -61,7 +61,9 @@
     .dialog span.hidden {
       visibility: hidden;
     }
-
+    .character{
+      width: 50%;
+    }
     #mrju{
       background-image: url("assets/mrju.png");
       background-repeat: no-repeat;
@@ -75,7 +77,7 @@
       background-repeat: no-repeat;
       height:500px;
       position: absolute;
-      width:470px;
+      width:100%;
       top: -500px;
     }
 
@@ -343,7 +345,10 @@
         
       </a-entity>
       <div id="card_9" class="hidden clickable">
-        <div id="hua" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
+        <div class="character">
+          <div id="hua" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
+        </div>
+        
         <div id="scene9" class="hidden">
           <h3 class="dialog">讓我們一起前往餐廳吧。餐廳附近，有不少公共藝術的殘件，這些不僅僅是藝術品，更是我們美濃窯的實力象徵。跟隨我的腳步，一起去探索這些藝術殘件背後的故事吧！</h3>
         </div>
