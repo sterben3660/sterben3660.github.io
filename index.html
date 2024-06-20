@@ -45,11 +45,8 @@
             padding: 20px;
             width: 80%;
             text-align: center;
-            background-image: url("assets/dialogbox.png");
-            background-size: cover; /* 调整背景图像大小以适应容器 */
-            background-position: center; /* 确保背景图像居中 */
             z-index: 20;
-            box-sizing: border-box; /* 确保 padding 不影响宽度计算 */
+            box-sizing: border-box;
         }
 
         .backgroundimg {
@@ -69,13 +66,20 @@
             padding: 20px;
             width: 80%;
             z-index: 20;
-            background-image: url("assets/dialogbox.png");
-            background-size: cover; /* 调整背景图像大小以适应容器 */
-            background-repeat: no-repeat;
-            background-position: center; /* 确保背景图像居中 */
         }
 
-        .dialogue-box>h3 {
+        .dialogue-box img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .dialogue-box > h3 {
+            position: relative;
             text-align: left;
             font-size: 1.2rem;
         }
@@ -84,15 +88,16 @@
             color: rgb(235, 174, 94);
         }
 
-        #scene1>h3,
-        #scene2>h3,
-        #scene3>h3,
-        #scene4>h3 {
+        #scene1 > h3,
+        #scene2 > h3,
+        #scene3 > h3,
+        #scene4 > h3 {
             text-align: left;
             font-size: 1.2rem;
         }
 
-        .dialogue-box>.options {
+        .dialogue-box > .options {
+            position: relative;
             display: flex;
             justify-content: flex-end;
         }
@@ -135,15 +140,15 @@
             justify-content: center;
         }
 
-        .selection>#optionA,
-        .selection>#optionB,
-        .selection>#optionC {
+        .selection > #optionA,
+        .selection > #optionB,
+        .selection > #optionC {
             padding: 1% 4%;
             margin: 0 2%;
         }
 
         #character,
-        #scene4>img {
+        #scene4 > img {
             position: absolute;
             top: -175%;
             left: 0;
@@ -156,7 +161,7 @@
                 left: 50%;
             }
 
-            .dialogue-box>h3 {
+            .dialogue-box > h3 {
                 font-size: 1.2rem;
             }
         }
@@ -189,12 +194,14 @@
     <div id="game-container">
         <div class="backgroundimg"></div>
         <div class="dialogue-box" id="dialogue-1">
+            <img src="assets/dialogbox.png" alt="dialogbox background">
             <h3>歡迎使用本AR導覽系統！透過掃描美濃窯園區內的圖片，您將能夠在手機畫面中即時呈現相關歷史、藝術及文化資訊，讓您更深入了解美濃窯的精髓。希望您能享受這次別具一格的導覽之旅。</h3>
             <div class="options">
                 <button id="continue-btn">請點選按鈕繼續</button>
             </div>
         </div>
         <div id="card_1" class="hidden dialogue-box clickable">
+            <img src="assets/dialogbox.png" alt="dialogbox background">
             <div id="scene1">
                 <img id="character" src="assets/hua.png" alt="">
                 <h3 class="cname">導覽員-小花</h3>
@@ -206,6 +213,7 @@
             </div>
         </div>
         <div id="card_2" class="hidden dialogue-box">
+            <img src="assets/dialogbox.png" alt="dialogbox background">
             <div id="scene2">
                 <h3 class="dialog">你在美濃會想到什麼呢？</h3>
                 <div class="selection">
@@ -216,6 +224,7 @@
             </div>
         </div>
         <div id="card_3" class="hidden dialogue-box">
+            <img src="assets/dialogbox.png" alt="dialogbox background">
             <div id="scene3">
                 <h3 class="dialog" id="message"></h3>
                 <div class="continue-btn">
@@ -224,6 +233,7 @@
             </div>
         </div>
         <div id="card_4" class="hidden dialogue-box">
+            <img src="assets/dialogbox.png" alt="dialogbox background">
             <div id="scene4">
                 <img src="assets/hua.png" alt="">
                 <h3 class="cname">導覽員-小花</h3>
@@ -253,8 +263,13 @@
                 button.closest('.dialogue-box').classList.add('hidden');
                 document.getElementById(nextCard).classList.remove('hidden');
 
-                if (nextCard === 'card_4') {
-                    playAudio('assets/1-2.wav'); // Play the audio for card 4
+                // Play the corresponding audio for each card
+                if (nextCard === 'card_2') {
+                    playAudio('assets/2.wav'); // Play the audio for card 2
+                } else if (nextCard === 'card_3') {
+                    playAudio('assets/3.wav'); // Play the audio for card 3
+                } else if (nextCard === 'card_4') {
+                    playAudio('assets/4.wav'); // Play the audio for card 4
                 }
             });
         });
