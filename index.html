@@ -46,9 +46,10 @@
             width: 80%;
             text-align: center;
             background-image: url("assets/dialogbox.png");
-            background-size: cover;
-            background-position: center;
+            background-size: cover; /* 调整背景图像大小以适应容器 */
+            background-position: center; /* 确保背景图像居中 */
             z-index: 20;
+            box-sizing: border-box; /* 确保 padding 不影响宽度计算 */
         }
 
         .backgroundimg {
@@ -69,9 +70,9 @@
             width: 80%;
             z-index: 20;
             background-image: url("assets/dialogbox.png");
-            background-size: cover;
+            background-size: cover; /* 调整背景图像大小以适应容器 */
             background-repeat: no-repeat;
-            background-position: center;
+            background-position: center; /* 确保背景图像居中 */
         }
 
         .dialogue-box>h3 {
