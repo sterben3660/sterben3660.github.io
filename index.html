@@ -1,24 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>對話框遊戲</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
     <style>
-        .hidden { display: none; }
-        .clickable { cursor: pointer; }
-        *{
+        .hidden {
+            display: none;
+        }
+
+        .clickable {
+            cursor: pointer;
+        }
+
+        * {
             margin: 0 auto;
             padding: 0;
         }
-        body{
+
+        body {
             text-decoration: none;
             line-height: 1.5;
             font-family: Arial, sans-serif;
         }
-        a{
+
+        a {
             text-decoration: none;
             color: #333333;
         }
@@ -27,19 +37,21 @@
         #card_2,
         #card_3,
         #card_4 {
-          position: absolute;
-          bottom: 20px;
-          left: 50%;
-          transform: translateX(-50%);
-          border: 1px solid #ccc;
-          padding: 20px;
-          width: 80%;
-          text-align: center;
-          background-color: rgb(236, 224, 224);
-          z-index: 20;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 80%;
+            text-align: center;
+            background-image: url("assets/dialogbox.png");
+            background-size: cover;
+            background-position: center;
+            z-index: 20;
         }
 
-        .backgroundimg{
+        .backgroundimg {
             position: relative;
             width: 100%;
             height: 100vh;
@@ -47,6 +59,7 @@
             background-size: cover;
             background-position: center;
         }
+
         .dialogue-box {
             position: absolute;
             bottom: 20px;
@@ -60,21 +73,29 @@
             background-repeat: no-repeat;
             background-position: center;
         }
+
         .dialogue-box>h3 {
             text-align: left;
             font-size: 1.2rem;
         }
-        .cname{
-          color: rgb(235, 174, 94);
+
+        .cname {
+            color: rgb(235, 174, 94);
         }
-        #scene1>h3,#scene2>h3,#scene3>h3,#scene4>h3{
+
+        #scene1>h3,
+        #scene2>h3,
+        #scene3>h3,
+        #scene4>h3 {
             text-align: left;
             font-size: 1.2rem;
         }
+
         .dialogue-box>.options {
             display: flex;
             justify-content: flex-end;
         }
+
         .options button {
             padding: 10px 20px;
             cursor: pointer;
@@ -87,13 +108,16 @@
             justify-content: center;
             align-items: center;
         }
-        .continue-btn{
-          display: flex;
-          justify-content: flex-end;
+
+        .continue-btn {
+            display: flex;
+            justify-content: flex-end;
         }
-        .next-btn{
-          padding: 10px 20px;
+
+        .next-btn {
+            padding: 10px 20px;
         }
+
         .choices button {
             width: 300px;
             margin: 3% 0;
@@ -103,45 +127,53 @@
             padding: 30px 60px;
             cursor: pointer;
         }
-        .selection{
-          display: flex;
-          flex-direction: row;
-          justify-content:center;
+
+        .selection {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
         }
-        .selection>#optionA,.selection>#optionB,.selection>#optionC{
-          padding: 1% 4%;
-          margin: 0 2%;
+
+        .selection>#optionA,
+        .selection>#optionB,
+        .selection>#optionC {
+            padding: 1% 4%;
+            margin: 0 2%;
         }
-        #character,#scene4>img {
+
+        #character,
+        #scene4>img {
             position: absolute;
             top: -175%;
             left: 0;
             width: 200px;
         }
-        @media (max-width:1280px) {
+
+        @media (max-width: 1280px) {
             .dialogue-box {
                 top: 70%;
                 left: 50%;
             }
+
             .dialogue-box>h3 {
                 font-size: 1.2rem;
             }
         }
 
-        @media (max-width:767px) {
+        @media (max-width: 767px) {
             .dialogue-box {
                 top: 47%;
             }
         }
 
-        @media (max-width:576px) {
+        @media (max-width: 576px) {
             .dialogue-box {
                 height: 240px;
                 font-size: 1.1rem;
             }
         }
 
-        @media (max-width:480px) {
+        @media (max-width: 480px) {
             .dialogue-box {
                 left: 11%;
                 top: 47%;
@@ -151,6 +183,7 @@
         }
     </style>
 </head>
+
 <body>
     <div id="game-container">
         <div class="backgroundimg"></div>
@@ -166,9 +199,9 @@
                 <h3 class="cname">導覽員-小花</h3>
                 <h3 class="dialog">你好呀，我是導覽員小花，歡迎你來到美濃窯－陶藝基地</h3>
                 <div class="continue-btn">
-                  <button class="next-btn" data-next="card_2">繼續</button>
+                    <button class="next-btn" data-next="card_2">繼續</button>
                 </div>
-                
+
             </div>
         </div>
         <div id="card_2" class="hidden dialogue-box">
@@ -185,7 +218,7 @@
             <div id="scene3">
                 <h3 class="dialog" id="message"></h3>
                 <div class="continue-btn">
-                  <button class="next-btn" data-next="card_4">繼續</button>
+                    <button class="next-btn" data-next="card_4">繼續</button>
                 </div>
             </div>
         </div>
@@ -195,7 +228,7 @@
                 <h3 class="cname">導覽員-小花</h3>
                 <h3 class="dialog">今天我將會帶你探索這充滿歷史故事的奇妙之地，現在我們先去門口看看吧！</h3>
                 <div class="continue-btn">
-                  <button class="next-btn" data-next="card_5"><a href="arGuide.html">繼續</a></button>
+                    <button class="next-btn" data-next="card_5"><a href="arGuide.html">繼續</a></button>
                 </div>
             </div>
         </div>
@@ -207,14 +240,14 @@
             audio.play();
         }
 
-        document.getElementById('continue-btn').addEventListener('click', function() {
+        document.getElementById('continue-btn').addEventListener('click', function () {
             document.getElementById('dialogue-1').classList.add('hidden');
             document.getElementById('card_1').classList.remove('hidden');
             playAudio('assets/1.wav'); // Play the audio for card 1
         });
 
         document.querySelectorAll('.next-btn').forEach(button => {
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function () {
                 const nextCard = button.getAttribute('data-next');
                 button.closest('.dialogue-box').classList.add('hidden');
                 document.getElementById(nextCard).classList.remove('hidden');
@@ -226,7 +259,7 @@
         });
 
         document.querySelectorAll('.selection button').forEach(button => {
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function () {
                 const message = button.getAttribute('data-message');
                 document.getElementById('message').innerText = message;
                 const nextCard = button.getAttribute('data-next');
@@ -236,6 +269,9 @@
         });
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>
