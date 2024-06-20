@@ -103,10 +103,14 @@
             font-size: 1.2rem;
         }
 
-        .dialogue-box > .options {
+        .dialogue-box>.options {
             position: relative;
             display: flex;
             justify-content: flex-end;
+            background-image: url("assets/namecard.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
         }
 
         .options button {
@@ -245,7 +249,9 @@
             <img src="assets/dialogbox.png" alt="dialogbox background">
             <div id="scene4">
                 <img src="assets/hua.png" alt="">
-                <h3 class="cname">導覽員-小花</h3>
+                <div class="namecard">
+                    <h3 class="cname">導覽員-小花</h3>
+                </div>
                 <h3 class="dialog">今天我將會帶你探索這充滿歷史故事的奇妙之地，現在我們先去門口看看吧！</h3>
                 <div class="continue-btn">
                     <button class="next-btn" data-next="card_5"><a href="arGuide.html">繼續</a></button>
