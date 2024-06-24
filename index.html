@@ -220,12 +220,22 @@
 			}
 			/* nest hub */
 			@media (max-width: 1280px) {
-					.dialogue-box img {
-						left: 0;
-						height: 147%;
-						top: -22%;
+				.dialogue-box img {
+					left: 0;
+					height: 147%;
+					top: -22%;
 
-        	}
+				}
+			}
+			/* samsung galaxy a51/a71 */
+			@media (max-width: 412px) {
+				.character{
+					display: none;
+				}
+				#rwdcharacter{
+					display: block;
+				}
+				
 			}
     </style>
 </head>
@@ -244,6 +254,7 @@
             <img src="assets/dialogbox.png" alt="dialogbox background">
             <div id="scene1">
                 <img id="character" src="assets/hua1.png" alt="">
+								<img id="rwdcharacter" src="assets/hua2.png" alt="" style="display: none;">
                 <div class="namecard">
                     <h3 class="cname">導覽員-小花</h3>
                 </div>
