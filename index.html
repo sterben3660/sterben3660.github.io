@@ -166,20 +166,13 @@
         #character,
         #scene4 > img {
             position: absolute;
-            top: -209%;
-            left: -4%;
-            width: 35%;
+            top: -128%;
+						left: -6%;
+						width: 25%;
         }
 
         @media (max-width: 1280px) {
-            .dialogue-box {
-                top: 70%;
-                left: 50%;
-            }
-
-            .dialogue-box > h3 {
-                font-size: 1.2rem;
-            }
+            
         }
 
         @media (max-width: 767px) {
@@ -211,12 +204,29 @@
 						height: 140%;
 
         	}
-        #character, #scene4 > img {
+        #character, #scene4>img {
 					top: -129%;
 					left: -9%;
 					width: 40%;
         }
-			} 
+				.dialogue-box {
+					top: 70%;
+					left: 50%;
+				}
+
+				.dialogue-box>h3 {
+					font-size: 1.2rem;
+				}
+			}
+			/* nest hub */
+			@media (max-width: 1280px) {
+					.dialogue-box img {
+						left: 0;
+						height: 147%;
+						top: -22%;
+
+        	}
+			}
     </style>
 </head>
 
