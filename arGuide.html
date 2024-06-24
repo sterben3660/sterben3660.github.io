@@ -65,7 +65,7 @@
       width: 50%;
     }
     #mrju{
-      background-image: url("assets/mrju1.png");
+      background-image: url("assets/mrju.png");
       background-repeat: no-repeat;
       background-size: cover;
       height: 500px;
@@ -74,13 +74,35 @@
       top: -500px;
     }
     #hua{
-      background-image: url("assets/hua1.png");
+      background-image: url("assets/hua.png");
       background-repeat: no-repeat;
       background-size: cover;
       height:500px;
       position: absolute;
       width:470px;
       top: -500px;
+    }
+    #scene1{
+      background-image: url("assets/dialogbox.png");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+
+    /* nest hub max */
+    @media (max-width: 1280px) {
+
+    }
+    /* nest hub */
+    @media (max-width: 1024px) {
+
+    }
+    @media (max-width: 924px) {
+
+    }
+    @media (max-width: 767px) {
+
     }
 
     @media screen and (max-width:576px) { 
@@ -92,12 +114,18 @@
         width:150px;
       }
     }
+
     @media screen and (max-width:480px){
       .dialogue-box {
         left: 50%;
     }
 
-    }
+    
+    /* samsung galaxy a51/a71 */
+    @media (max-width: 440px) {
+
+    }	
+
     @media screen and (max-width:400px) { 
       h3{
         font-size: 14px;
@@ -128,7 +156,11 @@
       {
         height:20%;
       }
-    } 
+    }
+
+
+  }
+     
     </style>
     <script>
       let audioContext;
