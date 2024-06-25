@@ -36,8 +36,7 @@
         #card_1,
         #card_2,
         #card_3,
-        #card_4,
-        #card_5 {
+        #card_4 {
             position: absolute;
             bottom: 20px;
             left: 50%;
@@ -299,16 +298,16 @@
 <body>
     <div id="game-container">
         <div class="backgroundimg"></div>
-        <div id="card_1" class="dialogue-box" id="dialogue-1">
+        <div class="dialogue-box" id="dialogue-1">
             <img src="assets/dialogbox.png" alt="dialogbox background">
             <h3>歡迎使用本AR導覽系統！透過掃描美濃窯園區內的圖片，您將能夠在手機畫面中即時呈現相關歷史、藝術及文化資訊，讓您更深入了解美濃窯的精髓。希望您能享受這次別具一格的導覽之旅。</h3>
             <div class="options">
                 <button id="continue-btn">請點選按鈕繼續</button>
             </div>
         </div>
-        <div id="card_2" class="hidden dialogue-box clickable">
+        <div id="card_1" class="hidden dialogue-box clickable">
             <img src="assets/dialogbox.png" alt="dialogbox background">
-            <div id="scene2">
+            <div id="scene1">
                 <img id="character" src="assets/hua1.png" alt="">
                 <div class="namecard">
                     <h3 class="cname">導覽員-小花</h3>
@@ -319,9 +318,9 @@
                 </div>
             </div>
         </div>
-        <div id="card_3" class="hidden dialogue-box">
+        <div id="card_2" class="hidden dialogue-box">
             <img src="assets/dialogbox.png" alt="dialogbox background">
-            <div id="scene3">
+            <div id="scene2">
                 <h3 class="dialog">你在美濃會想到什麼呢？</h3>
                 <div class="selection">
                     <button id="optionA" data-message="歡迎你第一次來美濃窯" data-next="card_3">A.月光山</button>
@@ -330,9 +329,9 @@
                 </div>
             </div>
         </div>
-        <div id="card_4" class="hidden dialogue-box">
+        <div id="card_3" class="hidden dialogue-box">
             <img src="assets/dialogbox.png" alt="dialogbox background">
-            <div id="scene4">
+            <div id="scene3">
                 <h3 class="dialog" id="message"></h3>
                 
                 <div class="options">
@@ -340,9 +339,9 @@
                 </div>
             </div>
         </div>
-        <div id="card_5" class="hidden dialogue-box">
+        <div id="card_4" class="hidden dialogue-box">
             <img src="assets/dialogbox.png" alt="dialogbox background">
-            <div id="scene5">
+            <div id="scene4">
                 <img src="assets/hua1.png" alt="">
                 <div class="namecard">
                     <h3 class="cname">導覽員-小花</h3>
@@ -374,7 +373,7 @@
                 document.getElementById(nextCard).classList.remove('hidden');
 
                 // Play the corresponding audio for each card
-                if (nextCard === 'card_5') {
+                if (nextCard === 'card_4') {
                     playAudio('assets/1-2.wav'); // Play the audio for card 4
                 }
             });
