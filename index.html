@@ -167,15 +167,31 @@
         #scene4 > img {
             position: absolute;
             top: -205%;
-						left: -8%;
-						width: 35%;
+            left: -8%;
+            width: 35%;
         }
-				@media (max-width: 924px) {
-					#character, #scene4>img{
-						top: -135%;
-						left: -14%;
-						width: 60%;
-					}
+        /* nest hub */
+        @media (max-width: 1024px) {
+            #character, #scene4>img {
+                width: 45%;
+                top: -126%;
+                height: 130%;
+                left: -10%;
+
+        }
+        .dialogue-box img{
+            height: 160%;
+        }
+        .selection{
+            margin-top: 4%;
+        }
+        }
+        @media (max-width: 924px) {
+            #character, #scene4>img{
+                top: -135%;
+                left: -14%;
+                width: 60%;
+            }
         }
         @media (max-width: 767px) {
             .dialogue-box {
@@ -204,6 +220,9 @@
         }
         /* nest hub max */
         @media (max-width: 1280px) {
+            .dialogue-box{
+                padding: 3%;
+            }
             .dialogue-box img {
                 top: -34%;
                 left: 0;
@@ -223,17 +242,11 @@
             .dialogue-box>h3 {
                 font-size: 1.2rem;
             }
-        }
-        /* nest hub */
-        @media (max-width: 1024px) {
-            #character, #scene4>img {
-                width: 45%;
-                top: -126%;
-                height: 130%;
-                left: -10%;
-
+            .selection{
+                margin-top: 3%;
             }
         }
+
         /* samsung galaxy a51/a71 */
         @media (max-width: 440px) {
             .dialogue-box {
