@@ -236,12 +236,18 @@
                 margin: 0 2%;
             }
         }
-        @media (max-width: 767px) {
+        @media (max-width: 768px) {
             .dialogue-box {
                 top: 47%;
             }
-            .dialogue-box img{
+            .dialogue-box>img{
                 height: 130%;
+            }
+            #character, #scene4>img{
+                top: -97%;
+                left: -17%;
+                width: 75%;
+                height: 104%;
             }
         }
 
@@ -306,6 +312,9 @@
             #card_1, #card_2, #card_3, #card_4, #dialogue-1{
                 top:65%;
             }
+            .options, .selection>button{
+                justify-content: center;
+            }
         }		
     </style>
 </head>
@@ -336,7 +345,7 @@
         <div id="card_2" class="hidden dialogue-box">
             <img src="assets/dialogbox.png" alt="dialogbox background">
             <div id="scene2">
-                <h3 class="dialog">到了美濃，你會想到什麼呢？</h3>
+                <h3 class="dialog">你對美濃的第一印象是什麼呢？</h3>
                 <div class="selection">
                     <button id="optionA" data-message="哇！太好了！" data-next="card_3">A.美濃窯</button>
                     <button id="optionB" data-message="歡迎來到美濃窯~" data-next="card_3">B.月光山</button>
