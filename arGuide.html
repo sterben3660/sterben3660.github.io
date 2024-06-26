@@ -1,718 +1,196 @@
-
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v7.0.0/dist/aframe-extras.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-  </head>
-
-  <style>
-
-    .hidden {
-      display: none;
-    }
-    .selection{
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-    }
-    .selection>button{
-      background-color:rgba(120, 196, 240, 0.849);
-      margin: 1% 2%;
-      padding:2% 5%;
-      border-radius: 30px;
-      border-color: transparent;
-    }
-    .options>button{
-      background-color:rgba(120, 196, 240, 0.849);
-      padding: 1% 3%;
-      margin-top: 10px;
-      border-color: transparent;
-    }
-    #card_1,
-    #card_2,
-    #card_3,
-    #card_4,
-    #card_5,
-    #card_6,
-    #card_7,
-    #card_8,
-    #card_9,
-    #card_10,
-    #card_11,
-    #card_12,
-    #card_13,
-    #card_14,
-    #card_15,
-    #card_16,
-    #card_17,
-    #card_18,
-    #card_19,
-    #card_20,
-    #card_21,
-    #card_22,
-    #card_23,
-    #card_24
-     {
-      position: fixed;
-      bottom: 5%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80%;
-      height: 15%;
-      background-color: aliceblue;
-      padding: 20px;
-      align-items: center;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-      z-index: 10;
-    }
-
-    .dialog span.hidden {
-      visibility: hidden;
-    }
-    .character{
-      width: 50%;
-    }
-    #mrju{
-      background-image: url("assets/mrju.png");
-      background-repeat: no-repeat;
-      background-size: cover;
-      height: 500px;
-      position: absolute;
-      width:470px;
-      top: -500px;
-    }
-    #hua{
-      background-image: url("assets/hua.png");
-      background-repeat: no-repeat;
-      background-size: cover;
-      height:500px;
-      position: absolute;
-      width:470px;
-      top: -500px;
-    }
-    #scene1{
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-    }
-    .namecard{
-      color: rgb(129, 179, 223);
-    }
-    .options{
-      display: flex;
-      justify-content: flex-end;
-    }
-    /* nest hub max */
-    @media (max-width: 1280px) {
-      
-      #card_1,
-      #card_2,
-      #card_3,
-      #card_4,
-      #card_5,
-      #card_6,
-      #card_7,
-      #card_8,
-      #card_9,
-      #card_10,
-      #card_11,
-      #card_12,
-      #card_13,
-      #card_14,
-      #card_15,
-      #card_16,
-      #card_17,
-      #card_18,
-      #card_19,
-      #card_20,
-      #card_21,
-      #card_22,
-      #card_23,
-      #card_24{
-        height: 21%;
-      }
-      .options>button{
-        margin: 0;
-      }
-    }
-    /* nest hub */
-    @media (max-width: 1024px) {
-      #mrju{
-        height: 390px;
-        width: 470px;
-        top: -389px;
-        left: -10%;
-      }
-      #hua{
-        height: 390px;
-        width: 470px;
-        top: -389px;
-        left: -10%;
-      }
-      h3{
-        font-size: 16px;
-      }
-      #card_1,
-      #card_2,
-      #card_3,
-      #card_4,
-      #card_5,
-      #card_6,
-      #card_7,
-      #card_8,
-      #card_9,
-      #card_10,
-      #card_11,
-      #card_12,
-      #card_13,
-      #card_14,
-      #card_15,
-      #card_16,
-      #card_17,
-      #card_18,
-      #card_19,
-      #card_20,
-      #card_21,
-      #card_22,
-      #card_23,
-      #card_24{
-        height: 25%;
-      }
-    }
-    @media (max-width: 924px) {
-      #card_1, #card_2, #card_3, #card_4, #card_5, #card_6, #card_7, #card_8, #card_9, #card_10, #card_11, #card_12, #card_13, #card_14, #card_15, #card_16, #card_17, #card_18, #card_19, #card_20, #card_21, #card_22, #card_23, #card_24{
-        height:17%;
-      }
-      .selection{
-        margin-top:7%;
-      }
-      .selection>button{
-        padding: 2% 3%;
-      }
-    }
-    @media (max-width: 768px) {
-      .selection>button{
-        padding: 2%;
-      }
-    }
-
-    @media screen and (max-width:576px) { 
-      h3{
-        font-size: 16px;
-      }
-      #character, #scene4>img{
-        top: -85%;
-        width:150px;
-      }
-      #card_1, #card_2, #card_3, #card_4, #card_5, #card_6, #card_7, #card_8, #card_9, #card_10, #card_11, #card_12, #card_13, #card_14, #card_15, #card_16, #card_17, #card_18, #card_19, #card_20, #card_21, #card_22, #card_23, #card_24{
-        height:28%;
-      }
-      .selection{
-        flex-direction: column;
-      }
-    }
-
-    @media screen and (max-width:480px){
-      .dialogue-box {
-        left: 50%;
-    }
-
-    
-    /* samsung galaxy a51/a71 */
-    @media (max-width: 440px) {
-      .selection{
-        flex-direction: column;
-      }
-      .selection>button{
-        margin: 4%;
-      }
-      .options>button{
-        padding: 5%;
-      }
-      #mrju{
-        height: 289px;
-        width: 350px;
-        top: -288px;
-        left: -23%;
-      }
-      #hua{
-        height: 289px;
-        width: 350px;
-        top: -288px;
-        left: -17%;
-      }
-      #card_1, #card_2, #card_3, #card_4, #card_5, #card_6, #card_7, #card_8, #card_9, #card_10, #card_11, #card_12, #card_13, #card_14, #card_15, #card_16, #card_17, #card_18, #card_19, #card_20, #card_21, #card_22, #card_23, #card_24{
-        height: 26%;
-      }
-    }	
-
-    @media screen and (max-width:400px) { 
-      h3{
-        font-size: 14px;
-      }
-      #card_1,
-      #card_2,
-      #card_3,
-      #card_4,
-      #card_5,
-      #card_6,
-      #card_7,
-      #card_8,
-      #card_9,
-      #card_10,
-      #card_11,
-      #card_12,
-      #card_13,
-      #card_14,
-      #card_15,
-      #card_16,
-      #card_17,
-      #card_18,
-      #card_19,
-      #card_20,
-      #card_21,
-      #card_22,
-      #card_23
-      {
-        height:28%;
-      }
-      .selection{
-        margin-top: 0;
-      }
-      .options>button{
-        padding: 3%;
-      }
-      .selection>button{
-        margin: 1% 4%;
-      }
-    }
-
-      
-
-
-  }
-     
+    <style>
+        .hidden { display: none; }
+        .selection { display: flex; flex-direction: row; justify-content: center; }
+        .selection > button {
+            background-color: rgba(120, 196, 240, 0.849);
+            margin: 1% 2%; padding: 2% 5%;
+            border-radius: 30px; border: none;
+        }
+        .options > button {
+            background-color: rgba(120, 196, 240, 0.849);
+            padding: 1% 3%; margin-top: 10px;
+            border: none;
+        }
+        #mrju, #hua {
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 500px; position: absolute; width: 470px; top: -500px;
+        }
+        #mrju { background-image: url("assets/mrju.png"); }
+        #hua { background-image: url("assets/hua.png"); }
+        .namecard { color: rgb(129, 179, 223); }
+        .options { display: flex; justify-content: flex-end; }
+        .dialogue-box { left: 50%; }
+        
+        /* Responsive Design */
+        @media (max-width: 1280px) {
+            #mrju, #hua { height: 390px; width: 470px; top: -389px; left: -10%; }
+            h3 { font-size: 16px; }
+            .selection { margin-top: 7%; }
+            .selection > button { padding: 2% 3%; }
+        }
+        @media (max-width: 576px) {
+            h3 { font-size: 16px; }
+            #mrju, #hua { height: 289px; width: 350px; top: -288px; left: -17%; }
+            .selection { flex-direction: column; }
+            .selection > button { margin: 4%; }
+        }
+        @media (max-width: 480px) {
+            .dialogue-box { left: 50%; }
+        }
+        @media (max-width: 440px) {
+            .selection { flex-direction: column; }
+            .selection > button { margin: 4%; }
+            .options > button { padding: 5%; }
+            h3 { font-size: 14px; }
+        }
     </style>
+</head>
+<body>
+    <a-scene mindar-image="imageTargetSrc: assets/targets.mind; filterMinCF:0.0001; filterBeta: 0.001" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+        <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="near: 10; far: 30000; objects: .clickable"></a-camera>
+        <a-entity target id="targetA" mindar-image-target="targetIndex: 0" rotation="75 0 0"></a-entity>
+        <a-entity target id="targetB" mindar-image-target="targetIndex: 1" rotation="75 0 0"></a-entity>
+        
+        <div id="card_1" class="hidden clickable">
+            <div id="mrju"></div>
+            <div id="scene1" class="hidden">
+                <h3 class="namecard">導覽員-小朱</h3>
+                <h3 class="dialog">你好，我是小朱，接下來讓我為你解說門口這些美麗的陶片吧</h3>
+                <div class="options"><button class="next-btn" data-next="card_4">請點選按鈕繼續</button></div>
+            </div>
+        </div>
+
+        <div id="card_2" class="hidden">
+            <div id="scene2">
+                <h3 class="dialog">你來猜猜看牆面上的陶片尺寸是多少吧？</h3>
+                <div class="selection">
+                    <button id="optionA">A.冰掌(兵長)一米六</button>
+                    <button id="optionB">B.10×20公分</button>
+                    <button id="optionC">C.18×6公分</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="card_3" class="hidden">
+            <div id="mrju"></div>
+            <div id="scene3">
+                <h3 class="namecard">導覽員-小朱</h3>
+                <h3 class="dialog">這些陶片的尺寸為10×20公分，剛上釉料時是無法看到色彩的，要等燒製完成後，顏色才會顯現出來，所以製作陶藝，就是一場藝術冒險哦。</h3>
+                <div class="options"><button class="next-btn" data-next="card_4">請點選按鈕繼續</button></div>
+            </div>
+        </div>
+
+        <div id="card_4" class="hidden">
+            <div id="mrju"></div>
+            <div id="scene4">
+                <h3 class="namecard">導覽員-小朱</h3>
+                <h3 class="dialog">而且每塊陶片都是由三到五位師傅共同創造出來的，他們在創作過程中互相合作，是非常有默契的藝術家團隊。等到陶片都燒製完成後，再固定在牆上，這些陶片的尺寸雖小，但背後蘊含著師傅們的心血和努力。</h3>
+                <div class="options"><button class="next-btn" data-next="card_4">請點選按鈕繼續</button></div>
+            </div>
+        </div>
+
+        <div id="card_5" class="hidden clickable">
+            <div id="hua"></div>
+            <div id="scene5" class="hidden">
+                <h3 class="namecard">導覽員-小花</h3>
+                <h3 class="dialog">讓我們一起進入這個神奇的展覽室吧，讓我們用眼睛和心靈一同仔細觀察這些作品！這個空間裡，充滿了繽紛絢麗的色彩，那話不多說，我們聽小朱為大家講解背後的小故事吧～</h3>
+                <div class="options"><button class="next-btn" data-next="card_4">請點選按鈕繼續</button></div>
+            </div>
+        </div>
+    </a-scene>
     <script>
-      let audioContext;
-      let sourceNode;
+        let audioContext, sourceNode;
 
-      const resumeAudioContext = async () => {
-        console.log('Resuming AudioContext');
-        audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        await audioContext.resume();
-        console.log('AudioContext resumed');
-      };
-  
-      const getAudio = async (url) => {
-        console.log(`Fetching audio from ${url}`);
-        const response = await fetch(url);
-        const buffer = await response.arrayBuffer();
-        return buffer;
-      };
-  
-      const playMusic = async (url) => {
-        if (!audioContext) {
-          await resumeAudioContext();
-        }
-        const audioBuffer = await getAudio(url);
-        const decodedData = await audioContext.decodeAudioData(audioBuffer);
-        sourceNode = audioContext.createBufferSource();
-        sourceNode.buffer = decodedData;
-        sourceNode.connect(audioContext.destination);
-        sourceNode.start();
-        console.log('Music started');
-      };
-  
-      const pauseMusic = () => {
-        if (sourceNode) {
-          sourceNode.stop();
-          console.log('Music stopped');
-        }
-      };
-  
-      document.addEventListener("DOMContentLoaded", function () {
-        const sceneEl = document.querySelector('a-scene');
-        let arSystem;
-
-        sceneEl.addEventListener('loaded', function () {
-          console.log('AR scene loaded');
-          arSystem = sceneEl.systems["mindar-image-system"];
-
-          const targets = [
-            { id: 'targetA', sceneId: 'scene1', cardId: 'card_1', music: 'assets/1-3.wav' },
-            { id: 'targetB', sceneId: 'scene5', cardId: 'card_5', music: 'assets/2.wav' },
-            { id: 'targetC', sceneId: 'scene9', cardId: 'card_9', music: 'assets/3.wav' },
-            { id: 'targetD', sceneId: 'scene14', cardId: 'card_14', music: 'assets/4.wav' },
-            { id: 'targetE', sceneId: 'scene19', cardId: 'card_19', music: null }
-          ];
-
-          targets.forEach(target => {
-            const { id, sceneId, cardId, music } = target;
-            const targetElement = document.querySelector(`#${id}`);
-            const sceneElement = document.getElementById(sceneId);
-            const cardElement = document.getElementById(cardId);
-
-            targetElement.addEventListener("targetFound", async event => {
-              console.log('target found');
-              sceneElement.classList.remove('hidden');
-              cardElement.classList.remove('hidden');
-              if (music) await playMusic(music);
-            });
-
-            targetElement.addEventListener("targetLost", event => {
-              console.log('target lost');
-              cardElement.classList.add('hidden');
-              sceneElement.classList.add('hidden');
-              if (music) pauseMusic();
-            });
-          });
-        });
-
-
-
-
-
-        // General function to handle card clicks
-        const handleCardClick = (currentCard, currentScene, nextCard, nextScene, music) => {
-          console.log(`${currentCard.id} clicked`);
-          currentCard.classList.add('hidden');
-          currentScene.classList.add('hidden');
-          pauseMusic();
-          if (nextCard && nextScene) {
-            nextCard.classList.remove('hidden');
-            nextScene.classList.remove('hidden');
-            if (music) playMusic(music);
-          }
+        const resumeAudioContext = async () => {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            await audioContext.resume();
         };
 
-        // Array of card sequences
-        const cards = [
-          { currentCard: 'card_1', currentScene: 'scene1', nextCard: 'card_2', nextScene: 'scene2', music: null },
-          { currentCard: 'card_2', currentScene: 'scene2', nextCard: 'card_3', nextScene: 'scene3', music: 'assets/1-4.wav' },
-          { currentCard: 'card_3', currentScene: 'scene3', nextCard:'card_4', nextScene: 'scene4', music: 'assets/1-5.wav' },
-          { currentCard: 'card_4', currentScene: 'scene4', nextCard: null, nextScene: null, music: null },
-          { currentCard: 'card_5', currentScene: 'scene5', nextCard: 'card_6', nextScene: 'scene6', music: 'assets/2-2.wav' },
-          { currentCard: 'card_6', currentScene: 'scene6', nextCard: 'card_7', nextScene: 'scene7', music: null },
-          { currentCard: 'card_7', currentScene: 'scene7', nextCard: 'card_8', nextScene: 'scene8', music: 'assets/2-3.wav' },
-          { currentCard: 'card_8', currentScene: 'scene8', nextCard: null, nextScene: null, music: null },
-          { currentCard: 'card_9', currentScene: 'scene9', nextCard: 'card_10', nextScene: 'scene10', music: null },
-          { currentCard: 'card_10', currentScene: 'scene10', nextCard: 'card_11', nextScene: 'scene11', music: 'assets/3-2.wav' },
-          { currentCard: 'card_11', currentScene: 'scene11', nextCard: 'card_12', nextScene: 'scene12', music: null },
-          { currentCard: 'card_12', currentScene: 'scene12', nextCard: 'card_13', nextScene: 'scene13', music: 'assets/3-3.wav' },
-          { currentCard: 'card_13', currentScene: 'scene13', nextCard: null, nextScene: null, music: null },
-          { currentCard: 'card_14', currentScene: 'scene14', nextCard: 'card_15', nextScene: 'scene15', music: null },
-          { currentCard: 'card_15', currentScene: 'scene15', nextCard: 'card_16', nextScene: 'scene16', music: 'assets/4-2.wav' },
-          { currentCard: 'card_16', currentScene: 'scene16', nextCard: 'card_17', nextScene: 'scene17', music: null },
-          { currentCard: 'card_17', currentScene: 'scene17', nextCard: 'card_18', nextScene: 'scene18', music: 'assets/4-3.wav' },
-          { currentCard: 'card_18', currentScene: 'scene18', nextCard: null, nextScene: null, music: null },
-          { currentCard: 'card_19', currentScene: 'scene19', nextCard: 'card_20', nextScene: 'scene20', music: 'assets/5.wav' },
-          { currentCard: 'card_20', currentScene: 'scene20', nextCard: 'card_21', nextScene: 'scene21', music: null },
-          { currentCard: 'card_21', currentScene: 'scene21', nextCard: 'card_22', nextScene: 'scene22', music: 'assets/5-2.wav' },
-          { currentCard: 'card_22', currentScene: 'scene22', nextCard: 'card_23', nextScene: 'scene23', music: 'assets/5-3.wav' },
-          { currentCard: 'card_23', currentScene: 'scene23', nextCard: 'card_24', nextScene: 'scene24', music: 'assets/5-4.wav' },
-          { currentCard: 'card_24', currentScene: 'scene24', nextCard: null, nextScene: null, music: null },
-        ];
+        const getAudio = async (url) => {
+            const response = await fetch(url);
+            const buffer = await response.arrayBuffer();
+            return audioContext.decodeAudioData(buffer);
+        };
 
-        cards.forEach(({ currentCard, currentScene, nextCard, nextScene, music }) => {
-          const currentCardElement = document.getElementById(currentCard);
-          const currentSceneElement = document.getElementById(currentScene);
-          const nextCardElement = nextCard ? document.getElementById(nextCard) : null;
-          const nextSceneElement = nextScene ? document.getElementById(nextScene) : null;
+        const playMusic = async (url) => {
+            await resumeAudioContext();
+            const decodedData = await getAudio(url);
+            sourceNode = audioContext.createBufferSource();
+            sourceNode.buffer = decodedData;
+            sourceNode.connect(audioContext.destination);
+            sourceNode.start();
+        };
 
-          currentCardElement.addEventListener("click", event => {
-            handleCardClick(currentCardElement, currentSceneElement, nextCardElement, nextSceneElement, music);
-          });
+        const pauseMusic = () => {
+            if (sourceNode) {
+                sourceNode.stop();
+            }
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const sceneEl = document.querySelector('a-scene');
+            let arSystem;
+
+            sceneEl.addEventListener('loaded', () => {
+                arSystem = sceneEl.systems["mindar-image-system"];
+
+                const targets = [
+                    { id: 'targetA', sceneId: 'scene1', cardId: 'card_1', music: 'assets/1-3.wav' },
+                    { id: 'targetB', sceneId: 'scene5', cardId: 'card_5', music: 'assets/2.wav' }
+                ];
+
+                targets.forEach(target => {
+                    const { id, sceneId, cardId, music } = target;
+                    const entity = document.querySelector(`#${id}`);
+                    const card = document.querySelector(`#${cardId}`);
+                    const scene = document.querySelector(`#${sceneId}`);
+                    entity.addEventListener("targetFound", (event) => {
+                        card.classList.remove('hidden');
+                        scene.classList.remove('hidden');
+                        playMusic(music);
+                    });
+                    entity.addEventListener("targetLost", (event) => {
+                        card.classList.add('hidden');
+                        scene.classList.add('hidden');
+                        pauseMusic();
+                    });
+                });
+
+                const nextButtons = document.querySelectorAll('.next-btn');
+                nextButtons.forEach(button => {
+                    button.addEventListener('click', (event) => {
+                        const nextCardId = event.target.dataset.next;
+                        if (nextCardId) {
+                            document.querySelector(`#${nextCardId}`).classList.remove('hidden');
+                        }
+                        event.target.closest('.hidden').classList.add('hidden');
+                    });
+                });
+
+                document.querySelector('#optionA').addEventListener('click', (event) => {
+                    alert('猜錯囉~請再猜一次');
+                });
+
+                document.querySelector('#optionB').addEventListener('click', (event) => {
+                    document.querySelector('#card_3').classList.remove('hidden');
+                    document.querySelector('#card_2').classList.add('hidden');
+                });
+
+                document.querySelector('#optionC').addEventListener('click', (event) => {
+                    alert('猜錯囉~請再猜一次');
+                });
+            });
         });
-
-        // Array of options
-        const options = [
-          'optionA','optionB','optionC','optionD', 'optionE', 'optionF',
-          'optionG', 'optionH', 'optionI', 'optionJ', 'optionK', 'optionL',
-          'optionM', 'optionN', 'optionO', 'optionP', 'optionQ', 'optionR',
-          'optionS', 'optionT', 'optionU', 'optionV', 'optionW', 'optionX'
-        ];
-
-      });
-  </script>
-  </head>
-  <body>
-    <a-scene mindar-image="imageTargetSrc: assets/targets.mind; filterMinCF:0.0001; filterBeta: 0.001" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
-
-      <a-camera position="0 0 0" look-controls="enabled:false" cursor="fuse: false; rayOrigin: mouse;"
-      raycaster="near: 10; far: 30000; objects: .clickable"></a-camera>
-      
-
-      <a-entity target id="targetA" mindar-image-target="targetIndex: 0" rotation="75 0 0">
-        
-      </a-entity>
-  
-      <div id="card_1" class="hidden clickable">
-        <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
-        <div id="scene1" class="hidden">
-          <h3 class="namecard">導覽員-小朱</h3>
-          <h3 class="dialog">你好，我是小朱，接下來讓我為你解說門口這些美麗的陶片吧</h3>
-          <div class="options">
-            <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
-          </div>
-        </div>
-      </div>
-        <div id="card_2" class="hidden"> 
-          <div id="scene2">
-            <h3 class="dialog">你來猜猜看牆面上的陶片尺寸是多少吧？</h3>
-            <div class="selection">
-                <button id="optionA">A.冰掌(兵長)一米六</button>
-                <button id="optionB">B.10×20公分</button>
-                <button id="optionC">C.18×6公分</button>
-            </div>
-          </div>
-        </div>
-        <div id="card_3" class="hidden">
-          <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
-          <div id="scene3">
-            <h3 class="namecard">導覽員-小朱</h3>
-            <h3 class="dialog">這些陶片的尺寸為10×20公分，剛上釉料時是無法看到色彩的，要等燒製完成後，顏色才會顯現出來，所以製作陶藝，就是一場藝術冒險哦。</h3>
-            <div class="options">
-              <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
-            </div>
-          </div>
-        </div>
-        <div id="card_4" class="hidden">
-          <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
-          <div id="scene4">
-            <h3 class="namecard">導覽員-小朱</h3>
-            <h3 class="dialog">而且每塊陶片都是由三到五位師傅共同創造出來的，他們在創作過程中互相合作，是非常有默契的藝術家團隊。等到陶片都燒製完成後，再固定在牆上，這些陶片的尺寸雖小，但背後蘊含著師傅們的心血和努力。</h3>
-            <div class="options">
-              <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
-            </div>
-          </div>
-        </div>
-      <a-entity target id="targetB" mindar-image-target="targetIndex: 1" rotation="75 0 0">
-
-      </a-entity>
-      <div id="card_5" class="hidden clickable">
-        <div id="hua" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
-        <div id="scene5" class="hidden">
-          <h3 class="namecard">導覽員-小花</h3>
-          <h3 class="dialog">讓我們一起進入這個神奇的展覽室吧，讓我們用眼睛和心靈一同仔細觀察這些作品！這個空間裡，充滿了繽紛絢麗的色彩，那話不多說，我們聽小朱為大家講解背後的小故事吧～</h3>
-          <div class="options">
-            <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
-          </div>
-        </div>
-      </div>
-      <div id="card_6" class="hidden clickable">
-        <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
-        <div id="scene6" class="hidden">
-          <h3 class="namecard">導覽員-小朱</h3>
-          <h3 class="dialog">這裡的作品色彩繽紛絢麗，其實是一場化學實驗的奇妙結果唷！</h3>
-          <div class="options">
-            <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
-          </div>
-        </div>
-      </div>
-      <div id="card_7" class="hidden">
-        <div id="scene7" class="hidden">
-          <h3 class="dialog">你知道面前這些作品是怎麼完成的嗎?</h3>
-          <div class="selection">
-            <button id="optionD">A.將不同陶土根據特性，釉燒後完成</button>
-            <button id="optionE">B.朱邦雄博士的火之呼吸</button>
-            <button id="optionF">C.朱式鍊陶術</button>
-          </div>
-        </div>
-      </div>
-      <div id="card_8" class="hidden">
-        <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
-        <div id="scene8">
-          <h3 class="namecard">導覽員-小朱</h3>
-          <h3 class="dialog">這些釉色是透過不同化學釉料之間的相互作用，才產生了這麼多變化，不管是顏色、粗糙或光滑的觸感，都是釉料在高溫作用下的神奇魔法！還有～根據作品性質，會選用不同特性的陶土來施作。不過你只能用眼睛欣賞，請勿觸摸!</h3>
-          <div class="options">
-            <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
-          </div>
-        </div>
-      </div>
-      <a-entity target id="targetC" mindar-image-target="targetIndex: 2" rotation="75 0 0">
-        
-      </a-entity>
-      <div id="card_9" class="hidden clickable">
-        <div class="character">
-          <div id="hua" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
-        </div>
-        
-        <div id="scene9" class="hidden">
-          <h3 class="namecard">導覽員-小花</h3>
-          <h3 class="dialog">讓我們一起前往餐廳吧。餐廳附近，有不少公共藝術的殘件，這些不僅僅是藝術品，更是我們美濃窯的實力象徵。跟隨我的腳步，一起去探索這些藝術殘件背後的故事吧！</h3>
-          <div class="options">
-            <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
-          </div>
-        </div>
-      </div>
-      <div id="card_10" class="hidden">
-        <div id="scene10" class="hidden">
-          <h3 class="dialog">你知道面前這件作品的原件在哪裡嗎?</h3>
-          <div class="selection">
-            <button id="optionG">A.美濃窯的心裡</button>
-            <button id="optionH">B.某個藍色機器貓的百寶袋</button>
-            <button id="optionI">C.成大文學院修齊大樓
-            </button>
-          </div>
-        </div>
-      </div>
-      <div id="card_11" class="hidden">
-        <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
-        <div id="scene11">
-          <h3 class="namecard">導覽員-小朱</h3>
-          <h3 class="dialog">你快看看，這些殘件是成大文學院修齊大樓裡的作品，作品名稱就叫《修身齊家》，當初校方請美濃窯幫忙製作塑像與陶壁，以表達對吳修齊董事長捐建大樓的感謝，同時蘊含吳董事長重視教育、回饋社會的美德，以及勉勵學生修養自身的涵義。</h3>
-          <div class="options">
-            <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
-          </div>
-        </div>
-      </div>
-      <div id="card_12" class="hidden">
-        <div id="scene12">
-          <h3 class="dialog">你知道面前這件作品使用什麼樣的技法嗎?</h3>
-          <div class="selection">
-            <button id="optionJ">A.陰刻</button>
-            <button id="optionK">B.陽刻</button>
-            <button id="optionL">C.一時半刻</button>
-          </div>
-        </div>
-      </div>
-      <div id="card_13" class="hidden">
-        <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
-        <div id="scene13">
-          <h3 class="namecard">導覽員-小朱</h3>
-          <h3 class="dialog">另外，你有沒有發現每個中文字都是凸起的，這是屬於「陽刻」的方式，如果是陰刻的話，字體則會凹進去。</h3>
-          <div class="options">
-            <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
-          </div>
-        </div>
-      </div>
-      <a-entity target id="targetD" mindar-image-target="targetIndex: 3" rotation="75 0 0">
-        
-      </a-entity>
-      <div id="card_14" class="hidden clickable">
-        <div class="character">
-          <div id="hua" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
-        </div>
-        <div id="scene14" class="hidden">
-          <h3 class="namecard">導覽員-小朱</h3>
-          <h3 class="dialog">再往後面走的話，我們將會看到更多的公共藝術作品殘件，Follow me～讓我來帶你了解美濃窯的成長歷史吧！
-          </h3>
-          <div class="options">
-            <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
-          </div>
-        </div>
-      </div>
-      <div id="card_15" class="hidden">
-        <div id="scene15" class="hidden">
-          <h3 class="dialog">你知道面前這件作品的原件在哪裡嗎?</h3>
-          <div class="selection">
-            <button id="optionM">A.樹德科技大學</button>
-            <button id="optionN">B.高雄餐旅學校</button>
-            <button id="optionO">C.高雄科技大學</button>
-          </div>
-        </div>
-      </div>
-      <div id="card_16" class="hidden">
-        <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
-        <div id="scene16">
-          <h3 class="namecard">導覽員-小朱</h3>
-          <h3 class="dialog">這是朱邦雄博士為高雄餐旅學校製作的第二件作品，利用陶壁作品設置在洗石子的牆面，突顯出雕塑的粗獷質感，像是牆上掛著一個大型的浮雕作品。</h3>
-          <div class="options">
-            <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
-          </div>
-        </div>
-      </div>
-      <div id="card_17" class="hidden">
-        <div id="scene17">
-          <h3 class="dialog">你知道面前這件作品蘊含著怎樣的期望嗎?</h3>
-          <div class="selection">
-            <button id="optionP">A.多多種樹</button>
-            <button id="optionQ">B.人名</button>
-            <button id="optionR">C.有所建樹，發揮所長之祝福</button>
-          </div>
-        </div>
-      </div>
-      <div id="card_18" class="hidden">
-        <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
-        <div id="scene18">
-          <h3 class="namecard">導覽員-小朱</h3>
-          <h3 class="dialog">《建樹》的命名，更是期望學生發揮所長，在工作崗位上有所建樹，至於「樹木」則延伸具有獨立自主、成就非凡的祝福。看到這個作品的你，也希望你可以飛黃騰達哦！有機會的話，到高雄餐旅學校看看陶壁原件吧～</h3>
-          <div class="options">
-            <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
-          </div>
-        </div>
-      </div>
-      <a-entity target id="targetE" mindar-image-target="targetIndex: 4" rotation="75 0 0">
-        
-      </a-entity>
-      <div id="card_19" class="hidden">
-        <div id="scene19" class="hidden">
-          <h3 class="dialog">你猜猜看這幅作品的地點為何?</h3>
-          <div class="selection">
-            <button id="optionS">A.澄清湖棒球場</button>
-            <button id="optionT">B.臺南市立棒球場</button>
-            <button id="optionU">C.臺中洲際棒球場</button>
-          </div>
-        </div>
-      </div>
-      <div id="card_20" class="hidden">
-        <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
-        <div id="scene20">
-          <h3 class="namecard">導覽員-小朱</h3>
-          <h3 class="dialog">終於來到我們要解說的最後一片陶壁啦！這個公共藝術的殘件叫做《九命球體》，在澄清湖棒球場的樣子極為壯觀。</h3>
-          <div class="options">
-            <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
-          </div>
-        </div>
-      </div>
-      <div id="card_21" class="hidden">
-        <div id="scene21" class="hidden">
-          <h3 class="dialog">你猜猜看這幅作品的創作理念與下列何者有關?</h3>
-          <div class="selection">
-            <button id="optionV">A.影分身之術</button>
-            <button id="optionW">B.魔球進壘</button>
-            <button id="optionX">C.九命怪貓</button>
-          </div>
-        </div>
-      </div>
-      <div id="card_22" class="hidden">
-        <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
-        <div id="scene22">
-          <h3 class="namecard">導覽員-小朱</h3>
-          <h3 class="dialog">雖然是陶壁藝術作品，但作品裡的這些球，事實上只有一顆，創作理念是模擬漫畫中「魔球進壘」的畫面，打擊者就像是看到球的影分身一樣，運用數顆球的圖像，來呈現棒球打擊者的第一視角。</h3>
-          <div class="options">
-            <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
-          </div>
-        </div>
-      </div>
-      <div id="card_23" class="hidden">
-        <div class="character">
-          <div id="hua" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
-        </div>
-        <div id="scene23">
-          <h3 class="namecard">導覽員-小花</h3>
-          <h3 class="dialog">在這趟探險結束之後，我們將帶著收穫和啟發重新回到現實生活中。藝術不僅存在於畫廊和博物館中，它也隱藏在我們日常生活的某些角落。
-          </h3>
-          <div class="options">
-            <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
-          </div>
-        </div>
-      </div>
-      <div id="card_24" class="hidden">
-        <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
-        <div id="scene24">
-          <h3 class="namecard">導覽員-小朱</h3>
-          <h3 class="dialog">這趟旅程不僅是一次對藝術的探索，更是一次對美濃窯的深度走訪。讓我們將這份感動和體驗帶回去與親朋好友分享，並在日常生活中尋找更多藝術之美。這就是美濃窯藝術之旅的真正意義！
-          </h3>
-          <div class="options">
-            <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
-          </div>
-        </div>
-      </div>
-    </a-scene>
-  </body>
+    </script>
+</body>
 </html>
