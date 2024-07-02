@@ -452,23 +452,28 @@
   <script>
 
 
-    document.querySelectorAll('.next-btn').forEach(button => {
-        button.addEventListener('click', function () {
-            const nextCard = button.getAttribute('data-next');
-            button.classList.add('hidden');
-            document.getElementById(nextCard).classList.remove('hidden');
-        });
-    });
+        document.querySelectorAll('.next-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const nextCard = button.getAttribute('data-next');
+                button.closest('.dialogue-box').classList.add('hidden');
+                document.getElementById(nextCard).classList.remove('hidden');
 
-    document.querySelectorAll('.selection button').forEach(button => {
-        button.addEventListener('click', function () {
-            const message = button.getAttribute('data-message');
-            document.getElementById('message').innerText = message;
-            const nextCard = button.getAttribute('data-next');
-            button.classList.add('hidden');
-            document.getElementById(nextCard).classList.remove('hidden');
+                // Play the corresponding audio for each card
+                if (nextCard === 'card_4') {
+                    playAudio('assets/1-2.wav'); // Play the audio for card 4
+                }
+            });
         });
-    });
+
+        document.querySelectorAll('.selection button').forEach(button => {
+            button.addEventListener('click', function () {
+                const message = button.getAttribute('data-message');
+                document.getElementById('message').innerText = message;
+                const nextCard = button.getAttribute('data-next');
+                button.closest('.dialogue-box').classList.add('hidden');
+                document.getElementById(nextCard).classList.remove('hidden');
+            });
+        });    
 </script>
   </head>
   <body>
