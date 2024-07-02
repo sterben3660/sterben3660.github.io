@@ -393,7 +393,13 @@
             if (music) playMusic(music);
           }
         };
+        document.querySelectorAll('.next-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const nextCard = button.getAttribute('data-next');
+                document.getElementById(nextCard).classList.remove('hidden');
 
+            });
+        });
 
         document.querySelectorAll('.selection button').forEach(button => {
             button.addEventListener('click', function () {
@@ -515,7 +521,7 @@
           <h3 class="namecard">導覽員-小朱</h3>
           <h3 class="dialog">而且每塊陶片都是由三到五位師傅共同創造出來的，他們在創作過程中互相合作，是非常有默契的藝術家團隊。等到陶片都燒製完成後，再固定在牆上，這些陶片的尺寸雖小，但背後蘊含著師傅們的心血和努力。</h3>
           <div class="options">
-            <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
+            <button class="next-btn" data-next="#">請點選按鈕繼續</button>
           </div>
         </div>
       </div>
@@ -560,22 +566,23 @@
           </div>
         </div>
       </div>
-      <a-entity target id="targetC" mindar-image-target="targetIndex: 2" rotation="75 0 0">
-        
-      </a-entity>
-      <div id="card_9" class="hidden clickable">
+      <div id="card_10" class="hidden">
         <div class="character">
           <div id="hua" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
         </div>
         
-        <div id="scene9" class="hidden">
+        <div id="scene10" class="hidden">
           <h3 class="namecard">導覽員-小花</h3>
           <h3 class="dialog">讓我們一起前往餐廳吧。餐廳附近，有不少公共藝術的殘件，這些不僅僅是藝術品，更是我們美濃窯的實力象徵。跟隨我的腳步，一起去探索這些藝術殘件背後的故事吧！</h3>
           <div class="options">
-            <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
+            <button class="next-btn" data-next="#">請點選按鈕繼續</button>
           </div>
         </div>
       </div>
+      <a-entity target id="targetC" mindar-image-target="targetIndex: 2" rotation="75 0 0">
+        
+      </a-entity>
+
       <div id="card_10" class="hidden">
         <div id="scene10" class="hidden">
           <h3 class="dialog">你知道面前這件作品的原件在哪裡嗎?</h3>
@@ -587,7 +594,7 @@
           </div>
         </div>
       </div>
-      <div id="card_11" class="hidden">
+      <div id="card_11" class="hidden clickable">
         <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
         <div id="scene11">
           <h3 class="namecard">導覽員-小朱</h3>
@@ -673,6 +680,14 @@
           </div>
         </div>
       </div>
+      <div id="card_19" class="hidden">
+        <div id="scene19">
+          <h3 class="dialog">快去掃看看隔壁的作品～</h3>
+          <div class="options">
+            <button class="next-btn" data-next="#">請點選按鈕繼續</button>
+          </div>
+        </div>
+      </div>
       <a-entity target id="targetE" mindar-image-target="targetIndex: 4" rotation="75 0 0">
         
       </a-entity>
@@ -690,7 +705,7 @@
         <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
         <div id="scene20">
           <h3 class="namecard">導覽員-小朱</h3>
-          <h3 class="dialog">終於來到我們要解說的最後一片陶壁啦！這個公共藝術的殘件叫做《九命球體》，在澄清湖棒球場的樣子極為壯觀。</h3>
+          <h3 class="dialog">這個公共藝術的殘件叫做《九命球體》，在澄清湖棒球場的樣子極為壯觀。</h3>
           <div class="options">
             <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
           </div>
