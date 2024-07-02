@@ -399,7 +399,8 @@
           { currentCard: 'card_1', currentScene: 'scene1', nextCard: 'card_2', nextScene: 'scene2', music: null },
           { currentCard: 'card_2', currentScene: 'scene2', nextCard: 'card_3', nextScene: 'scene3', music: 'assets/1-4.wav' },
           { currentCard: 'card_3', currentScene: 'scene3', nextCard:'card_4', nextScene: 'scene4', music: 'assets/1-5.wav' },
-          { currentCard: 'card_4', currentScene: 'scene4', nextCard: null, nextScene: null, music: null },
+          { currentCard: 'card_4', currentScene: 'scene4', nextCard:'card_5', nextScene: 'scene5', music: null },
+          { currentCard: 'card_5', currentScene: 'scene5', nextCard: null, nextScene: null, music: null },
           { currentCard: 'card_5', currentScene: 'scene5', nextCard: 'card_6', nextScene: 'scene6', music: 'assets/2-2.wav' },
           { currentCard: 'card_6', currentScene: 'scene6', nextCard: 'card_7', nextScene: 'scene7', music: null },
           { currentCard: 'card_7', currentScene: 'scene7', nextCard: 'card_8', nextScene: 'scene8', music: 'assets/2-3.wav' },
@@ -449,10 +450,6 @@
       });
   </script>
   <script>
-    function playAudio(audioSrc) {
-        const audio = new Audio(audioSrc);
-        audio.play();
-    }
 
 
     document.querySelectorAll('.next-btn').forEach(button => {
@@ -505,19 +502,21 @@
           </div>
         </div>
       </div>
-      <div id="card_3" class="hidden"> 
+      <div id="card_3" class="hidden">
         <div id="scene3">
           <h3 class="dialog" id="message"></h3>
-          <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
+          <div class="options">
+            <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
+          </div>
         </div>
       </div>
-      <div id="card_3" class="hidden">
+      <div id="card_4" class="hidden">
         <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
-        <div id="scene3">
+        <div id="scene4">
           <h3 class="namecard">導覽員-小朱</h3>
           <h3 class="dialog">這些陶片的尺寸為10×20公分，剛上釉料時是無法看到色彩的，要等燒製完成後，顏色才會顯現出來，所以製作陶藝，就是一場藝術冒險哦。</h3>
           <div class="options">
-            <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
+            <button class="next-btn" data-next="card_5">請點選按鈕繼續</button>
           </div>
         </div>
       </div>
