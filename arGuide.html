@@ -301,6 +301,7 @@
      
     </style>
     <script>
+      
       let audioContext;
       let sourceNode;
 
@@ -436,6 +437,8 @@
         });
 
         // Array of options
+
+
         const options = [
           'optionA','optionB','optionC','optionD', 'optionE', 'optionF',
           'optionG', 'optionH', 'optionI', 'optionJ', 'optionK', 'optionL',
@@ -445,6 +448,31 @@
 
       });
   </script>
+  <script>
+    function playAudio(audioSrc) {
+        const audio = new Audio(audioSrc);
+        audio.play();
+    }
+
+
+    document.querySelectorAll('.next-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            const nextCard = button.getAttribute('data-next');
+            button.classList.add('hidden');
+            document.getElementById(nextCard).classList.remove('hidden');
+        });
+    });
+
+    document.querySelectorAll('.selection button').forEach(button => {
+        button.addEventListener('click', function () {
+            const message = button.getAttribute('data-message');
+            document.getElementById('message').innerText = message;
+            const nextCard = button.getAttribute('data-next');
+            button.classList.add('hidden');
+            document.getElementById(nextCard).classList.remove('hidden');
+        });
+    });
+</script>
   </head>
   <body>
     <a-scene mindar-image="imageTargetSrc: assets/targets.mind; filterMinCF:0.0001; filterBeta: 0.001" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
@@ -467,39 +495,43 @@
           </div>
         </div>
       </div>
-        <div id="card_2" class="hidden"> 
-          <div id="scene2">
-            <h3 class="dialog">你來猜猜看牆面上的陶片尺寸是多少吧？</h3>
-            <div class="selection">
-                <button id="optionA">A.冰掌(兵長)一米六</button>
-                <button id="optionB">B.10×20公分</button>
-                <button id="optionC">C.18×6公分</button>
-            </div>
+      <div id="card_2" class="hidden"> 
+        <div id="scene2">
+          <h3 class="dialog">你來猜猜看牆面上的陶片尺寸是多少吧？</h3>
+          <div class="selection">
+              <button id="optionA" data-message="正確答案是10x20公分，你答對了嗎？" data-next="card_3">A.冰掌(兵長)一米六</button>
+              <button id="optionB" data-message="答對了！你好棒" data-next="card_3">B.10×20公分</button>
+              <button id="optionC" data-message="正確答案是10x20公分，你答對了嗎？" data-next="card_3">C.18×6公分</button>
           </div>
         </div>
-        <div id="card_3" class="hidden">
-          <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
-          <div id="scene3">
-            <h3 class="namecard">導覽員-小朱</h3>
-            <h3 class="dialog">這些陶片的尺寸為10×20公分，剛上釉料時是無法看到色彩的，要等燒製完成後，顏色才會顯現出來，所以製作陶藝，就是一場藝術冒險哦。</h3>
-            <div class="options">
-              <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
-            </div>
+      </div>
+      <div id="card_3" class="hidden"> 
+        <div id="scene3">
+          <h3 class="dialog" id="message"></h3>
+          <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
+        </div>
+      </div>
+      <div id="card_3" class="hidden">
+        <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
+        <div id="scene3">
+          <h3 class="namecard">導覽員-小朱</h3>
+          <h3 class="dialog">這些陶片的尺寸為10×20公分，剛上釉料時是無法看到色彩的，要等燒製完成後，顏色才會顯現出來，所以製作陶藝，就是一場藝術冒險哦。</h3>
+          <div class="options">
+            <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
           </div>
         </div>
-        <div id="card_4" class="hidden">
-          <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
-          <div id="scene4">
-            <h3 class="namecard">導覽員-小朱</h3>
-            <h3 class="dialog">而且每塊陶片都是由三到五位師傅共同創造出來的，他們在創作過程中互相合作，是非常有默契的藝術家團隊。等到陶片都燒製完成後，再固定在牆上，這些陶片的尺寸雖小，但背後蘊含著師傅們的心血和努力。</h3>
-            <div class="options">
-              <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
-            </div>
+      </div>
+      <div id="card_4" class="hidden">
+        <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
+        <div id="scene4">
+          <h3 class="namecard">導覽員-小朱</h3>
+          <h3 class="dialog">而且每塊陶片都是由三到五位師傅共同創造出來的，他們在創作過程中互相合作，是非常有默契的藝術家團隊。等到陶片都燒製完成後，再固定在牆上，這些陶片的尺寸雖小，但背後蘊含著師傅們的心血和努力。</h3>
+          <div class="options">
+            <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
           </div>
         </div>
-      <a-entity target id="targetB" mindar-image-target="targetIndex: 1" rotation="75 0 0">
-
-      </a-entity>
+      </div>
+      <a-entity target id="targetB" mindar-image-target="targetIndex: 1" rotation="75 0 0"></a-entity>
       <div id="card_5" class="hidden clickable">
         <div id="hua" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
         <div id="scene5" class="hidden">
