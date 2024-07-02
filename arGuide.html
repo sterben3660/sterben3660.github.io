@@ -392,17 +392,13 @@
             if (music) playMusic(music);
           }
         };
-        document.querySelectorAll('.next-btn').forEach(button => {
-          button.addEventListener('click', function () {
-            const nextCard = button.getAttribute('data-next');
-            document.getElementById(nextCard).classList.remove('hidden');
 
-          });
-        });
         document.querySelectorAll('.selection button').forEach(button => {
           button.addEventListener('click', function () {
             const message = button.getAttribute('data-message');
             document.getElementById('message').innerText = message;
+            const nextCard = button.getAttribute('data-next');
+            document.getElementById(nextCard).classList.remove('hidden');
           });
         }); 
 
@@ -421,9 +417,9 @@
           { currentCard: 'card_9', currentScene: 'scene9', nextCard: 'card_10', nextScene:'card_10', music: 'assets/2-3.wav' },
           { currentCard: 'card_10', currentScene: 'scene10', nextCard: 'card_11', nextScene: 'scene11', music: 'assets/3.wav' },
           { currentCard: 'card_11', currentScene: 'scene11', nextCard:  null, nextScene:  null, music: null },
-          { currentCard: 'card_12', currentScene: 'scene12', nextCard: 'card_13', nextScene: 'scene13', music: 'assets/3-2.wav' },
-          { currentCard: 'card_13', currentScene: 'scene13', nextCard: null, nextScene: null, music: 'assets/3-3.wav' },
-          { currentCard: 'card_14', currentScene: 'scene14', nextCard: 'card_15', nextScene: 'scene15', music: null },
+          { currentCard: 'card_12', currentScene: 'scene12', nextCard: 'card_13', nextScene: 'scene13', music: null },
+          { currentCard: 'card_13', currentScene: 'scene13', nextCard: 'card_14', nextScene: 'scene14', music: 'assets/3-2.wav' },
+          { currentCard: 'card_14', currentScene: 'scene14', nextCard: 'card_15', nextScene: 'scene15', music: 'assets/3-3.wav' },
           { currentCard: 'card_15', currentScene: 'scene15', nextCard: 'card_16', nextScene: 'scene16', music: 'assets/4-2.wav' },
           { currentCard: 'card_16', currentScene: 'scene16', nextCard: 'card_17', nextScene: 'scene17', music: null },
           { currentCard: 'card_17', currentScene: 'scene17', nextCard: 'card_18', nextScene: 'scene18', music: 'assets/4-3.wav' },
@@ -586,29 +582,37 @@
       </div>
       <a-entity target id="targetC" mindar-image-target="targetIndex: 2" rotation="75 0 0"></a-entity>
 
-      <div id="card_10" class="hidden">
-        <div id="scene10" class="hidden">
+      <div id="card_12" class="hidden">
+        <div id="scene12" class="hidden">
           <h3 class="dialog">你知道面前這件作品的原件在哪裡嗎?</h3>
           <div class="selection">
-            <button id="optionG">A.美濃窯的心裡</button>
-            <button id="optionH">B.某個藍色機器貓的百寶袋</button>
-            <button id="optionI">C.成大文學院修齊大樓
+            <button id="optionG" data-message="正確答案是成大文學院修齊大樓，你答對了嗎？" data-next="card_13">A.美濃窯的心裡</button>
+            <button id="optionH" data-message="正確答案是成大文學院修齊大樓，你答對了嗎？" data-next="card_13">B.某個藍色機器貓的百寶袋</button>
+            <button id="optionI" data-message="答對了！你好棒" data-next="card_13">C.成大文學院修齊大樓
             </button>
           </div>
         </div>
       </div>
-      <div id="card_11" class="hidden clickable">
-        <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
-        <div id="scene11">
-          <h3 class="namecard">導覽員-小朱</h3>
-          <h3 class="dialog">你快看看，這些殘件是成大文學院修齊大樓裡的作品，作品名稱就叫《修身齊家》，當初校方請美濃窯幫忙製作塑像與陶壁，以表達對吳修齊董事長捐建大樓的感謝，同時蘊含吳董事長重視教育、回饋社會的美德，以及勉勵學生修養自身的涵義。</h3>
+      <div id="card_13" class="hidden">
+        <div id="scene13">
+          <h3 class="dialog" id="message"></h3>
           <div class="options">
-            <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
+            <button class="next-btn" data-next="card_14">請點選按鈕繼續</button>
           </div>
         </div>
       </div>
-      <div id="card_12" class="hidden">
-        <div id="scene12">
+      <div id="card_14" class="hidden clickable">
+        <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
+        <div id="scene14">
+          <h3 class="namecard">導覽員-小朱</h3>
+          <h3 class="dialog">你快看看，這些殘件是成大文學院修齊大樓裡的作品，作品名稱就叫《修身齊家》，當初校方請美濃窯幫忙製作塑像與陶壁，以表達對吳修齊董事長捐建大樓的感謝，同時蘊含吳董事長重視教育、回饋社會的美德，以及勉勵學生修養自身的涵義。</h3>
+          <div class="options">
+            <button class="next-btn" data-next="card_15">請點選按鈕繼續</button>
+          </div>
+        </div>
+      </div>
+      <div id="card_13" class="hidden">
+        <div id="scene13">
           <h3 class="dialog">你知道面前這件作品使用什麼樣的技法嗎?</h3>
           <div class="selection">
             <button id="optionJ">A.陰刻</button>
