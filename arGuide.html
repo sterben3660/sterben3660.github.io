@@ -381,6 +381,30 @@
         });
 
 
+        document.getElementById("optionD").addEventListener("click", function() {
+          checkAnswer("A");
+        });
+
+        document.getElementById("optionE").addEventListener("click", function() {
+          checkAnswer("B");
+        });
+
+        document.getElementById("optionF").addEventListener("click", function() {
+          checkAnswer("C");
+        });
+
+        function checkAnswer(selectedOption) {
+          const correctAnswer = "A"; // 正確答案
+          let result = "";
+
+          if (selectedOption === correctAnswer) {
+            result = "正確答案!";
+          } else {
+            result = "錯誤答案，請再試一次。";
+          }
+
+          document.getElementById("card_8").innerText = result;
+        }
 
 
 
