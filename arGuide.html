@@ -392,6 +392,14 @@
             if (music) playMusic(music);
           }
         };
+        document.querySelectorAll('.selection button').forEach(button => {
+            button.addEventListener('click', function () {
+              const message = button.getAttribute('data-message');
+              document.getElementById('message').innerText = message;
+              const nextCard = button.getAttribute('data-next');
+              document.getElementById(nextCard).classList.remove('hidden');
+            });
+        }); 
         document.querySelectorAll('.next-btn').forEach(button => {
             button.addEventListener('click', function () {
               const nextCard = button.getAttribute('data-next');
@@ -400,14 +408,7 @@
             });
         });
 
-        document.querySelectorAll('.selection button').forEach(button => {
-            button.addEventListener('click', function () {
-              const message = button.getAttribute('data-message');
-              document.getElementById('message').innerText = message;
-              const nextCard = button.getAttribute('data-next');
-              document.getElementById(nextCard).classList.remove('hidden');
-            });
-        });    
+           
         // Array of card sequences
         const cards = [
           { currentCard: 'card_1', currentScene: 'scene1', nextCard: 'card_2', nextScene: 'scene2', music: null },
