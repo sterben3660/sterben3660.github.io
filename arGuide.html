@@ -350,7 +350,7 @@
           const targets = [
             { id: 'targetA', sceneId: 'scene1', cardId: 'card_1', music: 'assets/1-3.wav' },
             { id: 'targetB', sceneId: 'scene6', cardId: 'card_6', music: 'assets/2.wav' },
-            { id: 'targetC', sceneId: 'scene9', cardId: 'card_9', music: 'assets/3.wav' },
+            { id: 'targetC', sceneId: 'scene10', cardId: 'card_10', music: 'assets/3.wav' },
             { id: 'targetD', sceneId: 'scene14', cardId: 'card_14', music: 'assets/4.wav' },
             { id: 'targetE', sceneId: 'scene19', cardId: 'card_19', music: null }
           ];
@@ -393,13 +393,7 @@
             if (music) playMusic(music);
           }
         };
-        document.querySelectorAll('.next-btn').forEach(button => {
-            button.addEventListener('click', function () {
-                const nextCard = button.getAttribute('data-next');
-                document.getElementById(nextCard).classList.remove('hidden');
 
-            });
-        });
 
         document.querySelectorAll('.selection button').forEach(button => {
             button.addEventListener('click', function () {
