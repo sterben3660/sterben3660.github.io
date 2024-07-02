@@ -403,8 +403,6 @@
           button.addEventListener('click', function () {
             const message = button.getAttribute('data-message');
             document.getElementById('message').innerText = message;
-            const nextCard = button.getAttribute('data-next');
-            document.getElementById(nextCard).classList.remove('hidden');
           });
         }); 
 
