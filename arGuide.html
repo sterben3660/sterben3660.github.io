@@ -402,8 +402,10 @@
           } else {
             result = "錯誤答案，請再試一次。";
           }
-
-          document.getElementById("card_8").innerText = result;
+          var ans2 = document.querySelector('#card_8')
+            document.getElementById("message").innerText = result;
+          };
+          
         }
 
 
@@ -470,8 +472,32 @@
           'optionM', 'optionN', 'optionO', 'optionP', 'optionQ', 'optionR',
           'optionS', 'optionT', 'optionU', 'optionV', 'optionW', 'optionX'
         ];
-
       });
+  </script>
+  <script>
+    // 使用 querySelector 選擇單個元素
+    var optionD = document.querySelector("#optionD");
+    console.log(optionD.innerText); // 輸出 A.將不同陶土根據特性，釉燒後完成
+  
+    // 使用 querySelectorAll 選擇多個元素
+    document.querySelectorAll("#optionD, #optionE, #optionF").forEach(function(button) {
+      button.addEventListener("click", function() {
+        checkAnswer(button.innerText.charAt(0)); // 使用選項的第一個字母作為答案
+      });
+    });
+  
+    function checkAnswer(selectedOption) {
+      const correctAnswer = "A"; // 正確答案
+      let result = "";
+  
+      if (selectedOption === correctAnswer) {
+        result = "正確答案!";
+      } else {
+        result = "錯誤答案，請再試一次。";
+      }
+  
+      document.getElementById("card_8").innerText = result;
+    }
   </script>
   </head>
   <body>
@@ -557,11 +583,17 @@
           </div>
         </div>
       </div>
-      <div id="card_8" class="hidden">
+      
+      <div id="card_8">
+        <div id="scene8" id="message">
+
+        </div>
+      </div>
+      <div id="card_9" class="hidden">
         <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
-        <div id="scene8">
+        <div id="scene9">
           <h3 class="namecard">導覽員-小朱</h3>
-          <h3 class="dialog">這些釉色是透過不同化學釉料之間的相互作用，才產生了這麼多變化，不管是顏色、粗糙或光滑的觸感，都是釉料在高溫作用下的神奇魔法！還有～根據作品性質，會選用不同特性的陶土來施作。不過你只能用眼睛欣賞，請勿觸摸!</h3>
+          <h3 class="dialog" id="message">這些釉色是透過不同化學釉料之間的相互作用，才產生了這麼多變化，不管是顏色、粗糙或光滑的觸感，都是釉料在高溫作用下的神奇魔法！還有～根據作品性質，會選用不同特性的陶土來施作。不過你只能用眼睛欣賞，請勿觸摸!</h3>
           <div class="options">
             <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
           </div>
