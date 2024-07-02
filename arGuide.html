@@ -394,18 +394,18 @@
         };
         document.querySelectorAll('.next-btn').forEach(button => {
             button.addEventListener('click', function () {
-                const nextCard = button.getAttribute('data-next');
-                document.getElementById(nextCard).classList.remove('hidden');
+              const nextCard = button.getAttribute('data-next');
+              document.getElementById(nextCard).classList.remove('hidden');
 
             });
         });
 
         document.querySelectorAll('.selection button').forEach(button => {
             button.addEventListener('click', function () {
-                const message = button.getAttribute('data-message');
-                document.getElementById('message').innerText = message;
-                const nextCard = button.getAttribute('data-next');
-                document.getElementById(nextCard).classList.remove('hidden');
+              const message = button.getAttribute('data-message');
+              document.getElementById('message').innerText = message;
+              const nextCard = button.getAttribute('data-next');
+              document.getElementById(nextCard).classList.remove('hidden');
             });
         });    
         // Array of card sequences
