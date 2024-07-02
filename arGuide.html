@@ -400,6 +400,13 @@
               document.getElementById(nextCard).classList.remove('hidden');
             });
         }); 
+        document.querySelectorAll('.next-btn').forEach(button => {
+            button.addEventListener('click', function () {
+              const nextCard = button.getAttribute('data-next');
+              document.getElementById(nextCard).classList.remove('hidden');
+
+            });
+        });
 
            
         // Array of card sequences
