@@ -392,21 +392,22 @@
             if (music) playMusic(music);
           }
         };
-        document.querySelectorAll('.selection button').forEach(button => {
-            button.addEventListener('click', function () {
-              const message = button.getAttribute('data-message');
-              document.getElementById('message').innerText = message;
-              const nextCard = button.getAttribute('data-next');
-              document.getElementById(nextCard).classList.remove('hidden');
-            });
-        }); 
         document.querySelectorAll('.next-btn').forEach(button => {
-            button.addEventListener('click', function () {
-              const nextCard = button.getAttribute('data-next');
-              document.getElementById(nextCard).classList.remove('hidden');
+          button.addEventListener('click', function () {
+            const nextCard = button.getAttribute('data-next');
+            document.getElementById(nextCard).classList.remove('hidden');
 
-            });
+          });
         });
+        document.querySelectorAll('.selection button').forEach(button => {
+          button.addEventListener('click', function () {
+            const message = button.getAttribute('data-message');
+            document.getElementById('message').innerText = message;
+            const nextCard = button.getAttribute('data-next');
+            document.getElementById(nextCard).classList.remove('hidden');
+          });
+        }); 
+
 
            
         // Array of card sequences
@@ -472,7 +473,7 @@
       raycaster="near: 10; far: 30000; objects: .clickable"></a-camera>
       
 
-      <a-entity target id="targetA" mindar-image-target="targetIndex: 0" rotation="75 0 0">
+      <!-- <a-entity target id="targetA" mindar-image-target="targetIndex: 0" rotation="75 0 0">
         
       </a-entity>
   
@@ -523,7 +524,7 @@
             <button class="next-btn" data-next="#">請點選按鈕繼續</button>
           </div>
         </div>
-      </div>
+      </div> -->
       <a-entity target id="targetB" mindar-image-target="targetIndex: 1" rotation="75 0 0"></a-entity>
       <div id="card_6" class="hidden clickable">
         <div id="hua" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
