@@ -400,13 +400,6 @@
               document.getElementById(nextCard).classList.remove('hidden');
             });
         }); 
-        document.querySelectorAll('.next-btn').forEach(button => {
-            button.addEventListener('click', function () {
-              const nextCard = button.getAttribute('data-next');
-              document.getElementById(nextCard).classList.remove('hidden');
-
-            });
-        });
 
            
         // Array of card sequences
@@ -490,9 +483,9 @@
         <div id="scene2">
           <h3 class="dialog">你來猜猜看牆面上的陶片尺寸是多少吧？</h3>
           <div class="selection">
-              <button id="optionA" data-message="正確答案是10x20公分，你答對了嗎？" data-next="card_3">A.冰掌(兵長)一米六</button>
+              <button id="optionA" data-message="正確答案是10×20公分，你答對了嗎？" data-next="card_3">A.冰掌(兵長)一米六</button>
               <button id="optionB" data-message="答對了！你好棒" data-next="card_3">B.10×20公分</button>
-              <button id="optionC" data-message="正確答案是10x20公分，你答對了嗎？" data-next="card_3">C.18×6公分</button>
+              <button id="optionC" data-message="正確答案是10×20公分，你答對了嗎？" data-next="card_3">C.18×6公分</button>
           </div>
         </div>
       </div>
@@ -577,7 +570,6 @@
         <div class="character">
           <div id="hua" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
         </div>
-        
         <div id="scene11" class="hidden">
           <h3 class="namecard">導覽員-小花</h3>
           <h3 class="dialog">讓我們一起前往餐廳吧。餐廳附近，有不少公共藝術的殘件，這些不僅僅是藝術品，更是我們美濃窯的實力象徵。跟隨我的腳步，一起去探索這些藝術殘件背後的故事吧！</h3>
