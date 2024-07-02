@@ -381,33 +381,6 @@
         });
 
 
-        document.getElementById("optionD").addEventListener("click", function() {
-          checkAnswer("A");
-        });
-
-        document.getElementById("optionE").addEventListener("click", function() {
-          checkAnswer("B");
-        });
-
-        document.getElementById("optionF").addEventListener("click", function() {
-          checkAnswer("C");
-        });
-
-        function checkAnswer(selectedOption) {
-          const correctAnswer = "A"; // 正確答案
-          let result = "";
-
-          if (selectedOption === correctAnswer) {
-            result = "正確答案!";
-          } else {
-            result = "錯誤答案，請再試一次。";
-          }
-          var ans2 = document.querySelector('#card_8')
-            document.getElementById("message").innerText = result;
-          };
-          
-        }
-
 
 
         // General function to handle card clicks
@@ -472,6 +445,7 @@
           'optionM', 'optionN', 'optionO', 'optionP', 'optionQ', 'optionR',
           'optionS', 'optionT', 'optionU', 'optionV', 'optionW', 'optionX'
         ];
+
       });
   </script>
   <script>
@@ -496,7 +470,7 @@
         result = "錯誤答案，請再試一次。";
       }
   
-      document.getElementById("card_8").innerText = result;
+      document.getElementById("message").innerText = result;
     }
   </script>
   </head>
@@ -583,7 +557,6 @@
           </div>
         </div>
       </div>
-      
       <div id="card_8">
         <div id="scene8" id="message">
           <div class="options">
@@ -591,9 +564,9 @@
           </div>
         </div>
       </div>
-      <div id="card_9" class="hidden">
+      <div id="card_8" class="hidden">
         <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
-        <div id="scene9">
+        <div id="scene8">
           <h3 class="namecard">導覽員-小朱</h3>
           <h3 class="dialog" id="message">這些釉色是透過不同化學釉料之間的相互作用，才產生了這麼多變化，不管是顏色、粗糙或光滑的觸感，都是釉料在高溫作用下的神奇魔法！還有～根據作品性質，會選用不同特性的陶土來施作。不過你只能用眼睛欣賞，請勿觸摸!</h3>
           <div class="options">
