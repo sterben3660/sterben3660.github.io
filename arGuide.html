@@ -424,7 +424,7 @@
           { currentCard: 'card_24', currentScene: 'scene24', nextCard: 'card_25', nextScene: 'scene25', music: 'assets/5-5.mp3' },
           { currentCard: 'card_25', currentScene: 'scene25', nextCard: 'card_26', nextScene: 'scene26', music: 'assets/5-6.mp3' },
           { currentCard: 'card_26', currentScene: 'scene26', nextCard: 'card_27', nextScene: 'scene27', music: 'assets/5-7.mp3' },
-          { currentCard: 'card_27', currentScene: 'scene24', nextCard: null, nextScene: null, music: null },
+          { currentCard: 'card_27', currentScene: 'scene27', nextCard: null, nextScene: null, music: null },
         ];
 
         cards.forEach(({ currentCard, currentScene, nextCard, nextScene, music }) => {
@@ -447,31 +447,6 @@
         ];
 
       });
-  </script>
-  <script>
-    // 使用 querySelector 選擇單個元素
-    var optionD = document.querySelector("#optionD");
-    console.log(optionD.innerText); // 輸出 A.將不同陶土根據特性，釉燒後完成
-  
-    // 使用 querySelectorAll 選擇多個元素
-    document.querySelectorAll("#optionD, #optionE, #optionF").forEach(function(button) {
-      button.addEventListener("click", function() {
-        checkAnswer(button.innerText.charAt(0)); // 使用選項的第一個字母作為答案
-      });
-    });
-  
-    function checkAnswer(selectedOption) {
-      const correctAnswer = "A"; // 正確答案
-      let result = "";
-  
-      if (selectedOption === correctAnswer) {
-        result = "正確答案!";
-      } else {
-        result = "錯誤答案，請再試一次。";
-      }
-  
-      document.getElementById("message").innerText = result;
-    }
   </script>
   </head>
   <body>
@@ -554,13 +529,6 @@
             <button id="optionD">A.將不同陶土根據特性，釉燒後完成</button>
             <button id="optionE">B.朱邦雄博士的火之呼吸</button>
             <button id="optionF">C.朱式鍊陶術</button>
-          </div>
-        </div>
-      </div>
-      <div id="card_8">
-        <div id="scene8" id="message">
-          <div class="options">
-            <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
           </div>
         </div>
       </div>
