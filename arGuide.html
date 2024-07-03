@@ -404,9 +404,9 @@
           { currentCard: 'card_4', currentScene: 'scene4', nextCard:'card_5', nextScene: 'scene5', music: 'assets/1-5.wav' },
           { currentCard: 'card_5', currentScene: 'scene5', nextCard: 'card_6', nextScene: 'card_6', music: 'assets/2.wav' },
           { currentCard: 'card_6', currentScene: 'scene6', nextCard: null, nextScene: null, music: null },
-          // { currentCard: 'card_6', currentScene: 'scene6', nextCard: 'card_7', nextScene: 'scene7', music: null },
-          { currentCard: 'card_7', currentScene: 'scene7', nextCard: 'card_8', nextScene: 'scene8', music: 'assets/2-3.wav' },
-          { currentCard: 'card_8', currentScene: 'scene8', nextCard: null, nextScene: null, music: null },
+          { currentCard: 'card_7', currentScene: 'scene7', nextCard: 'card_8', nextScene: 'scene8', music: null },
+          { currentCard: 'card_8', currentScene: 'scene8', nextCard: 'card_9', nextScene: 'scene9', music: null  },
+          { currentCard: 'card_9', currentScene: 'scene9', nextCard: 'card_10', nextScene: 'card_10', music: 'assets/2-3.wav' },
           { currentCard: 'card_9', currentScene: 'scene9', nextCard: 'card_10', nextScene: 'scene10', music: null },
           { currentCard: 'card_10', currentScene: 'scene10', nextCard: 'card_11', nextScene: 'scene11', music: 'assets/3-2.wav' },
           { currentCard: 'card_11', currentScene: 'scene11', nextCard: 'card_12', nextScene: 'scene12', music: null },
@@ -450,10 +450,10 @@
               nextCardId: 'card_3'
           },
           {
-              cardId: 'card_5',
+              cardId: 'card_8',
               correctAnswer: 'A.將不同陶土根據特性，釉燒後完成',
-              resultId: 'result6',  // Display result in card_6
-              nextCardId: 'card_6'
+              resultId: 'result9',  // Display result in card_6
+              nextCardId: 'card_9'
           }
         ];
 
@@ -562,7 +562,6 @@
         </div>
       </div>
       <a-entity target id="targetB" mindar-image-target="targetIndex: 1" rotation="75 0 0"></a-entity>
-      
       <div id="card_7" class="hidden clickable">
         <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
         <div id="scene7" class="hidden">
@@ -573,13 +572,23 @@
           </div>
         </div>
       </div>
-      <div id="card_7" class="hidden">
-        <div id="scene7" class="hidden">
+      <div id="card_8" class="hidden">
+        <div id="scene8" class="hidden">
           <h3 class="dialog">你知道面前這些作品是怎麼完成的嗎?</h3>
           <div class="selection">
             <button id="optionD">A.將不同陶土根據特性，釉燒後完成</button>
             <button id="optionE">B.朱邦雄博士的火之呼吸</button>
             <button id="optionF">C.朱式鍊陶術</button>
+          </div>
+        </div>
+      </div>
+      <div id="card_9" class="hidden">
+        <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
+        <div id="scene9">
+          <h3 class="namecard">導覽員-小朱</h3>
+          <h3 class="dialog" id="result9"></h3>
+          <div class="options">
+            <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
           </div>
         </div>
       </div>
