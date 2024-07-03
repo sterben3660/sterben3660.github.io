@@ -352,7 +352,7 @@
 
           const targets = [
             { id: 'targetA', sceneId: 'scene1', cardId: 'card_1', music: 'assets/1-3.wav' },
-            { id: 'targetB', sceneId: 'scene5', cardId: 'card_5', music: 'assets/2.wav' },
+            { id: 'targetB', sceneId: 'scene7', cardId: 'card_7', music: 'assets/2-2.wav' },
             { id: 'targetC', sceneId: 'scene9', cardId: 'card_9', music: 'assets/3.wav' },
             { id: 'targetD', sceneId: 'scene14', cardId: 'card_14', music: 'assets/4.wav' },
             { id: 'targetE', sceneId: 'scene19', cardId: 'card_19', music: null }
@@ -402,8 +402,8 @@
           { currentCard: 'card_2', currentScene: 'scene2', nextCard: 'card_3', nextScene: 'scene3', music: null },
           { currentCard: 'card_3', currentScene: 'scene3', nextCard:'card_4', nextScene: 'scene4', music: 'assets/1-4.wav' },
           { currentCard: 'card_4', currentScene: 'scene4', nextCard:'card_5', nextScene: 'scene5', music: 'assets/1-5.wav' },
-          { currentCard: 'card_5', currentScene: 'scene5', nextCard: null, nextScene: null, music: null },
-          { currentCard: 'card_5', currentScene: 'scene5', nextCard: 'card_6', nextScene: 'scene6', music: 'assets/2-2.wav' },
+          { currentCard: 'card_5', currentScene: 'scene5', nextCard: 'card_6', nextScene: 'card_6', music: 'assets/2.wav' },
+          { currentCard: 'card_6', currentScene: 'scene6', nextCard: null, nextScene: null, music: null },
           { currentCard: 'card_6', currentScene: 'scene6', nextCard: 'card_7', nextScene: 'scene7', music: null },
           { currentCard: 'card_7', currentScene: 'scene7', nextCard: 'card_8', nextScene: 'scene8', music: 'assets/2-3.wav' },
           { currentCard: 'card_8', currentScene: 'scene8', nextCard: null, nextScene: null, music: null },
@@ -547,21 +547,22 @@
           <h3 class="namecard">導覽員-小朱</h3>
           <h3 class="dialog">而且每塊陶片都是由三到五位師傅共同創造出來的，他們在創作過程中互相合作，是非常有默契的藝術家團隊。等到陶片都燒製完成後，再固定在牆上，這些陶片的尺寸雖小，但背後蘊含著師傅們的心血和努力。</h3>
           <div class="options">
-            <button class="next-btn" data-next="#">請點選按鈕繼續</button>
+            <button class="next-btn" data-next="card_6">請點選按鈕繼續</button>
+          </div>
+        </div>
+      </div>
+      <div id="card_6" class="hidden clickable">
+        <div id="hua" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
+        <div id="scene6" class="hidden">
+          <h3 class="namecard">導覽員-小花</h3>
+          <h3 class="dialog">讓我們一起進入這個神奇的展覽室吧，讓我們用眼睛和心靈一同仔細觀察這些作品！這個空間裡，充滿了繽紛絢麗的色彩，那話不多說，我們聽小朱為大家講解背後的小故事吧～</h3>
+          <div class="options">
+            <button class="next-btn" data-next="card_7">請點選按鈕繼續</button>
           </div>
         </div>
       </div>
       <a-entity target id="targetB" mindar-image-target="targetIndex: 1" rotation="75 0 0"></a-entity>
-      <div id="card_5" class="hidden clickable">
-        <div id="hua" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
-        <div id="scene5" class="hidden">
-          <h3 class="namecard">導覽員-小花</h3>
-          <h3 class="dialog">讓我們一起進入這個神奇的展覽室吧，讓我們用眼睛和心靈一同仔細觀察這些作品！這個空間裡，充滿了繽紛絢麗的色彩，那話不多說，我們聽小朱為大家講解背後的小故事吧～</h3>
-          <div class="options">
-            <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
-          </div>
-        </div>
-      </div>
+      
       <div id="card_6" class="hidden clickable">
         <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
         <div id="scene6" class="hidden">
