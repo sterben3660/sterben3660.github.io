@@ -380,24 +380,52 @@
           });         
         });
 
-        // true or false
-        const correctAnswer = "B.10×20公分";
-        const buttons = document.querySelectorAll("#card_2 .selection button");
-        const result = document.getElementById("result");
-        const card2 = document.getElementById("card_2");
-        const card3 = document.getElementById("card_3");
+        // 通用的答案檢查函數
+        const handleAnswerClick = (event) => {
+                const button = event.target;
+                const correctAnswer = button.getAttribute("data-correct-answer");
+                const selectedAnswer = button.innerText;
+                const result = button.closest(".clickable").querySelector(".dialog#result") || button.closest(".clickable").querySelector(".dialog#result2");
+                const nextCardId = button.closest(".clickable").querySelector(".next-btn").getAttribute("data-next");
+                const nextCard = document.getElementById(nextCardId);
 
-        buttons.forEach(button => {
-            button.addEventListener("click", function() {
-                if (button.innerText === correctAnswer) {
+                if (selectedAnswer === correctAnswer) {
                     result.innerText = "恭喜你，答對了！";
                 } else {
-                    result.innerText = "很遺憾，答錯了。";
+                    result.innerText = `正確答案是${correctAnswer}，你答對了嗎？`;
                 }
-                card2.classList.add("hidden");
-                card3.classList.remove("hidden");
+
+                button.closest(".clickable").classList.add("hidden");
+                nextCard.classList.remove("hidden");
+            };
+
+            // 綁定所有問題的按鈕
+            const answerButtons = document.querySelectorAll(".answer-btn");
+            answerButtons.forEach(button => {
+                button.addEventListener("click", handleAnswerClick);
             });
-        });
+
+            // 綁定所有繼續按鈕
+            const nextButtons = document.querySelectorAll(".next-btn");
+            nextButtons.forEach(button => {
+                button.addEventListener("click", function() {
+                    const nextCardId = button.getAttribute("data-next");
+                    const currentCard = button.closest(".clickable");
+
+                    if (nextCardId) {
+                        const nextCard = document.getElementById(nextCardId);
+                        currentCard.classList.add("hidden");
+                        nextCard.classList.remove("hidden");
+                    } else {
+                        currentCard.classList.add("hidden");
+                    }
+                });
+            });
+
+
+
+
+
 
         // General function to handle card clicks
         const handleCardClick = (currentCard, currentScene, nextCard, nextScene, music) => {
@@ -482,25 +510,26 @@
       <div id="card_1" class="hidden clickable">
         <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
         <div id="scene1" class="hidden">
-          <h3 class="namecard">導覽員-小朱</h3>
-          <h3 class="dialog">你好，我是小朱，接下來讓我為你解說門口這些美麗的陶片吧</h3>
-          <div class="options">
-            <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
-          </div>
+            <h3 class="namecard">導覽員-小朱</h3>
+            <h3 class="dialog">你好，我是小朱，接下來讓我為你解說門口這些美麗的陶片吧</h3>
+            <div class="options">
+                <button class="next-btn" data-next="card_2">請點選按鈕繼續</button>
+            </div>
         </div>
-      </div>
-      <div id="card_2" class="hidden">
-        <div id="scene2">
-          <h3 class="dialog">你來猜猜看牆面上的陶片尺寸是多少吧？</h3>
-          <div class="selection">
-              <button id="optionA">A.冰掌(兵長)一米六</button>
-              <button id="optionB">B.10×20公分</button>
-              <button id="optionC">C.18×6公分</button>
-          </div>
-        </div>
-      </div>
+    </div>
 
-      <div id="card_3" class="hidden">
+    <div id="card_2" class="hidden">
+        <div id="scene2">
+            <h3 class="dialog">你來猜猜看牆面上的陶片尺寸是多少吧？</h3>
+            <div class="selection">
+                <button class="answer-btn" data-correct-answer="B.10×20公分">A.冰掌(兵長)一米六</button>
+                <button class="answer-btn" data-correct-answer="B.10×20公分">B.10×20公分</button>
+                <button class="answer-btn" data-correct-answer="B.10×20公分">C.18×6公分</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="card_3" class="hidden">
         <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
         <div id="scene3">
             <h3 class="namecard">導覽員-小朱</h3>
@@ -509,17 +538,40 @@
                 <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
             </div>
         </div>
-      </div>
-      <div id="card_4" class="hidden">
+    </div>
+
+    <div id="card_4" class="hidden">
         <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
         <div id="scene4">
-          <h3 class="namecard">導覽員-小朱</h3>
-          <h3 class="dialog">而且每塊陶片都是由三到五位師傅共同創造出來的，他們在創作過程中互相合作，是非常有默契的藝術家團隊。等到陶片都燒製完成後，再固定在牆上，這些陶片的尺寸雖小，但背後蘊含著師傅們的心血和努力。</h3>
-          <div class="options">
-            <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
-          </div>
+            <h3 class="namecard">導覽員-小朱</h3>
+            <h3 class="dialog">而且每塊陶片都是由三到五位師傅共同創造出來的，他們在創作過程中互相合作，是非常有默契的藝術家團隊。等到陶片都燒製完成後，再固定在牆上，這些陶片的尺寸雖小，但背後蘊含著師傅們的心血和努力。</h3>
+            <div class="options">
+                <button class="next-btn" data-next="card_5">請點選按鈕繼續</button>
+            </div>
         </div>
-      </div>
+    </div>
+
+    <div id="card_5" class="hidden">
+        <div id="scene5">
+            <h3 class="dialog">另一個問題是...</h3>
+            <div class="selection">
+                <button class="answer-btn" data-correct-answer="A.答案1">A.答案1</button>
+                <button class="answer-btn" data-correct-answer="A.答案1">B.答案2</button>
+                <button class="answer-btn" data-correct-answer="A.答案1">C.答案3</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="card_6" class="hidden">
+        <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
+        <div id="scene6">
+            <h3 class="namecard">導覽員-小朱</h3>
+            <h3 class="dialog" id="result2"></h3>
+            <div class="options">
+                <button class="next-btn" data-next="card_7">請點選按鈕繼續</button>
+            </div>
+        </div>
+    </div>
       <a-entity target id="targetB" mindar-image-target="targetIndex: 1" rotation="75 0 0"></a-entity>
       <div id="card_5" class="hidden clickable">
         <div id="hua" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
