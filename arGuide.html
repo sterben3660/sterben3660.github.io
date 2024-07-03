@@ -380,23 +380,39 @@
           });         
         });
 
-        // true or false
-        const correctAnswer = "B.10×20公分";
-        const buttons = document.querySelectorAll("#card_2 .selection button");
-        const result = document.getElementById("result");
-        const card2 = document.getElementById("card_2");
-        const card3 = document.getElementById("card_3");
+        const questions = [
+          {
+              cardId: 'card_2',
+              correctAnswer: 'B.10×20公分',
+              resultId: 'result3',  // Display result in card_3
+              nextCardId: 'card_3'
+          },
+          {
+              cardId: 'card_5',
+              correctAnswer: 'A.將不同陶土根據特性，釉燒後完成',
+              resultId: 'result6',  // Display result in card_6
+              nextCardId: 'card_6'
+          }
+        ];
 
-        buttons.forEach(button => {
-            button.addEventListener("click", function() {
-                if (button.innerText === correctAnswer) {
-                    result.innerText = "恭喜你，答對了！";
-                } else {
-                    result.innerText = "正確答案是10×20公分，你答對了嗎？";
-                }
-                card2.classList.add("hidden");
-                card3.classList.remove("hidden");
-            });
+        questions.forEach(question => {
+          const { cardId, correctAnswer, resultId, nextCardId } = question;
+          const card = document.getElementById(cardId);
+          const buttons = card.querySelectorAll(".selection button");
+          const result = document.getElementById(resultId);
+          const nextCard = document.getElementById(nextCardId);
+
+          buttons.forEach(button => {
+              button.addEventListener("click", function() {
+                  if (button.innerText === correctAnswer) {
+                      result.innerText = "恭喜你，答對了！";
+                  } else {
+                      result.innerText = `正確答案是${correctAnswer}，你答對了嗎？`;
+                  }
+                  card.classList.add("hidden");
+                  nextCard.classList.remove("hidden");
+              });
+          });
         });
 
 
@@ -510,14 +526,14 @@
     </div>
 
     <div id="card_3" class="hidden">
-        <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
-        <div id="scene3">
-            <h3 class="namecard">導覽員-小朱</h3>
-            <h3 class="dialog" id="result"></h3>
-            <div class="options">
-                <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
-            </div>
-        </div>
+      <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
+      <div id="scene3">
+          <h3 class="namecard">導覽員-小朱</h3>
+          <h3 class="dialog" id="result3"></h3>
+          <div class="options">
+              <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
+          </div>
+      </div>
     </div>
 
     <div id="card_4" class="hidden">
@@ -543,14 +559,14 @@
     </div>
 
     <div id="card_6" class="hidden">
-        <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
-        <div id="scene6">
-            <h3 class="namecard">導覽員-小朱</h3>
-            <h3 class="dialog" id="result2"></h3>
-            <div class="options">
-                <button class="next-btn" data-next="card_7">請點選按鈕繼續</button>
-            </div>
-        </div>
+      <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
+      <div id="scene6">
+          <h3 class="namecard">導覽員-小朱</h3>
+          <h3 class="dialog" id="result6"></h3>
+          <div class="options">
+              <button class="next-btn" data-next="card_7">請點選按鈕繼續</button>
+          </div>
+      </div>
     </div>
       <a-entity target id="targetB" mindar-image-target="targetIndex: 1" rotation="75 0 0"></a-entity>
       <div id="card_5" class="hidden clickable">
