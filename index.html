@@ -321,6 +321,45 @@
             }
         }		
     </style>
+    <script>
+        function playAudio(audioSrc) {
+            const audio = new Audio(audioSrc);
+            audio.play();
+        }
+
+        document.getElementById('continue-btn').addEventListener('click', function () {
+            document.getElementById('dialogue-1').classList.add('hidden');
+            document.getElementById('card_1').classList.remove('hidden');
+            playAudio('assets/1.wav'); // Play the audio for card 1
+        });
+
+        document.querySelectorAll('.next-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const nextCard = button.getAttribute('data-next');
+                button.closest('.dialogue-box').classList.add('hidden');
+                document.getElementById(nextCard).classList.remove('hidden');
+
+                // Play the corresponding audio for each card
+                if (nextCard === 'card_4') {
+                    playAudio('assets/1-2.wav'); // Play the audio for card 4
+                }
+            });
+        });
+
+        document.querySelectorAll('.selection button').forEach(button => {
+            button.addEventListener('click', function () {
+                const message = button.getAttribute('data-message');
+                document.getElementById('message').innerText = message;
+                const nextCard = button.getAttribute('data-next');
+                button.closest('.dialogue-box').classList.add('hidden');
+                document.getElementById(nextCard).classList.remove('hidden');
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -361,45 +400,7 @@
         </div>
     </div>
 
-    <script>
-        function playAudio(audioSrc) {
-            const audio = new Audio(audioSrc);
-            audio.play();
-        }
-
-        document.getElementById('continue-btn').addEventListener('click', function () {
-            document.getElementById('dialogue-1').classList.add('hidden');
-            document.getElementById('card_1').classList.remove('hidden');
-            playAudio('assets/1.wav'); // Play the audio for card 1
-        });
-
-        document.querySelectorAll('.next-btn').forEach(button => {
-            button.addEventListener('click', function () {
-                const nextCard = button.getAttribute('data-next');
-                button.closest('.dialogue-box').classList.add('hidden');
-                document.getElementById(nextCard).classList.remove('hidden');
-
-                // Play the corresponding audio for each card
-                if (nextCard === 'card_4') {
-                    playAudio('assets/1-2.wav'); // Play the audio for card 4
-                }
-            });
-        });
-
-        document.querySelectorAll('.selection button').forEach(button => {
-            button.addEventListener('click', function () {
-                const message = button.getAttribute('data-message');
-                document.getElementById('message').innerText = message;
-                const nextCard = button.getAttribute('data-next');
-                button.closest('.dialogue-box').classList.add('hidden');
-                document.getElementById(nextCard).classList.remove('hidden');
-            });
-        });
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+    
 </body>
 
 </html>
