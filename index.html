@@ -346,25 +346,6 @@
                 </div>
             </div>
         </div>
-        document.addEventListener("DOMContentLoaded", function() {
-            const correctAnswer = "B.10×20公分";
-            const buttons = document.querySelectorAll("#card_2 .selection button");
-            const result = document.getElementById("result");
-            const card2 = document.getElementById("card_2");
-            const card3 = document.getElementById("card_3");
-
-            buttons.forEach(button => {
-                button.addEventListener("click", function() {
-                    if (button.innerText === correctAnswer) {
-                        result.innerText = "恭喜你，答對了！";
-                    } else {
-                        result.innerText = "很遺憾，答錯了。";
-                    }
-                    card2.classList.add("hidden");
-                    card3.classList.remove("hidden");
-                });
-            });
-        });
         <div id="card_4" class="hidden dialogue-box">
             <img src="assets/dialogbox.png" alt="dialogbox background">
             <div id="scene4">
