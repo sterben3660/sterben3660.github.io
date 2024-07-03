@@ -437,7 +437,25 @@
             handleCardClick(currentCardElement, currentSceneElement, nextCardElement, nextSceneElement, music);
           });
         });
+        document.addEventListener("DOMContentLoaded", function() {
+            const correctAnswer = "B.10×20公分";
+            const buttons = document.querySelectorAll("#card_2 .selection button");
+            const result = document.getElementById("result");
+            const card2 = document.getElementById("card_2");
+            const card3 = document.getElementById("card_3");
 
+            buttons.forEach(button => {
+                button.addEventListener("click", function() {
+                    if (button.innerText === correctAnswer) {
+                        result.innerText = "恭喜你，答對了！";
+                    } else {
+                        result.innerText = "很遺憾，答錯了。";
+                    }
+                    card2.classList.add("hidden");
+                    card3.classList.remove("hidden");
+                });
+            });
+        });
         // Array of options
         const options = [
           'optionA','optionB','optionC','optionD', 'optionE', 'optionF',
@@ -471,27 +489,27 @@
           </div>
         </div>
       </div>
-      <div id="card_2" class="hidden"> 
+      <div id="card_2">
         <div id="scene2">
-          <h3 class="dialog">你來猜猜看牆面上的陶片尺寸是多少吧？</h3>
-          <div class="selection">
-              <button id="optionA">A.冰掌(兵長)一米六</button>
-              <button id="optionB">B.10×20公分</button>
-              <button id="optionC">C.18×6公分</button>
-          </div>
+            <h3 class="dialog">你來猜猜看牆面上的陶片尺寸是多少吧？</h3>
+            <div class="selection">
+                <button id="optionA">A.冰掌(兵長)一米六</button>
+                <button id="optionB">B.10×20公分</button>
+                <button id="optionC">C.18×6公分</button>
+            </div>
         </div>
-      </div>
-      
-      <div id="card_3" class="hidden">
+    </div>
+
+    <div id="card_3" class="hidden">
         <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
         <div id="scene3">
-          <h3 class="namecard">導覽員-小朱</h3>
-          <h3 class="dialog">這些陶片的尺寸為10×20公分，剛上釉料時是無法看到色彩的，要等燒製完成後，顏色才會顯現出來，所以製作陶藝，就是一場藝術冒險哦。</h3>
-          <div class="options">
-            <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
-          </div>
+            <h3 class="namecard">導覽員-小朱</h3>
+            <h3 class="dialog" id="result"></h3>
+            <div class="options">
+                <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
+            </div>
         </div>
-      </div>
+    </div>
       <div id="card_4" class="hidden">
         <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
         <div id="scene4">

@@ -346,27 +346,25 @@
                 </div>
             </div>
         </div>
-        <div id="card_2" class="hidden dialogue-box">
-            <img src="assets/dialogbox.png" alt="dialogbox background">
-            <div id="scene2">
-                <h3 class="dialog">你對美濃的第一印象是什麼呢？</h3>
-                <div class="selection">
-                    <button id="optionA" data-message="哇！太好了！" data-next="card_3">A.美濃窯</button>
-                    <button id="optionB" data-message="歡迎來到美濃窯~" data-next="card_3">B.月光山</button>
-                    <button id="optionC" data-message="歡迎來到美濃窯~" data-next="card_3">C.客家紙傘</button>
-                </div>
-            </div>
-        </div>
-        <div id="card_3" class="hidden dialogue-box">
-            <img src="assets/dialogbox.png" alt="dialogbox background">
-            <div id="scene3">
-                <h3 class="dialog" id="message"></h3>
-                
-                <div class="options">
-                    <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
-                </div>
-            </div>
-        </div>
+        document.addEventListener("DOMContentLoaded", function() {
+            const correctAnswer = "B.10×20公分";
+            const buttons = document.querySelectorAll("#card_2 .selection button");
+            const result = document.getElementById("result");
+            const card2 = document.getElementById("card_2");
+            const card3 = document.getElementById("card_3");
+
+            buttons.forEach(button => {
+                button.addEventListener("click", function() {
+                    if (button.innerText === correctAnswer) {
+                        result.innerText = "恭喜你，答對了！";
+                    } else {
+                        result.innerText = "很遺憾，答錯了。";
+                    }
+                    card2.classList.add("hidden");
+                    card3.classList.remove("hidden");
+                });
+            });
+        });
         <div id="card_4" class="hidden dialogue-box">
             <img src="assets/dialogbox.png" alt="dialogbox background">
             <div id="scene4">
