@@ -380,55 +380,27 @@
           });         
         });
 
-        // 通用的答案檢查函數
-        const handleAnswerClick = (event) => {
-          const button = event.target;
-          const correctAnswer = button.getAttribute("data-correct-answer");
-          const selectedAnswer = button.innerText;
-          const result = button.closest(".clickable").querySelector(".dialog#result") || button.closest(".clickable").querySelector(".dialog#result2");
-          const nextCardId = button.closest(".clickable").querySelector(".next-btn").getAttribute("data-next");
-          const nextCard = document.getElementById(nextCardId);
-
-          if (selectedAnswer === correctAnswer) {
-              result.innerText = "恭喜你，答對了！";
-          } else {
-              result.innerText = `正確答案是${correctAnswer}，你答對了嗎？`;
-          }
-
-          button.closest(".clickable").classList.add("hidden");
-          nextCard.classList.remove("hidden");
-        };
-        const questions = [
-          {
-              cardId: "card_2",
-              correctAnswer: "B.10×20公分",
-              resultId: "result_2"
-          },
-          {
-              cardId: "card_5",
-              correctAnswer: "A.將不同陶土根據特性，釉燒後完成",
-              resultId: "result_5"
-          }
-        ];
-        questions.forEach(({ cardId, correctAnswer, resultId }) => {
-        const card = document.getElementById(cardId);
-        const buttons = card.querySelectorAll(".selection button");
-        const result = document.getElementById(resultId);
-        const nextCardId = card.getAttribute('data-next');
-        const nextCard = nextCardId ? document.getElementById(nextCardId) : null;
+        // true or false
+        const correctAnswer = "B.10×20公分";
+        const buttons = document.querySelectorAll("#card_2 .selection button");
+        const result = document.getElementById("result");
+        const card2 = document.getElementById("card_2");
+        const card3 = document.getElementById("card_3");
 
         buttons.forEach(button => {
-            button.addEventListener("click", function () {
+            button.addEventListener("click", function() {
                 if (button.innerText === correctAnswer) {
                     result.innerText = "恭喜你，答對了！";
                 } else {
-                    result.innerText = `正確答案是${correctAnswer}，你答對了嗎？`;
+                    result.innerText = "正確答案是10×20公分，你答對了嗎？";
                 }
-                card.classList.add("hidden");
-                if (nextCard) nextCard.classList.remove("hidden");
+                card2.classList.add("hidden");
+                card3.classList.remove("hidden");
             });
         });
-      });
+
+
+
 
 
 
@@ -526,39 +498,49 @@
         </div>
     </div>
 
-    <div id="card_2" class="hidden" data-next="card_3">
-      <div id="scene2">
-          <h3 class="dialog">你來猜猜看牆面上的陶片尺寸是多少吧？</h3>
-          <div class="selection">
-              <button id="optionA">A.冰掌(兵長)一米六</button>
-              <button id="optionB">B.10×20公分</button>
-              <button id="optionC">C.18×6公分</button>
-          </div>
-          <h3 class="dialog" id="result_2"></h3>
-      </div>
-  </div>
-  
-  <div id="card_3" class="hidden">
-      <div id="scene3">
-          <h3 class="namecard">導覽員-小朱</h3>
-          <h3 class="dialog">這些陶片的尺寸為10×20公分，剛上釉料時是無法看到色彩的...</h3>
-          <div class="options">
-              <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
-          </div>
-      </div>
-  </div>
-  
-  <div id="card_5" class="hidden" data-next="card_6">
-      <div id="scene5">
-          <h3 class="dialog">你知道面前這些作品是怎麼完成的嗎?</h3>
-          <div class="selection">
-              <button id="optionD">A.將不同陶土根據特性，釉燒後完成</button>
-              <button id="optionE">B.朱邦雄博士的火之呼吸</button>
-              <button id="optionF">C.朱式鍊陶術</button>
-          </div>
-          <h3 class="dialog" id="result_5"></h3>
-      </div>
-  </div>
+    <div id="card_2" class="hidden">
+        <div id="scene2">
+            <h3 class="dialog">你來猜猜看牆面上的陶片尺寸是多少吧？</h3>
+            <div class="selection">
+                <button class="answer-btn" data-correct-answer="B.10×20公分">A.冰掌(兵長)一米六</button>
+                <button class="answer-btn" data-correct-answer="B.10×20公分">B.10×20公分</button>
+                <button class="answer-btn" data-correct-answer="B.10×20公分">C.18×6公分</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="card_3" class="hidden">
+        <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
+        <div id="scene3">
+            <h3 class="namecard">導覽員-小朱</h3>
+            <h3 class="dialog" id="result"></h3>
+            <div class="options">
+                <button class="next-btn" data-next="card_4">請點選按鈕繼續</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="card_4" class="hidden">
+        <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
+        <div id="scene4">
+            <h3 class="namecard">導覽員-小朱</h3>
+            <h3 class="dialog">而且每塊陶片都是由三到五位師傅共同創造出來的，他們在創作過程中互相合作，是非常有默契的藝術家團隊。等到陶片都燒製完成後，再固定在牆上，這些陶片的尺寸雖小，但背後蘊含著師傅們的心血和努力。</h3>
+            <div class="options">
+                <button class="next-btn" data-next="card_5">請點選按鈕繼續</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="card_5" class="hidden">
+        <div id="scene5">
+            <h3 class="dialog">另一個問題是...</h3>
+            <div class="selection">
+                <button class="answer-btn" data-correct-answer="A.答案1">A.答案1</button>
+                <button class="answer-btn" data-correct-answer="A.答案1">B.答案2</button>
+                <button class="answer-btn" data-correct-answer="A.答案1">C.答案3</button>
+            </div>
+        </div>
+    </div>
 
     <div id="card_6" class="hidden">
         <div id="mrju" alpha-test="0.5" position="0 0 0" height="0.552" width="1"></div>
